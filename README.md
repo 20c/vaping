@@ -9,3 +9,5 @@
 
 vaping is a healthy alternative to smokeping!
 
+![Vaping](docs/img/vaping.png)
+
