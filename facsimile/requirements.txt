@@ -4,7 +4,3 @@ pid==2.0.1
 pluginmgr>=0.2.0,<1.0.0
 python-daemon==2.1.1
 munge>0.2.0,<1.0.0
-
-# plugins
-#pyzmq==15.3.0
-##PyYAML>=3.11
