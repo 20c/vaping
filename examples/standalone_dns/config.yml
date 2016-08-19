@@ -24,7 +24,6 @@ plugin:
 
   - name: vodka
     type: vodka
-    home: "{site_packages}/graphsrv"
     logging:
       version: 1
       formatters:
