@@ -34,6 +34,9 @@ class PluginBase(gevent.Greenlet):
 
 
 class ProbeBase(PluginBase):
+    """
+    Base class for probe plugin
+    """
     def __init__(self, config, ctx, emit=None):
         self._emit = emit
         super(ProbeBase, self).__init__(config, ctx)

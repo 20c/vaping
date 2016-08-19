@@ -1,0 +1,12 @@
+site_name: Vaping
+site_url: https://github.com/20c/vaping
+
+theme: readthedocs
+
+pages:
+  - Home: 'index.md'
+  - Getting started: start.md
+  - Development: dev.md
+
+markdown_extensions:
+  - markdown_include.include
