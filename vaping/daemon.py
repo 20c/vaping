@@ -49,7 +49,7 @@ class Vaping(object):
 
         # instantiate all defined plugins
         # TODO remove and let them lazy init?
-        plugin.instantiate(config['plugin'], self.plugin_context)
+        plugin.instantiate(config['plugins'], self.plugin_context)
 
         # TODO move to daemon
         pidname = vcfg.get('pidfile', 'vaping.pid')

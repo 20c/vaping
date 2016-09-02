@@ -14,7 +14,7 @@ probes:
           name: Level (3)
           color: blue
 
-plugin:
+plugins:
   - name: std_fping
     type: fping
     count: 10
