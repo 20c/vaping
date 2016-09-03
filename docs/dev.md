@@ -49,7 +49,7 @@ And Vaping will call `probe()` every 3 seconds.
 ### PluginBase
 
 ```
-PluginBase(gevent.greenlet.Greenlet)
+PluginBase(vaping.io.Thread)
 ```
 
 Base plugin class
