@@ -16,6 +16,15 @@ class Context(munge.click.Context):
     config_class = vaping.Config
 
 
+def update_context(ctx, kwargs):
+    ctx.update_options(kwargs)
+
+    if not isinstance(ctx.config['vaping']['plugin_path'], list):
+        raise ValueError('config item vaping.plugin_path must be a list')
+    # set plugin search path to defined + home/plugins
+    vaping.plugin.searchpath = ctx.config['vaping']['plugin_path'] + [ctx.home]
+
+
 @click.group()
 @click.version_option()
 @Context.options
@@ -24,7 +33,7 @@ def cli(ctx, **kwargs):
     """
     Vaping
     """
-    ctx.update_options(kwargs)
+    update_context(ctx, kwargs)
 
 
 @cli.command()
@@ -36,7 +45,7 @@ def start(ctx, **kwargs):
     """
     start a vaping process
     """
-    ctx.update_options(kwargs)
+    update_context(ctx, kwargs)
 
     daemon = vaping.daemon.Vaping(ctx.config)
 
@@ -53,7 +62,7 @@ def stop(ctx, **kwargs):
     """
     start a vaping process
     """
-    ctx.update_options(kwargs)
+    update_context(ctx, kwargs)
 
     daemon = vaping.daemon.Vaping(ctx.config)
     daemon.stop()

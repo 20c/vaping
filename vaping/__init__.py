@@ -21,4 +21,3 @@ class PluginManager(pluginmgr.PluginManager):
 
 plugin = PluginManager('vaping.plugins')
 
-

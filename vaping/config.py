@@ -32,6 +32,7 @@ class Config(munge.Config):
         'config': {
             'vaping': {
                 'pidfile': 'vaping.pid',
+                'plugin_path': [],
                 },
             },
         'config_dir': '~/.vaping',
