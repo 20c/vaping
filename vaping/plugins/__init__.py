@@ -9,20 +9,28 @@ import vaping.io
 
 
 class PluginBase(gevent.Greenlet):
-    def __init__(self, config, ctx):
-        super(PluginBase, self).__init__()
+    """
+    Base plugin class
 
-        self.config = config
-        self.vaping = ctx
-        self._logger = None
+    Initializes:
 
-        self.init()
+    - `self.config` as plugins config
+    - `self.log` as a logging object for plugin
+    - `self.vaping` as a reference to the main vaping object
 
+    then calls `self.init()`
+    """
     def init(self):
+        """
+        called after the plugin is initialized, plugin may define this for any
+        other initialization code
+        """
         pass
 
     def popen(self, args, **kwargs):
-        """ popen args """
+        """
+        creates a subprocess with passed args
+        """
         logging.debug("popen %s", ' '.join(args))
         return vaping.io.subprocess.Popen(args, **kwargs)
 
@@ -32,17 +40,36 @@ class PluginBase(gevent.Greenlet):
             self._logger = logging.getLogger('vaping.plugins.' + self.plugin_type)
         return self._logger
 
+    def __init__(self, config, ctx):
+        super(PluginBase, self).__init__()
+
+        self.config = config
+        self.vaping = ctx
+        self._logger = None
+
+        self.init()
+
 
 class ProbeBase(PluginBase):
     """
-    Base class for probe plugin
+    Base class for probe plugin, used for getting data
+
+    expects method probe() to be defined
     """
-    def __init__(self, config, ctx, emit=None):
-        self._emit = emit
-        super(ProbeBase, self).__init__(config, ctx)
+    __metaclass__ = abc.ABCMeta
 
     def init(self):
         pass
+
+    @abc.abstractmethod
+    def probe(self):
+        """
+        probe for data, return a list of dicts
+        """
+
+    def __init__(self, config, ctx, emit=None):
+        self._emit = emit
+        super(ProbeBase, self).__init__(config, ctx)
 
     def _run(self):
         self.run_level = 1
@@ -59,10 +86,14 @@ class ProbeBase(PluginBase):
 
 
 class TimedProbe(ProbeBase):
+    """
+    Probe class that calls probe every config defined interval
+    """
     def __init__(self, config, ctx, emit=None):
         if 'interval' not in config:
             raise ValueError('interval not set in config')
         self.interval = parse_interval(config['interval'])
+        # TODO move to fping
         self.count = int(config.get('count', 0))
         self.run_level = 0
 
@@ -92,7 +123,11 @@ class TimedProbe(ProbeBase):
 
 
 class EmitBase(PluginBase):
-    """ base class for emit plugins """
+    """
+    Base class for emit plugins, used for sending data
+
+    expects method probe() to be defined
+    """
     __metaclass__ = abc.ABCMeta
 
     def __init__(self, config, ctx):
