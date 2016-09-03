@@ -5,7 +5,8 @@ theme: readthedocs
 
 pages:
   - Home: 'index.md'
-  - Getting started: start.md
+  - Quick Start Examples: quickstart.md
+  - Configuration: config.md
   - Development: dev.md
 
 markdown_extensions:

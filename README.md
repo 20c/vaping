@@ -11,6 +11,58 @@ vaping is a healthy alternative to smokeping!
 
 ![Vaping](https://raw.githubusercontent.com/20c/vaping/master/docs/img/vaping.png)
 
+## Introduction
+
+Vaping was started after years of frustation from dealing with perl and
+environment management for smokeping. It's a simple python daemon which uses
+green threads to poll for input and send output through plugins.
+
+It has a standalone mode to directly serve realtime graphs, or can use ZeroMQ
+to distribute.
+
+
+## Installation
+
+```sh
+pip install vaping
+```
+
+## Usage
+
+```
+Usage: vaping [OPTIONS] COMMAND [ARGS]...
+
+  Vaping
+
+Options:
+  --version    Show the version and exit.
+  --quiet      no output at all
+  --verbose    enable more verbose output
+  --home TEXT  specify the home directory, by default will check in order:
+               $VAPING_HOME, ./.vaping, ~/.config/vaping
+  --debug      enable extra debug output
+  --help       Show this message and exit.
+
+Commands:
+  start  start a vaping process
+  stop   start a vaping process
+```
+
+### start
+
+Starts a vaping process, by default will fork into the background unless
+`--debug` or `--no-fork` is passed.
+
+It adds options:
+
+```
+  -d, --no-fork  do not fork into background
+```
+
+### stop
+
+Stops a vaping process identified by `$VAPING_HOME/vaping.pid`
+
 
 ## License
 

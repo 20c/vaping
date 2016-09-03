@@ -1,6 +1,7 @@
 *.py[cod]
 *.egg
 *.egg-info
+*.pid
 .cache/
 .coverage
 .tox
