@@ -1,5 +1,6 @@
 site_name: Vaping
 site_url: https://github.com/20c/vaping
+repo_url: https://github.com/20c/vaping
 
 theme: readthedocs
 
