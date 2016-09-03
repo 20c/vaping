@@ -64,6 +64,10 @@ It adds options:
 Stops a vaping process identified by `$VAPING_HOME/vaping.pid`
 
 
+## Documentation
+
+Documentation is created with mkdocs and available at <http://vaping.readthedocs.io/en/latest/>
+
 ## License
 
 Copyright 2016 20C, LLC
