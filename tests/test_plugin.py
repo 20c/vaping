@@ -48,7 +48,8 @@ class EmitPluginABC(plugins.EmitBase):
 
 @plugin.register('probe0')
 class TimedPlugin0(plugins.TimedProbe):
-    pass
+    def probe(self):
+        return []
 
 @plugin.register('probe1')
 class ProbePlugin1(plugins.ProbeBase):

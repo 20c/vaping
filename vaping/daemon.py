@@ -12,12 +12,13 @@ import logging
 
 import vaping
 import vaping.config
+import vaping.io
 from vaping import plugin
 
 
 class PluginContext(object):
     """
-    Context to pass to plugins for getting extra informatio
+    Context to pass to plugins for getting extra information
     """
     def __init__(self, config):
         # probably should be a deep copy for security from plugins
@@ -100,7 +101,7 @@ class Vaping(object):
             probe.start()
             self.joins.append(probe)
 
-        gevent.joinall(self.joins)
+        vaping.io.joinall(self.joins)
         return 0
 
     def start(self):

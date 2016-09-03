@@ -2,13 +2,12 @@
 import abc
 import datetime
 import logging
-import gevent
 
 from vaping.config import parse_interval
 import vaping.io
 
 
-class PluginBase(gevent.Greenlet):
+class PluginBase(vaping.io.Thread):
     """
     Base plugin class
 
@@ -119,7 +118,7 @@ class TimedProbe(ProbeBase):
                 self.log.warning("probe time exceeded interval")
             else:
                 sleeptime = datetime.timedelta(seconds=self.interval) - elapsed
-                gevent.sleep(sleeptime.total_seconds())
+                vaping.io.sleep(sleeptime.total_seconds())
 
 
 class EmitBase(PluginBase):
