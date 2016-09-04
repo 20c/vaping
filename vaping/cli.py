@@ -22,7 +22,10 @@ def update_context(ctx, kwargs):
     if not isinstance(ctx.config['vaping']['plugin_path'], list):
         raise ValueError('config item vaping.plugin_path must be a list')
     # set plugin search path to defined + home/plugins
-    vaping.plugin.searchpath = ctx.config['vaping']['plugin_path'] + [ctx.home]
+    searchpath = ctx.config['vaping']['plugin_path']
+    if ctx.home:
+        searchpath.append(os.path.join(ctx.home, 'plugins'))
+    vaping.plugin.searchpath = searchpath
 
 
 @click.group()
