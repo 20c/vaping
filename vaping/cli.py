@@ -5,6 +5,7 @@ from __future__ import print_function
 import click
 import munge
 import munge.click
+import os
 
 # test direct imports
 import vaping
