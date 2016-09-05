@@ -11,4 +11,11 @@ pages:
   - Development: dev.md
 
 markdown_extensions:
+  - abbr
+  - admonition
+  - def_list
+  - footnotes
   - markdown_include.include
+  - tables
+  - toc
+
