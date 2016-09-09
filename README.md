@@ -44,8 +44,9 @@ Options:
   --help       Show this message and exit.
 
 Commands:
-  start  start a vaping process
-  stop   start a vaping process
+  start    start a vaping process
+  stop     stop a vaping process
+  restart  restart a vaping process
 ```
 
 ### start

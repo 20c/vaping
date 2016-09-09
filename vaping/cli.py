@@ -64,10 +64,25 @@ def start(ctx, **kwargs):
 @Context.pass_context()
 def stop(ctx, **kwargs):
     """
-    start a vaping process
+    stop a vaping process
     """
     update_context(ctx, kwargs)
 
     daemon = vaping.daemon.Vaping(ctx.config)
     daemon.stop()
+
+
+@cli.command()
+@click.version_option()
+@Context.options
+@Context.pass_context()
+def restart(ctx, **kwargs):
+    """
+    restart a vaping process
+    """
+    update_context(ctx, kwargs)
+
+    daemon = vaping.daemon.Vaping(ctx.config)
+    daemon.stop()
+    daemon.start()
 
