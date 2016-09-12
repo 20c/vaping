@@ -1,5 +1,8 @@
 
 from __future__ import absolute_import
+from __future__ import print_function
+from __future__ import division
+from builtins import zip
 
 import vaping
 from vaping.io import subprocess
@@ -84,7 +87,7 @@ def calc_rate(last, cur):
     time_delta = (now - last['ts']).total_seconds()
     in_delta = cur['in_oct'] - last['data']['in_oct']
     in_bps = in_delta * 8 / time_delta
-    print "time_delta=%f in_delta=%d Gbps=%f" % (time_delta, in_delta, in_bps / 1000000000)
+    print("time_delta=%f in_delta=%d Gbps=%f" % (time_delta, in_delta, old_div(in_bps, 1000000000)))
 
 
 @vaping.plugin.register('sflowtool')
@@ -131,7 +134,7 @@ class SflowTool(vaping.plugins.TimedProbe):
 
             except Exception as e:
                 #self.log.debug(str(e))
-                print e
+                print(e)
                 pass
 
     def spawn_process(self, args):

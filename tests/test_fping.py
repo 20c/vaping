@@ -37,9 +37,9 @@ expect_verbose = {
 
 def test_parse_verbose():
     fping = vaping.plugins.fping.FPing({'interval': '5s'}, None)
-    for line, expected in expect_verbose.items():
+    for line, expected in list(expect_verbose.items()):
         res = fping.parse_verbose(line)
-        for k,v in expected.items():
+        for k,v in list(expected.items()):
             if isinstance(v, float):
                 assert abs(v - res[k]) < 0.001
             else:

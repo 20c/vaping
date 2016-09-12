@@ -1,3 +1,4 @@
+from builtins import str
 
 import zmq.green as zmq
 

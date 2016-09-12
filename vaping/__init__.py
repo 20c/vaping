@@ -1,6 +1,7 @@
+from __future__ import absolute_import
 
 # import to namespace
-from config import Config # noqa
+from .config import Config # noqa
 import pluginmgr
 
 

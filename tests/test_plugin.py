@@ -80,7 +80,7 @@ def test_plugin_instance():
         if 'name' not in each:
             continue
         obj = plugin.get_instance(each['name'], None)
-        for k,v in each.items():
+        for k,v in list(each.items()):
             assert v == obj.config[k]
 
     obj = plugin.get_instance(anon_config, None)

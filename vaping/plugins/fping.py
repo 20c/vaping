@@ -1,5 +1,8 @@
 
 from __future__ import absolute_import
+from __future__ import division
+from past.utils import old_div
+from builtins import object
 
 import vaping
 from vaping.io import subprocess
@@ -25,7 +28,7 @@ class FPing(vaping.plugins.TimedProbe):
 
     def init(self):
         self.hosts = []
-        for k,v in self.config.items():
+        for k,v in list(self.config.items()):
             # dict means it's a group
             if isinstance(v, collections.Mapping):
                 self.hosts.extend(v['hosts'])
@@ -65,7 +68,7 @@ class FPing(vaping.plugins.TimedProbe):
 
             lost = cnt - len(times)
             if lost:
-                loss = lost / float(cnt)
+                loss = old_div(lost, float(cnt))
             else:
                 loss = 0.0
 
@@ -78,7 +81,7 @@ class FPing(vaping.plugins.TimedProbe):
             if times:
                 rv['min'] = min(times)
                 rv['max'] = max(times)
-                rv['avg'] = sum(times) / len(times)
+                rv['avg'] = old_div(sum(times), len(times))
             return rv
 
         except Exception as e:

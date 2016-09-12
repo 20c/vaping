@@ -5,6 +5,7 @@ import logging
 
 from vaping.config import parse_interval
 import vaping.io
+from future.utils import with_metaclass
 
 
 class PluginBase(vaping.io.Thread):
@@ -49,13 +50,12 @@ class PluginBase(vaping.io.Thread):
         self.init()
 
 
-class ProbeBase(PluginBase):
+class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
     """
     Base class for probe plugin, used for getting data
 
     expects method probe() to be defined
     """
-    __metaclass__ = abc.ABCMeta
 
     def init(self):
         pass
@@ -121,13 +121,12 @@ class TimedProbe(ProbeBase):
                 vaping.io.sleep(sleeptime.total_seconds())
 
 
-class EmitBase(PluginBase):
+class EmitBase(with_metaclass(abc.ABCMeta, PluginBase)):
     """
     Base class for emit plugins, used for sending data
 
     expects method probe() to be defined
     """
-    __metaclass__ = abc.ABCMeta
 
     def __init__(self, config, ctx):
         super(EmitBase, self).__init__(config, ctx)
