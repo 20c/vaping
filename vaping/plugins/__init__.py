@@ -18,12 +18,28 @@ class PluginBase(vaping.io.Thread):
     - `self.log` as a logging object for plugin
     - `self.vaping` as a reference to the main vaping object
 
-    then calls `self.init()`
+    then calls `self.init()` prefork while loading all modules, init() should
+    not do anything active, any files opened may be closed
+
+    Calls `self.on_start()` and `self.on_stop()` before and after running in
+    case any connections need to be created or cleaned up
     """
     def init(self):
         """
         called after the plugin is initialized, plugin may define this for any
         other initialization code
+        """
+        pass
+
+    def on_start(self):
+        """
+        called when the daemon is starting
+        """
+        pass
+
+    def on_stop(self):
+        """
+        called when the daemon is stopping
         """
         pass
 
@@ -49,6 +65,9 @@ class PluginBase(vaping.io.Thread):
 
         self.init()
 
+    def _run(self):
+        self.on_start()
+
 
 class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
     """
@@ -71,6 +90,7 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
         super(ProbeBase, self).__init__(config, ctx)
 
     def _run(self):
+        super(ProbeBase, self)._run()
         self.run_level = 1
         while self.run_level:
             msg = self.probe()

@@ -8,7 +8,6 @@ import os
 import signal
 import sys
 
-import gevent
 import logging
 
 import vaping
@@ -99,6 +98,10 @@ class Vaping(object):
                 raise NotImplementedError("only single output is currently supported")
             # get_probe instantiates, need to set _emit
             probe._emit = plugin.get_output(probe_config['output'][0], self.plugin_context)
+            if not probe._emit.started:
+                probe._emit.start()
+                self.joins.append(probe._emit)
+
             probe.start()
             self.joins.append(probe)
 
@@ -137,4 +140,10 @@ class Vaping(object):
             # this isn't exposed in pidfile :o
             self.log.error("failed to get pid lock, already running?")
             return 1
+
+        finally:
+            # call on_stop to let them clean up
+            for mod in self.joins:
+                self.log.debug("stopping %s", mod.name)
+                mod.on_stop()
 
