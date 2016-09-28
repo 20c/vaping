@@ -1,6 +1,9 @@
 from builtins import str
 
-import zmq.green as zmq
+try:
+    import zmq.green as zmq
+except ImportError:
+    zmq = None
 
 import vaping
 import vaping.plugins
@@ -11,6 +14,11 @@ class ZeroMQ(vaping.plugins.EmitBase):
 
     def init(self):
         self.log.debug("init zeromq ..")
+        if not zmq:
+            self.log.error("missing zeromq, please install pyzmq to use this plugin")
+            self.skip = True
+            return
+
         self.skip = False
 
         self.ctx = zmq.Context()
