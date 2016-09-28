@@ -85,7 +85,7 @@ class FPing(vaping.plugins.TimedProbe):
             return rv
 
         except Exception as e:
-            logging.error("failed to get data", e)
+            logging.error("failed to get data %s", e)
 
     def probe(self):
         args = [
@@ -148,12 +148,11 @@ class FPing(vaping.plugins.TimedProbe):
                 for line in iter(proc.stdout.readline, ''):
                     match = re_ts.search(line)
                     if match:
-                        #msg['ts'] = match.group('ts')
                         msg['ts'] = (datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)).total_seconds()
 
                         break
                     else:
-                        logging.warning("ERR", line)
+                        logging.warning("skipping unparsable line '%s'", line)
 
                 for line in iter(proc.stdout.readline, ''):
                     logging.debug(line)
@@ -162,7 +161,7 @@ class FPing(vaping.plugins.TimedProbe):
                         msg['data'].append(match.groupdict())
                         i += 1
                     else:
-                        logging.warning("ERR summary", line)
+                        logging.warning("skipping unparsable line '%s'", line)
                     if i >= len(self.hosts):
                         break
 

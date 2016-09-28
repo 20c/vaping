@@ -1,8 +1,5 @@
-
-#from gevent import subprocess
-import subprocess
-
-from gevent.queue import Queue
-from gevent import Greenlet as Thread
-from gevent import joinall, sleep
-
+# namespace imports
+from gevent import subprocess
+from gevent.queue import Queue # noqa
+from gevent import Greenlet as Thread # noqa
+from gevent import joinall, sleep # noqa
