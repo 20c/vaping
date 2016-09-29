@@ -19,9 +19,16 @@ class HostGroup(object):
 
 @vaping.plugin.register('fping')
 class FPing(vaping.plugins.TimedProbe):
+    """
+    config:
+        `command` command to run
+        `interval` time between pings
+        `count` number of pings to send
+    """
     re_sum = re.compile('^(?P<host>[\w\.]+)\s+: xmt/rcv/%\w+ = (?P<sent>\d+)/(?P<recv>\d+)/(?P<loss>\d+)%, min/avg/max = (?P<min>[\d\.]+)/(?P<avg>[\d\.]+)/(?P<max>[\d\.]+).*')
 
     default_config={
+        'command': 'fping',
         'interval': '1m',
         'count': 5,
     }
@@ -89,7 +96,7 @@ class FPing(vaping.plugins.TimedProbe):
 
     def probe(self):
         args = [
-            'fping',
+            self.config['command'],
             '-u',
             '-C%d' % self.count,
             '-p20',
