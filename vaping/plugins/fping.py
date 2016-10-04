@@ -6,6 +6,7 @@ from builtins import object
 
 import vaping
 from vaping.io import subprocess
+from vaping.util import which
 
 import collections
 import datetime
@@ -34,6 +35,9 @@ class FPing(vaping.plugins.TimedProbe):
     }
 
     def init(self):
+        if not which(self.config['command']):
+            raise RuntimeError("fping command not found")
+
         self.hosts = []
         for k,v in list(self.config.items()):
             # dict means it's a group
