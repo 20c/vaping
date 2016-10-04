@@ -6,6 +6,9 @@ branches:
     - gh-pages
 env:
   - TOX_ENV=py27
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install fping
 install:
   - python -m pip install -U pip
   - python -m easy_install -U setuptools
