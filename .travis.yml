@@ -7,9 +7,10 @@ branches:
 env:
   - TOX_ENV=py27
 install:
+  - python -m pip install -U pip
+  - python -m easy_install -U setuptools
   - pip install tox
   - pip install codecov
-  - pip install setuptools
 script:
   - tox -e $TOX_ENV
 after_success:
