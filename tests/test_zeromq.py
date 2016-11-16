@@ -4,9 +4,15 @@ import vaping.plugins.zeromq
 
 
 def test_init():
-    obj = vaping.plugins.zeromq.ZeroMQ({}, None)
-    assert obj.skip == True
+    with pytest.raises(ValueError):
+        vaping.plugins.zeromq.ZeroMQ({}, None)
+
+    config = {
+        'bind': 'tcp://*:5555',
+        'connect': 'tcp://*:5555',
+        }
+    with pytest.raises(ValueError):
+        vaping.plugins.zeromq.ZeroMQ(config, None)
 
     obj = vaping.plugins.zeromq.ZeroMQ({'bind': 'tcp://*:5555'}, None)
-    assert obj.skip == False
 

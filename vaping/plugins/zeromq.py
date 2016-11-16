@@ -15,27 +15,24 @@ class ZeroMQ(vaping.plugins.EmitBase):
     def init(self):
         self.log.debug("init zeromq ..")
         if not zmq:
-            self.log.error("missing zeromq, please install pyzmq to use this plugin")
-            self.skip = True
-            return
+            self.log.critical("missing zeromq, please install pyzmq to use this plugin")
+            raise RuntimeError("zeromq python module not found")
 
-        self.skip = False
         self.ctx = zmq.Context()
 
         # sanity check config
         if 'bind' in self.config:
             if 'connect' in self.config:
                 msg = "bind and connect are mutually exclusive"
-                self.log.error(msg)
+                self.log.critical(msg)
                 raise ValueError(msg)
 
         elif 'connect' not in self.config:
-            self.log.warning("skipping zeromq, missing bind or connect")
-            self.skip = True
+            msg = "missing bind or connect"
+            self.log.critical(msg)
+            raise ValueError(msg)
 
     def on_start(self):
-        if self.skip:
-            return
         self.sock = self.ctx.socket(zmq.PUB)
         if 'bind' in self.config:
             self.sock.bind(self.config['bind'])
@@ -43,15 +40,10 @@ class ZeroMQ(vaping.plugins.EmitBase):
             self.sock.connect(self.config['connect'])
 
     def on_stop(self):
-        if self.skip:
-            return
         if self.sock:
             self.sock.close()
 
     def emit(self, data):
-        if self.skip:
-            return
-
 # TODO option topic
 #        self.sock.send_multipart([self.topic, data])
         self.sock.send_json(data)
