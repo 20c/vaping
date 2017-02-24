@@ -52,7 +52,11 @@ class Vaping(object):
 
         # instantiate all defined plugins
         # TODO remove and let them lazy init?
-        plugin.instantiate(config['plugins'], self.plugin_context)
+        plugins = self.config.get('plugins', None)
+        if not plugins:
+            raise ValueError('no plugins specified')
+
+        plugin.instantiate(self.config['plugins'], self.plugin_context)
 
         # TODO move to daemon
         pidname = vcfg.get('pidfile', 'vaping.pid')
@@ -91,6 +95,10 @@ class Vaping(object):
         """
         process
         """
+        probes = self.config.get('probes', None)
+        if not probes:
+            raise ValueError('no probes specified')
+
         for probe_config in self.config['probes']:
             probe = plugin.get_probe(probe_config, self.plugin_context)
             # FIXME - needs to check for output defined in plugin

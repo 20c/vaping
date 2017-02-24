@@ -4,6 +4,8 @@
 ## [Unreleased]
 ### Added
 - py3 support
+- better startup failure messages
+- check for plugin requirements (fping, zeromq)
 - added on_start() and on_stop() events to plugins
 - zeromq can connect or bind to socket
 
