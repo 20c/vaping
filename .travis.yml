@@ -1,6 +1,6 @@
 
 language: python
-python: 3.5
+python: 2.7
 branches:
   except:
     - gh-pages
@@ -12,8 +12,8 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install fping
 install:
-  - wget https://bootstrap.pypa.io/get-pip.py
-  - python get-pip.py
+  - python -m pip install -U pip
+  - pip install -U setuptools
   - pip install tox
   - pip install codecov
 script:
