@@ -27,6 +27,7 @@ to distribute.
 pip install vaping
 ```
 
+
 ## Usage
 
 ```
@@ -49,6 +50,7 @@ Commands:
   restart  restart a vaping process
 ```
 
+
 ### start
 
 Starts a vaping process, by default will fork into the background unless
@@ -60,6 +62,7 @@ It adds options:
   -d, --no-fork  do not fork into background
 ```
 
+
 ### stop
 
 Stops a vaping process identified by `$VAPING_HOME/vaping.pid`
@@ -69,9 +72,15 @@ Stops a vaping process identified by `$VAPING_HOME/vaping.pid`
 
 Documentation is created with mkdocs and available at <http://vaping.readthedocs.io/en/latest/>
 
+
+## Changes
+
+The current change log is available at <https://github.com/20c/vaping/blob/master/CHANGELOG.md>
+
+
 ## License
 
-Copyright 2016 20C, LLC
+Copyright 2016-2017 20C, LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this softare except in compliance with the License.
