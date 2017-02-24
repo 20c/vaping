@@ -32,11 +32,13 @@ class PluginContext(object):
 class Vaping(object):
     def __init__(self, config=None, config_dir=None):
         if config:
+            if not config.meta:
+                raise ValueError("no config specified, please use specify a home directory")
             self.config = config
         elif config_dir:
             self.config = vaping.Config(read=config_dir)
         else:
-            raise ValueError("no config specificied")
+            raise ValueError("no config specified, please use specify a home directory")
 
         self.joins = []
         self._logger = None

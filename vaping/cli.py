@@ -58,6 +58,7 @@ def start(ctx, **kwargs):
     else:
         daemon.start()
 
+
 @cli.command()
 @click.version_option()
 @Context.options
