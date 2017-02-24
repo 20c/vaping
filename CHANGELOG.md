@@ -1,7 +1,16 @@
 
-# Change Log
+# Vaping Changes
 
 ## [Unreleased]
+### Added
+### Fixed
+### Changed
+### Deprecated
+### Removed
+### Security
+
+
+## [0.3.0]
 ### Added
 - py3 support
 - better startup failure messages
@@ -15,8 +24,3 @@
 
 ### Changed
 - call start() on emit plugins
-
-### Deprecated
-### Removed
-### Security
-
