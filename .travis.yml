@@ -1,11 +1,13 @@
 
 language: python
-python: 2.7
+python: 3.5
 branches:
   except:
     - gh-pages
 env:
   - TOX_ENV=py27
+  - TOX_ENV=py34
+  - TOX_ENV=py35
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install fping
