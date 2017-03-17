@@ -3,6 +3,9 @@
 
 ## [Unreleased]
 ### Added
+- timeseries db abstraction plugin
+- whisper db plugin
+
 ### Fixed
 ### Changed
 ### Deprecated
