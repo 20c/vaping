@@ -3,6 +3,7 @@ import abc
 import datetime
 import logging
 import munge
+import os
 from vaping.config import parse_interval
 import vaping.io
 from future.utils import with_metaclass
@@ -157,4 +158,107 @@ class EmitBase(with_metaclass(abc.ABCMeta, PluginBase)):
     @abc.abstractmethod
     def emit(self, data):
         """ accept data to emit """
+
+
+class TimeSeriesDB(EmitBase):
+    """
+    Base class for timeseries db storage plugins
+    """
+
+    def __init__(self, config, ctx):
+        super(TimeSeriesDB, self).__init__(config, ctx)
+
+        # filename template
+        self.filename = self.config.get("filename")
+
+        # field name to read the value from
+        self.field = self.config.get("field")
+
+        if not self.filename:
+            raise ValueError("No filename specified")
+
+        if not self.field:
+            raise ValueError("No field specified, field should specify which value to store in the database")
+
+
+    def create(self, filename):
+        """
+        Create database
+
+        - `filename`: database filename
+        """
+        raise NotImplementedError()
+
+    def update(self, filename, time, value):
+        """
+        Update database
+
+        - `filename`: database filename
+        - `time`: timestamp
+        - `value`
+        """
+        raise NotImplementedError()
+
+    def get(self, filename, frm, to):
+        """
+        Retrieve data from database for the specified
+        timespan
+
+        - `filename`: database filename
+        - `frm`: from time
+        - `to`: to time
+        """
+        raise NotImplementedError()
+
+    def filename_formatters(self, data, row):
+        """
+        Returns a dict containing the various filename formatter values
+
+        Values are gotten from the vaping data message as well as the
+        currently processed row in the message
+
+        - `data`: vaping message
+        - `row`: vaping message data row
+        """
+
+        r = {
+            "source" : data.get("source"),
+            "field" : self.field,
+            "type" : data.get("type")
+        }
+        r.update(**row)
+        return r
+
+    def format_filename(self, data, row):
+        """
+        Returns a formatted filename using the template stored
+        in self.filename
+
+        - `data`: vaping message
+        - `row`: vaping message data row
+        """
+        return self.filename.format(**self.filename_formatters(data, row))
+
+
+    def emit(self, data):
+        """
+        emit to database
+        """
+        # handle vaping data that arrives in a list
+        if(type(data.get("data")) == list):
+            for row in data.get("data"):
+
+
+                # format filename from data
+                filename = self.format_filename(data, row)
+
+                # create database file if it does not exist yet
+                if not os.path.exists(filename):
+                    self.create(filename)
+
+                # update database
+                self.log.debug("storing time:%d, %s:%.5f in %s" % (
+                    data.get("ts"), self.field, row.get(self.field), filename))
+                self.update(filename, data.get("ts"), row.get(self.field))
+
 

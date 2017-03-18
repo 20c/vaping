@@ -1,0 +1,42 @@
+probes:
+  - name: latency
+    type: std_fping
+    output:
+      - whisper_avg
+
+    public_dns:
+      hosts:
+        - host: 8.8.8.8
+          name: Google
+          color: red
+        - host: 4.2.2.1
+          name: Level(3)
+          color: blue
+        - host: 208.67.222.222
+          name: OpenDNS
+          color: orange
+
+plugins:
+  - name: std_fping
+    type: fping
+    count: 10
+    interval: 3s
+    output:
+      - whisper
+
+  - name: whisper_avg
+    type: whisper
+
+    # will create one file per host
+    # for example: latency-8.8.8.8-avg
+    filename: "{source}-{host}-{field}.wsp"
+
+    # specified which field to retrieve the value from
+    field: avg
+
+    # whisper configuration
+    aggregation_method: average
+    sparse: false
+    x_files_factor: 0.5
+    retention:
+      - 3s:1d
