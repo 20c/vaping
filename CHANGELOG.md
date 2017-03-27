@@ -5,6 +5,7 @@
 ### Added
 - timeseries db abstraction plugin
 - whisper db plugin
+- RRDtool dn plugin
 
 ### Fixed
 ### Changed
