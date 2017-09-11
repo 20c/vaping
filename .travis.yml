@@ -7,10 +7,6 @@ python:
 branches:
   except:
     - gh-pages
-env:
-  - TOX_ENV=py27
-  - TOX_ENV=py34
-  - TOX_ENV=py35
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install fping
@@ -20,7 +16,7 @@ install:
   - pip install tox
   - pip install codecov
 script:
-  - tox -e $TOX_ENV
+  - tox
 after_success:
   - codecov
 
