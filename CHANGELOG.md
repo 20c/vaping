@@ -5,9 +5,11 @@
 ### Added
 - timeseries db abstraction plugin
 - whisper db plugin
-- RRDtool dn plugin
+- RRDtool db plugin
 
 ### Fixed
+- pinned pluginmgr dependency to 0.4.0 as 0.5.0 currently breaks vaping
+
 ### Changed
 ### Deprecated
 ### Removed
