@@ -9,7 +9,8 @@ class PluginManager(ConfigPluginManager):
     def get_probe(self, node, pctx):
         obj = self.get_instance(node, pctx)
         if not hasattr(obj, 'probe'):
-            raise TypeError('%s is not a probe plugin, missing ::probe()' % (obj.name))
+            name = obj.pluginmgr_config.get('name', str(node))
+            raise TypeError('%s is not a probe plugin, missing ::probe()' % (name))
         return obj
 
     def get_output(self, node, pctx):
