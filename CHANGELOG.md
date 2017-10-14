@@ -6,10 +6,12 @@
 ### Fixed
 ### Changed
 - port to pluginmgr .5
+- updated other deps
 
 ### Deprecated
 ### Removed
 ### Security
+
 
 ## [0.4.0]
 ### Added
