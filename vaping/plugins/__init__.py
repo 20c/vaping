@@ -15,7 +15,7 @@ class PluginBase(vaping.io.Thread):
 
     Initializes:
 
-    - `self.config` as plugins config
+    - `self.plugin_config` as plugins config
     - `self.log` as a logging object for plugin
     - `self.vaping` as a reference to the main vaping object
 
@@ -61,9 +61,9 @@ class PluginBase(vaping.io.Thread):
         super(PluginBase, self).__init__()
 
         if hasattr(self, 'default_config'):
-            self.config = munge.util.recursive_update(self.default_config, config)
+            self.pluginmgr_config = munge.util.recursive_update(self.default_config, config)
         else:
-            self.config = config
+            self.pluginmgr_config = config
         self.vaping = ctx
         self._logger = None
 
@@ -169,10 +169,10 @@ class TimeSeriesDB(EmitBase):
         super(TimeSeriesDB, self).__init__(config, ctx)
 
         # filename template
-        self.filename = self.config.get("filename")
+        self.filename = self.pluginmgr_config.get("filename")
 
         # field name to read the value from
-        self.field = self.config.get("field")
+        self.field = self.pluginmgr_config.get("field")
 
         if not self.filename:
             raise ValueError("No filename specified")

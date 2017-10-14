@@ -5,6 +5,8 @@
 ### Added
 ### Fixed
 ### Changed
+- port to pluginmgr .5
+
 ### Deprecated
 ### Removed
 ### Security
