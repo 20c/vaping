@@ -98,7 +98,7 @@ class FPing(vaping.plugins.TimedProbe):
             return rv
 
         except Exception as e:
-            logging.error("failed to get data %s", e)
+            logging.error("failed to get data {}".format(e))
 
     def probe(self):
         args = [
@@ -122,7 +122,8 @@ class FPing(vaping.plugins.TimedProbe):
 
         # TODO poll, timeout, maybe from parent process for better control?
         with proc.stdout:
-            for line in iter(proc.stdout.readline, ''):
+            for line in iter(proc.stdout.readline, b''):
+                line = line.decode("utf-8")
                 msg['data'].append(self.parse_verbose(line))
 
         return msg
