@@ -22,10 +22,10 @@ class WhisperPlugin(vaping.plugins.TimeSeriesDB):
         super(WhisperPlugin, self).__init__(config, ctx)
 
         # whisper specific config
-        self.retention = self.config.get("retention", ['3s:1d'])
-        self.x_files_factor = float(self.config.get("x_files_factor", 0.5))
-        self.aggregation_method = self.config.get("aggregation_method", "average")
-        self.sparse = bool(self.config.get("sparse", False))
+        self.retention = self.pluginmgr_config.get("retention", ['3s:1d'])
+        self.x_files_factor = float(self.pluginmgr_config.get("x_files_factor", 0.5))
+        self.aggregation_method = self.pluginmgr_config.get("aggregation_method", "average")
+        self.sparse = bool(self.pluginmgr_config.get("sparse", False))
 
     def start(self):
         # build archives based on retention setting

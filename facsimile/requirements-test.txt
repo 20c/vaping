@@ -6,4 +6,4 @@ tox>=2.3.1,<3
 
 # plugins
 pyzmq>=15.3.0,<17
-whisper>=0.9.15,<1
+whisper>=0.9.15,<2
