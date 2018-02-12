@@ -65,6 +65,7 @@ class PluginBase(vaping.io.Thread):
         else:
             self.pluginmgr_config = config
         self.vaping = ctx
+        self.name = self.pluginmgr_config.get("name")
         self._logger = None
 
         self.init()
