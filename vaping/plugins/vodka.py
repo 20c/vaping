@@ -23,7 +23,7 @@ class VodkaPlugin(vaping.plugins.EmitBase):
         self._is_started = False
 
     def start(self):
-        vodka.run(self.config, self.vaping.config)
+        vodka.run(self.pluginmgr_config, self.vaping.config)
 
         if graphsrv:
             # if graphsrv is installed proceed to generate
@@ -37,7 +37,7 @@ class VodkaPlugin(vaping.plugins.EmitBase):
                 probe = vaping.plugin.get_probe(node, self.vaping)
                 for typ in valid_types:
                     if isinstance(probe, typ):
-                        for k,v in list(probe.config.items()):
+                        for k,v in list(probe.pluginmgr_config.items()):
                             if isinstance(v, dict) and "hosts" in v:
                                 r = {}
                                 for host in v.get("hosts"):
