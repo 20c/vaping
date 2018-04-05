@@ -7,21 +7,17 @@ First, you will always need to install vaping with:
 pip install vaping
 ```
 
-### Troubleshooting
 
-#### Setuptools outdated
+!!! Tip "Error due to outdated setuptools"
+    You may get an error when trying to install:
 
-You may get an error when trying to install:
+    error in vaping setup command: 'install_requires' must be a string or list of strings containing valid project/version requirement specifiers; Expected ',' or end-of-list in whichcraft==0.4.0 ; python_version<'3.3' at  ; python_version<'3.3'
 
-```sh
-error in vaping setup command: 'install_requires' must be a string or list of strings containing valid project/version requirement specifiers; Expected ',' or end-of-list in whichcraft==0.4.0 ; python_version<'3.3' at  ; python_version<'3.3'
-```
+    This means you need to update your setuptools, you can do so by running
 
-This means you need to update your setuptools, you can do so by running
-
-```
-pip install setuptools -U
-```
+    ```
+    pip install setuptools -U
+    ```
 
 ## Example Standalone Latency
 
