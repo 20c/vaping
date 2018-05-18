@@ -1,12 +1,14 @@
-
 language: python
 python:
   - "2.7"
   - "3.4"
   - "3.5"
+  - "3.6"
 branches:
   except:
     - gh-pages
+matrix:
+  fast_finish: true
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install fping
@@ -20,4 +22,3 @@ script:
   - tox
 after_success:
   - codecov
-
