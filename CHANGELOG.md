@@ -5,13 +5,18 @@
 ### Added
 ### Fixed
 ### Changed
-- port to pluginmgr .5
-- updated other deps
-
 ### Deprecated
 ### Removed
 ### Security
 
+
+## [0.5.0]
+### Fixed
+- issue #29: Python3 complains about bytes-like object in fping.py
+
+### Changed
+- port to pluginmgr .5
+- updated other deps
 
 ## [0.4.0]
 ### Added
