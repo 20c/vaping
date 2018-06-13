@@ -1,17 +1,16 @@
 
 from __future__ import absolute_import
 from __future__ import division
-from past.utils import old_div
 from builtins import object
-
-import vaping
-from vaping.io import subprocess
-from vaping.util import which
 
 import collections
 import datetime
 import logging
 import re
+
+import vaping
+from vaping.io import subprocess
+from vaping.util import which
 
 
 class HostGroup(object):
@@ -81,7 +80,7 @@ class FPing(vaping.plugins.TimedProbe):
 
             lost = cnt - len(times)
             if lost:
-                loss = old_div(lost, float(cnt))
+                loss = lost / float(cnt)
             else:
                 loss = 0.0
 
@@ -94,7 +93,7 @@ class FPing(vaping.plugins.TimedProbe):
             if times:
                 rv['min'] = min(times)
                 rv['max'] = max(times)
-                rv['avg'] = old_div(sum(times), len(times))
+                rv['avg'] = sum(times) / len(times)
             return rv
 
         except Exception as e:
