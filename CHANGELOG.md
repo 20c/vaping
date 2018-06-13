@@ -3,6 +3,8 @@
 
 ## [Unreleased]
 ### Added
+- added python3.6 to tests
+
 ### Fixed
 ### Changed
 ### Deprecated
