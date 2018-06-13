@@ -1,6 +1,9 @@
 
+import os
 import pytest
 import vaping.plugins.fping
+from vaping import plugin
+
 
 # 10.18.174.22    : xmt/rcv/%loss = 5/5/0%, min/avg/max = 118/120/122
 # 10.6.6.2        : xmt/rcv/%loss = 5/0/100%
@@ -45,3 +48,11 @@ def test_parse_verbose():
             else:
                 assert v == res[k]
 
+def test_run_probe(data_dir):
+    config_dir = os.path.join(data_dir, 'config', 'fping')
+    daemon = vaping.daemon.Vaping(config_dir=config_dir)
+    probes = daemon.config.get('probes', None)
+
+    fping = plugin.get_probe(probes[0], daemon.plugin_context)
+    msg = fping.probe()
+    print(msg)
