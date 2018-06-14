@@ -1,12 +1,13 @@
 codecov>=2.0.5
 coverage>=4.1
-pytest>=2.9.2,<4
-pytest-cov>=2.3.0,<3
-tox>=2.3.1,<4
+pytest>=2.9.2, <4
+pytest-cov>=2.3.0, <3
+tox>=2.3.1, <4
 
 # plugins
-pyzmq>=15.3.0,<18
-whisper>=0.9.15,<2
+pyzmq>=15.3.0, <18
+whisper>=0.9.15, <2
+rrdtool>=0.1.14, <1
 
 # standalone tests
 graphsrv>=1, <2

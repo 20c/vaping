@@ -21,18 +21,19 @@ class RRDToolPlugin(vaping.plugins.TimeSeriesDB):
             raise ImportError("rrdtool not found")
         super(RRDToolPlugin, self).__init__(config, ctx)
 
+
+    def init(self):
         # rrdtool specific config
-        self.data_sources = self.config.get("data_sources", [])
+        self.data_sources = self.pluginmgr_config.get("data_sources", [])
         if not isinstance(self.data_sources, list):
             raise TypeError("data_sources config needs to be of type: list")
 
-        self.archives = self.config.get("archives", [])
-        if type(self.archives) != list:
+        self.archives = self.pluginmgr_config.get("archives", [])
         if not isinstance(self.archives, list):
             raise TypeError("archives config needs to be of type: list")
 
         try:
-            self.step = int(self.config.get("step"))
+            self.step = int(self.pluginmgr_config.get("step"))
         except TypeError:
             raise TypeError("step config needs to be of type: int")
 

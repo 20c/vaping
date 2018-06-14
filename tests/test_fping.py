@@ -5,12 +5,6 @@ import vaping.plugins.fping
 from vaping import plugin
 
 
-# 10.18.174.22    : xmt/rcv/%loss = 5/5/0%, min/avg/max = 118/120/122
-# 10.6.6.2        : xmt/rcv/%loss = 5/0/100%
-
-sumary_line = [
-    ]
-
 expect_verbose = {
     '10.130.133.1 : 273.89 298.10 322.58': {
         'host': '10.130.133.1',
