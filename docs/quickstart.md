@@ -24,8 +24,8 @@ pip install vaping
 The example config file (from `examples/standalone_dns`) uses both vodka and graphsrv plugins, so those will need to be installed with:
 
 ```sh
-pip install vodka
-pip install graphsrv
+pip install -U vodka
+pip install -U graphsrv
 ```
 
 
@@ -62,8 +62,8 @@ Config file:
 The example config file (from `examples/distributed_dns`) is the same as the standalone one and uses both vodka and graphsrv, so those will need to be installed with:
 
 ```sh
-pip install vodka
-pip install graphsrv
+pip install -U vodka
+pip install -U graphsrv
 ```
 
 The main difference is the collector is running in a separate process than the

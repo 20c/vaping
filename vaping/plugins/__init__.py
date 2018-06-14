@@ -58,8 +58,6 @@ class PluginBase(vaping.io.Thread):
         return self._logger
 
     def __init__(self, config, ctx):
-        super(PluginBase, self).__init__()
-
         if hasattr(self, 'default_config'):
             self.pluginmgr_config = munge.util.recursive_update(self.default_config, config)
         else:
@@ -68,6 +66,7 @@ class PluginBase(vaping.io.Thread):
         self.name = self.pluginmgr_config.get("name")
         self._logger = None
 
+        super(PluginBase, self).__init__()
         self.init()
 
     def _run(self):
