@@ -1,12 +1,12 @@
-
 import abc
 import datetime
 import logging
 import munge
 import os
+
+from future.utils import with_metaclass
 from vaping.config import parse_interval
 import vaping.io
-from future.utils import with_metaclass
 
 
 class PluginBase(vaping.io.Thread):
@@ -243,7 +243,7 @@ class TimeSeriesDB(EmitBase):
         emit to database
         """
         # handle vaping data that arrives in a list
-        if(type(data.get("data")) == list):
+        if isinstance(data.get("data"), list):
             for row in data.get("data"):
 
 
@@ -258,5 +258,3 @@ class TimeSeriesDB(EmitBase):
                 self.log.debug("storing time:%d, %s:%.5f in %s" % (
                     data.get("ts"), self.field, row.get(self.field), filename))
                 self.update(filename, data.get("ts"), row.get(self.field))
-
-

@@ -11,6 +11,14 @@ import vaping.plugins
 
 @vaping.plugin.register('zeromq')
 class ZeroMQ(vaping.plugins.EmitBase):
+    """
+    plugin to emit messages via zeromq
+    """
+
+    def __init__(self, config, ctx):
+        super(ZeroMQ, self).__init__(config, ctx)
+
+        self.sock = None
 
     def init(self):
         self.log.debug("init zeromq ..")
@@ -49,4 +57,3 @@ class ZeroMQ(vaping.plugins.EmitBase):
         self.sock.send_json(data)
         self.log.debug("msg" + str(data))
         self.log.debug("[0MQ] sync send")
-

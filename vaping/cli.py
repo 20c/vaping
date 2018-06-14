@@ -1,13 +1,11 @@
-
 from __future__ import absolute_import
-from __future__ import print_function
+
+import os
 
 import click
 import munge
 import munge.click
-import os
 
-# test direct imports
 import vaping
 import vaping.daemon
 
@@ -86,4 +84,3 @@ def restart(ctx, **kwargs):
     daemon = vaping.daemon.Vaping(ctx.config)
     daemon.stop()
     daemon.start()
-

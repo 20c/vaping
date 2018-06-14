@@ -23,11 +23,12 @@ class RRDToolPlugin(vaping.plugins.TimeSeriesDB):
 
         # rrdtool specific config
         self.data_sources = self.config.get("data_sources", [])
-        if type(self.data_sources) != list:
+        if not isinstance(self.data_sources, list):
             raise TypeError("data_sources config needs to be of type: list")
 
         self.archives = self.config.get("archives", [])
         if type(self.archives) != list:
+        if not isinstance(self.archives, list):
             raise TypeError("archives config needs to be of type: list")
 
         try:

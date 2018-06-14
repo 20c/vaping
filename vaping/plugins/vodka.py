@@ -37,7 +37,7 @@ class VodkaPlugin(vaping.plugins.EmitBase):
                 probe = vaping.plugin.get_probe(node, self.vaping)
                 for typ in valid_types:
                     if isinstance(probe, typ):
-                        for k,v in list(probe.pluginmgr_config.items()):
+                        for k, v in list(probe.pluginmgr_config.items()):
                             if isinstance(v, dict) and "hosts" in v:
                                 r = {}
                                 for host in v.get("hosts"):

@@ -7,3 +7,7 @@ tox>=2.3.1,<4
 # plugins
 pyzmq>=15.3.0,<18
 whisper>=0.9.15,<2
+
+# standalone tests
+graphsrv>=1, <2
+vodka>=2, <3

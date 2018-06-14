@@ -1,12 +1,10 @@
 
 from __future__ import absolute_import
 from __future__ import division
-from builtins import object
 
 import collections
 import datetime
 import logging
-import re
 
 import vaping
 from vaping.io import subprocess
@@ -23,7 +21,7 @@ class FPingBase(vaping.plugins.TimedProbe):
         `count` number of pings to send
     """
 
-    default_config={
+    default_config = {
         'command': 'fping',
         'interval': '1m',
         'count': 5,
@@ -50,7 +48,7 @@ class FPingBase(vaping.plugins.TimedProbe):
 
         host_args = []
         for row in self.hosts:
-            if type(row) == dict:
+            if isinstance(row, dict):
                 host_args.append(row["host"])
             else:
                 host_args.append(row)
@@ -127,7 +125,7 @@ class FPing(FPingBase):
 
     def init(self):
         self.hosts = []
-        for k,v in list(self.pluginmgr_config.items()):
+        for k, v in list(self.pluginmgr_config.items()):
             # dict means it's a group
             if isinstance(v, collections.Mapping):
                 self.hosts.extend(v['hosts'])

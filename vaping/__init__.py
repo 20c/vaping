@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
 # import to namespace
-from .config import Config # noqa
+from vaping.config import Config
 from pluginmgr.config import ConfigPluginManager
 
 
