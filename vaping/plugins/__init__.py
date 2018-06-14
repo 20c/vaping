@@ -116,8 +116,6 @@ class TimedProbe(ProbeBase):
         if 'interval' not in config:
             raise ValueError('interval not set in config')
         self.interval = parse_interval(config['interval'])
-        # TODO move to fping
-        self.count = int(config.get('count', 0))
         self.run_level = 0
 
         super(TimedProbe, self).__init__(config, ctx, emit)

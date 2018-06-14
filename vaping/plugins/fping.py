@@ -36,16 +36,7 @@ class FPingBase(vaping.plugins.TimedProbe):
             self.log.critical("missing fping, install it or set `command` in the fping config")
             raise RuntimeError("fping command not found")
 
-    def init(self):
-        if not which(self.pluginmgr_config['command']):
-            self.log.critical("missing fping, install it or set `command` in the fping config")
-            raise RuntimeError("fping command not found")
-
-        self.hosts = []
-        for k,v in list(self.pluginmgr_config.items()):
-            # dict means it's a group
-            if isinstance(v, collections.Mapping):
-                self.hosts.extend(v['hosts'])
+        self.count = int(self.pluginmgr_config.get('count', 0))
 
     def hosts_args(self):
         """
@@ -65,8 +56,10 @@ class FPingBase(vaping.plugins.TimedProbe):
                 host_args.append(row)
         return list(set(host_args))
 
-
     def parse_verbose(self, line):
+        """
+        parse output from verbose format
+        """
         try:
             logging.debug(line)
             (host, pings) = line.split(':')
