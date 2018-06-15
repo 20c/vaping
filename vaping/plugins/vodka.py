@@ -41,7 +41,7 @@ class VodkaPlugin(vaping.plugins.EmitBase):
                                 r[host["host"]] = host
                             else:
                                 r[host] = {"host":host}
-                        graphsrv.group.add(probe.name, k, r)
+                        graphsrv.group.add(probe.name, k, r, **v)
                         break
 
         self._is_started = True
