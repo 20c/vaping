@@ -33,6 +33,7 @@ class Config(munge.Config):
     defaults = {
         'config': {
             'vaping': {
+                'home_dir': None,
                 'pidfile': 'vaping.pid',
                 'plugin_path': [],
                 },

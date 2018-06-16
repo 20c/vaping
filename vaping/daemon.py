@@ -30,15 +30,24 @@ class PluginContext(object):
 
 
 class Vaping(object):
+    """ Vaping daemon class """
+
     def __init__(self, config=None, config_dir=None):
+        """
+        must either pass config as a dict or vaping.config.Config
+        or config_dir as a path to where the config dir is located
+        """
         if config:
-            if not config.meta:
-                raise ValueError("no config specified, please use specify a home directory")
-            self.config = config
+            if isinstance(config, dict):
+                self.config = vaping.Config(data=config)
+            else:
+                if not config.meta:
+                    raise ValueError("config was not specified or empty")
+                self.config = config
         elif config_dir:
             self.config = vaping.Config(read=config_dir)
         else:
-            raise ValueError("no config specified, please use specify a home directory")
+            raise ValueError("config was not specified or empty")
 
         self.joins = []
         self._logger = None
@@ -46,8 +55,10 @@ class Vaping(object):
 
         vcfg = self.config.get('vaping', {})
 
+        # get either home_dir from config, or use config_dir
+        self.home_dir = self.config.get('home_dir', self.config.meta['config_dir'])
+
         # change to home for working dir
-        self.home_dir = os.path.abspath(self.config.meta['config_dir'])
         os.chdir(self.home_dir)
 
         # instantiate all defined plugins

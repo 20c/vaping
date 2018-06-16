@@ -27,6 +27,12 @@ def update_context(ctx, kwargs):
     vaping.plugin.searchpath = searchpath
 
 
+def mk_daemon(ctx):
+    if not ctx.config.meta:
+        raise ValueError("no config specified, please use specify a home directory")
+    return vaping.daemon.Vaping(ctx.config)
+
+
 @click.group()
 @click.version_option()
 @Context.options
@@ -49,7 +55,7 @@ def start(ctx, **kwargs):
     """
     update_context(ctx, kwargs)
 
-    daemon = vaping.daemon.Vaping(ctx.config)
+    daemon = mk_daemon(ctx)
 
     if ctx.debug or kwargs['no_fork']:
         daemon.run()
@@ -67,7 +73,7 @@ def stop(ctx, **kwargs):
     """
     update_context(ctx, kwargs)
 
-    daemon = vaping.daemon.Vaping(ctx.config)
+    daemon = mk_daemon(ctx)
     daemon.stop()
 
 
@@ -81,6 +87,6 @@ def restart(ctx, **kwargs):
     """
     update_context(ctx, kwargs)
 
-    daemon = vaping.daemon.Vaping(ctx.config)
+    daemon = mk_daemon(ctx)
     daemon.stop()
     daemon.start()

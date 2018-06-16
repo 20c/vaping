@@ -3,6 +3,8 @@
 
 ## [Unreleased]
 ### Added
+- add home_dir config option
+
 ### Fixed
 ### Changed
 ### Deprecated
