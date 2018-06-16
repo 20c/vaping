@@ -1,12 +1,12 @@
-
 import abc
 import datetime
 import logging
 import munge
 import os
+
+from future.utils import with_metaclass
 from vaping.config import parse_interval
 import vaping.io
-from future.utils import with_metaclass
 
 
 class PluginBase(vaping.io.Thread):
@@ -58,8 +58,6 @@ class PluginBase(vaping.io.Thread):
         return self._logger
 
     def __init__(self, config, ctx):
-        super(PluginBase, self).__init__()
-
         if hasattr(self, 'default_config'):
             self.pluginmgr_config = munge.util.recursive_update(self.default_config, config)
         else:
@@ -68,6 +66,7 @@ class PluginBase(vaping.io.Thread):
         self.name = self.pluginmgr_config.get("name")
         self._logger = None
 
+        super(PluginBase, self).__init__()
         self.init()
 
     def _run(self):
@@ -117,8 +116,6 @@ class TimedProbe(ProbeBase):
         if 'interval' not in config:
             raise ValueError('interval not set in config')
         self.interval = parse_interval(config['interval'])
-        # TODO move to fping
-        self.count = int(config.get('count', 0))
         self.run_level = 0
 
         super(TimedProbe, self).__init__(config, ctx, emit)
@@ -246,7 +243,7 @@ class TimeSeriesDB(EmitBase):
         emit to database
         """
         # handle vaping data that arrives in a list
-        if(type(data.get("data")) == list):
+        if isinstance(data.get("data"), list):
             for row in data.get("data"):
 
 
@@ -261,5 +258,3 @@ class TimeSeriesDB(EmitBase):
                 self.log.debug("storing time:%d, %s:%.5f in %s" % (
                     data.get("ts"), self.field, row.get(self.field), filename))
                 self.update(filename, data.get("ts"), row.get(self.field))
-
-

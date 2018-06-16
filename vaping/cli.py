@@ -1,13 +1,11 @@
-
 from __future__ import absolute_import
-from __future__ import print_function
+
+import os
 
 import click
 import munge
 import munge.click
-import os
 
-# test direct imports
 import vaping
 import vaping.daemon
 
@@ -27,6 +25,12 @@ def update_context(ctx, kwargs):
     if ctx.home:
         searchpath.append(os.path.join(ctx.home, 'plugins'))
     vaping.plugin.searchpath = searchpath
+
+
+def mk_daemon(ctx):
+    if not ctx.config.meta:
+        raise ValueError("no config specified, please use specify a home directory")
+    return vaping.daemon.Vaping(ctx.config)
 
 
 @click.group()
@@ -51,7 +55,7 @@ def start(ctx, **kwargs):
     """
     update_context(ctx, kwargs)
 
-    daemon = vaping.daemon.Vaping(ctx.config)
+    daemon = mk_daemon(ctx)
 
     if ctx.debug or kwargs['no_fork']:
         daemon.run()
@@ -69,7 +73,7 @@ def stop(ctx, **kwargs):
     """
     update_context(ctx, kwargs)
 
-    daemon = vaping.daemon.Vaping(ctx.config)
+    daemon = mk_daemon(ctx)
     daemon.stop()
 
 
@@ -83,7 +87,6 @@ def restart(ctx, **kwargs):
     """
     update_context(ctx, kwargs)
 
-    daemon = vaping.daemon.Vaping(ctx.config)
+    daemon = mk_daemon(ctx)
     daemon.stop()
     daemon.start()
-

@@ -1,21 +1,18 @@
-
 from __future__ import absolute_import
-
-import vaping
-from vaping.io import subprocess
 
 import collections
 import datetime
-import logging
 import munge
-import re
 import shlex
+
+import vaping
+from vaping.io import subprocess
 
 
 @vaping.plugin.register('command')
 class CommandProbe(vaping.plugins.TimedProbe):
 
-    default_config={
+    default_config = {
         'command': None,
         'interval': '1m',
         'count': 5,
@@ -25,7 +22,7 @@ class CommandProbe(vaping.plugins.TimedProbe):
         if 'command' not in self.config:
             raise ValueError('command is required')
 
-        for k,v in list(self.config.items()):
+        for k, v in list(self.config.items()):
             # dict means it's a group - FIXME explicit groups
             if isinstance(v, collections.Mapping):
                 self.hosts = v['hosts']

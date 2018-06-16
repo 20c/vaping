@@ -5,12 +5,6 @@ import vaping.plugins.fping
 from vaping import plugin
 
 
-# 10.18.174.22    : xmt/rcv/%loss = 5/5/0%, min/avg/max = 118/120/122
-# 10.6.6.2        : xmt/rcv/%loss = 5/0/100%
-
-sumary_line = [
-    ]
-
 expect_verbose = {
     '10.130.133.1 : 273.89 298.10 322.58': {
         'host': '10.130.133.1',
@@ -48,8 +42,8 @@ def test_parse_verbose():
             else:
                 assert v == res[k]
 
-def test_run_probe(data_dir):
-    config_dir = os.path.join(data_dir, 'config', 'fping')
+def test_run_probe(this_dir):
+    config_dir = os.path.join(this_dir, 'data', 'config', 'fping')
     daemon = vaping.daemon.Vaping(config_dir=config_dir)
     probes = daemon.config.get('probes', None)
 

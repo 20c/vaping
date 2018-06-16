@@ -1,7 +1,8 @@
 from __future__ import division
 
-import munge
 import re
+
+import munge
 
 
 def parse_interval(val):
@@ -9,7 +10,7 @@ def parse_interval(val):
     converts a string to float of seconds
         .5 = 500ms
     """
-    re_intv = re.compile('(?P<count>\d+)(?P<unit>\w+)')
+    re_intv = re.compile(r"(?P<count>\d+)(?P<unit>\w+)")
     match = re_intv.match(val.strip())
     if not match:
         raise ValueError("invalid interval string '%s'" % val)
@@ -29,9 +30,10 @@ def parse_interval(val):
     raise ValueError("unknown unit from interval string '%s'" % val)
 
 class Config(munge.Config):
-    defaults={
+    defaults = {
         'config': {
             'vaping': {
+                'home_dir': None,
                 'pidfile': 'vaping.pid',
                 'plugin_path': [],
                 },
@@ -39,4 +41,3 @@ class Config(munge.Config):
         'config_dir': '~/.vaping',
         'codec': 'yaml',
         }
-

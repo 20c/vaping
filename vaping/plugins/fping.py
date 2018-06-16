@@ -1,48 +1,40 @@
 
 from __future__ import absolute_import
 from __future__ import division
-from builtins import object
 
 import collections
 import datetime
 import logging
-import re
 
 import vaping
 from vaping.io import subprocess
 from vaping.util import which
 
 
-class HostGroup(object):
-    pass
-
-
-@vaping.plugin.register('fping')
-class FPing(vaping.plugins.TimedProbe):
+class FPingBase(vaping.plugins.TimedProbe):
     """
+    FPing base plugin
+
     config:
         `command` command to run
         `interval` time between pings
         `count` number of pings to send
     """
-    re_sum = re.compile('^(?P<host>[\w\.]+)\s+: xmt/rcv/%\w+ = (?P<sent>\d+)/(?P<recv>\d+)/(?P<loss>\d+)%, min/avg/max = (?P<min>[\d\.]+)/(?P<avg>[\d\.]+)/(?P<max>[\d\.]+).*')
 
-    default_config={
+    default_config = {
         'command': 'fping',
         'interval': '1m',
         'count': 5,
     }
 
-    def init(self):
+    def __init__(self, config, ctx):
+        super(FPingBase, self).__init__(config, ctx)
+
         if not which(self.pluginmgr_config['command']):
             self.log.critical("missing fping, install it or set `command` in the fping config")
             raise RuntimeError("fping command not found")
 
-        self.hosts = []
-        for k,v in list(self.pluginmgr_config.items()):
-            # dict means it's a group
-            if isinstance(v, collections.Mapping):
-                self.hosts.extend(v['hosts'])
+        self.count = int(self.pluginmgr_config.get('count', 0))
 
     def hosts_args(self):
         """
@@ -56,14 +48,16 @@ class FPing(vaping.plugins.TimedProbe):
 
         host_args = []
         for row in self.hosts:
-            if type(row) == dict:
+            if isinstance(row, dict):
                 host_args.append(row["host"])
             else:
                 host_args.append(row)
         return list(set(host_args))
 
-
     def parse_verbose(self, line):
+        """
+        parse output from verbose format
+        """
         try:
             logging.debug(line)
             (host, pings) = line.split(':')
@@ -98,23 +92,14 @@ class FPing(vaping.plugins.TimedProbe):
         except Exception as e:
             logging.error("failed to get data {}".format(e))
 
-    def probe(self):
-        args = [
-            self.pluginmgr_config['command'],
-            '-u',
-            '-C%d' % self.count,
-            '-p20',
-            '-e'
-        ]
-        args.extend(self.hosts_args())
-
+    def _run_send(self, args):
         # get both stdout and stderr
         proc = self.popen(args, stdout=subprocess.PIPE,
                           stderr=subprocess.STDOUT)
 
         msg = {}
         msg['data'] = []
-        msg['type'] = "fping"
+        msg['type'] = self.__class__.plugin_type
         msg['source'] = self.name
         msg['ts'] = (datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)).total_seconds()
 
@@ -125,3 +110,34 @@ class FPing(vaping.plugins.TimedProbe):
                 msg['data'].append(self.parse_verbose(line))
 
         return msg
+
+
+@vaping.plugin.register('fping')
+class FPing(FPingBase):
+    """
+    Run fping on configured hosts
+
+    config:
+        `command` command to run
+        `interval` time between pings
+        `count` number of pings to send
+    """
+
+    def init(self):
+        self.hosts = []
+        for k, v in list(self.pluginmgr_config.items()):
+            # dict means it's a group
+            if isinstance(v, collections.Mapping):
+                self.hosts.extend(v['hosts'])
+
+    def probe(self):
+        args = [
+            self.pluginmgr_config['command'],
+            '-u',
+            '-C%d' % self.count,
+            '-p20',
+            '-e'
+        ]
+        args.extend(self.hosts_args())
+
+        return self._run_send(args)
