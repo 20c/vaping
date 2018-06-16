@@ -42,8 +42,8 @@ def test_parse_verbose():
             else:
                 assert v == res[k]
 
-def test_run_probe(data_dir):
-    config_dir = os.path.join(data_dir, 'config', 'fping')
+def test_run_probe(this_dir):
+    config_dir = os.path.join(this_dir, 'data', 'config', 'fping')
     daemon = vaping.daemon.Vaping(config_dir=config_dir)
     probes = daemon.config.get('probes', None)
 

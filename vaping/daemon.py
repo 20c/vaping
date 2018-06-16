@@ -58,6 +58,12 @@ class Vaping(object):
         # get either home_dir from config, or use config_dir
         self.home_dir = self.config.get('home_dir', self.config.meta['config_dir'])
 
+        if not os.path.exists(self.home_dir):
+            raise ValueError("home directory '{}' does not exist".format(self.home_dir))
+
+        if not os.access(self.home_dir, os.W_OK):
+            raise ValueError("home directory '{}' is not writable".format(self.home_dir))
+
         # change to home for working dir
         os.chdir(self.home_dir)
 
