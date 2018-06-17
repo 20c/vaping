@@ -3,6 +3,7 @@
 
 ## [Unreleased]
 ### Added
+- added python3.6 to tests
 - add home_dir config option
 
 ### Fixed
