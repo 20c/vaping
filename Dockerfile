@@ -1,18 +1,19 @@
-FROM ubuntu:16.04
+FROM python:3.6
 
-EXPOSE 7021
+RUN apt-get update \
+	&& apt-get install -y \
+		fping
 
-RUN apt-get update
-RUN apt-get install -y python2.7 python2.7-dev python-pip
-RUN pip install vaping
 # requirements for examples/standalone_dns/
-RUN pip install vodka graphsrv
-RUN apt-get install -y fping
+RUN pip install \
+	graphsrv \
+	vodka \
+	vaping
 
-RUN mkdir /opt/vaping
 WORKDIR /opt/vaping
-# ENV VAPING_HOME /opt/vaping
-ADD ./examples /opt/vaping/examples
+COPY ./examples /opt/vaping/examples
 
 # The process just silently exits without --debug in docker.
-CMD vaping --home=/opt/vaping/examples/standalone_dns/ --verbose --debug start
+CMD ["vaping", "--home=/opt/vaping/examples/standalone_dns/", "--verbose", "--debug", "start"]
+
+EXPOSE 7021
