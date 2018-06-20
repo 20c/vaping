@@ -6,6 +6,7 @@
 - added python3.6 to tests
 - add home_dir config option
 - add better config testing
+- add last time to fping
 
 ### Fixed
 ### Changed

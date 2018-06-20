@@ -13,6 +13,7 @@ expect_verbose = {
         'avg': 298.19,
         'cnt': 3,
         'loss': 0.0,
+        'last': 322.58,
         },
     '10.130.133.2 : 100 - 50': {
         'host': '10.130.133.2',
@@ -21,6 +22,7 @@ expect_verbose = {
         'avg': 75.0,
         'cnt': 3,
         'loss': 0.333,
+        'last': 50,
         },
     '10.130.133.2 : - - -': {
         'host': '10.130.133.2',
@@ -41,6 +43,7 @@ def test_parse_verbose():
                 assert abs(v - res[k]) < 0.001
             else:
                 assert v == res[k]
+
 
 def test_run_probe(this_dir):
     config_dir = os.path.join(this_dir, 'data', 'config', 'fping')

@@ -87,6 +87,7 @@ class FPingBase(vaping.plugins.TimedProbe):
                 rv['min'] = min(times)
                 rv['max'] = max(times)
                 rv['avg'] = sum(times) / len(times)
+                rv['last'] = times[-1]
             return rv
 
         except Exception as e:
