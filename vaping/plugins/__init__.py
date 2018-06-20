@@ -44,6 +44,17 @@ class PluginBase(vaping.io.Thread):
         """
         pass
 
+    def new_message(self):
+        """
+        create a new message
+        """
+        msg = {}
+        msg['data'] = []
+        msg['type'] = self.plugin_type
+        msg['source'] = self.name
+        msg['ts'] = (datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)).total_seconds()
+        return msg
+
     def popen(self, args, **kwargs):
         """
         creates a subprocess with passed args

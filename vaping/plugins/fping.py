@@ -93,15 +93,23 @@ class FPingBase(vaping.plugins.TimedProbe):
         except Exception as e:
             logging.error("failed to get data {}".format(e))
 
-    def _run_send(self, args):
+    def _run_proc(self):
+        args = [
+            self.pluginmgr_config['command'],
+            '-u',
+            '-C%d' % self.count,
+            '-p20',
+            '-e'
+        ]
+        args.extend(self.hosts_args())
+
         # get both stdout and stderr
-        print(self.pluginmgr_config)
         proc = self.popen(args, stdout=subprocess.PIPE,
                           stderr=subprocess.STDOUT)
 
         msg = {}
         msg['data'] = []
-        msg['type'] = self.__class__.plugin_type
+        msg['type'] = self.plugin_type
         msg['source'] = self.name
         msg['ts'] = (datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)).total_seconds()
 
@@ -133,13 +141,4 @@ class FPing(FPingBase):
                 self.hosts.extend(v['hosts'])
 
     def probe(self):
-        args = [
-            self.pluginmgr_config['command'],
-            '-u',
-            '-C%d' % self.count,
-            '-p20',
-            '-e'
-        ]
-        args.extend(self.hosts_args())
-
-        return self._run_send(args)
+        return self._run_proc()
