@@ -51,6 +51,5 @@ def test_load_config_files(data_config_daemon):
     data = codec.loads(data_config_daemon.yml)
     data['vaping'] = dict(home_dir=os.path.relpath(data_config_daemon.path))
     daemon = vaping.daemon.Vaping(config=data)
-    print(data_config_daemon.dumps(daemon.config.data))
+    # print(data_config_daemon.dumps(daemon.config.data))
     assert data_config_daemon.expected == daemon.config.data
-
