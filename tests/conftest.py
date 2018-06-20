@@ -15,4 +15,4 @@ def pytest_generate_tests(metafunc):
     for fixture in metafunc.fixturenames:
         if fixture.startswith('data_'):
             data = pytest.get_filedata(fixture)
-            metafunc.parametrize(fixture, data.values(), ids=data.keys())
+            metafunc.parametrize(fixture, list(data.values()), ids=list(data.keys()))
