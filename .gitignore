@@ -3,7 +3,8 @@
 *.egg-info
 *.pid
 .cache/
-.coverage
+.coverage*
+.pytest_cache/
 .tox
 coverage.xml
 dist/
