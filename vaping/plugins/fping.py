@@ -94,6 +94,7 @@ class FPingBase(vaping.plugins.TimedProbe):
 
     def _run_send(self, args):
         # get both stdout and stderr
+        print(self.pluginmgr_config)
         proc = self.popen(args, stdout=subprocess.PIPE,
                           stderr=subprocess.STDOUT)
 

@@ -1,0 +1,1 @@
+{"vaping": {"home_dir": "../daemon"}, "probes": [{"output": ["vodka"], "type": "std_fping", "name": "latency", "public_dns": {"hosts": [{"color": "red", "host": "8.8.8.8", "name": "Google"}]}}], "plugins": [{"count": 3, "interval": "3s", "type": "fping", "name": "std_fping"}]}

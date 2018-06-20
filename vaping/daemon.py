@@ -53,10 +53,14 @@ class Vaping(object):
         self._logger = None
         self.plugin_context = PluginContext(self.config)
 
-        vcfg = self.config.get('vaping', {})
+        vcfg = self.config.get('vaping', None)
+        if not vcfg:
+            vcfg = dict()
 
         # get either home_dir from config, or use config_dir
-        self.home_dir = self.config.get('home_dir', self.config.meta['config_dir'])
+        self.home_dir = vcfg.get('home_dir', None)
+        if not self.home_dir:
+            self.home_dir = self.config.meta['config_dir']
 
         if not os.path.exists(self.home_dir):
             raise ValueError("home directory '{}' does not exist".format(self.home_dir))

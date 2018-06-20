@@ -1,0 +1,17 @@
+probes:
+  - name: latency
+    type: std_fping
+    output:
+      - vodka
+
+    public_dns:
+      hosts:
+        - host: 8.8.8.8
+          name: Google
+          color: red
+
+plugins:
+  - name: std_fping
+    type: fping
+    count: 3
+    interval: 3s
