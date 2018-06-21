@@ -1,9 +1,17 @@
 
 from setuptools import find_packages, setup
 
-version = open('facsimile/VERSION').read().strip()
-requirements = open('facsimile/requirements.txt').read().split("\n")
-test_requirements = open('facsimile/requirements-test.txt').read().split("\n")
+
+def read_file(name):
+    with open(name) as fobj:
+        return fobj.read().strip()
+
+
+long_description = read_file("README.md")
+version = read_file("facsimile/VERSION")
+requirements = read_file("facsimile/requirements.txt").split('\n')
+test_requirements = read_file("facsimile/requirements-test.txt").split('\n')
+
 
 setup(
     name='vaping',
@@ -12,6 +20,7 @@ setup(
     author_email='code@20c.com',
     description='vaping is a healthy alternative to smokeping!',
     long_description='',
+    long_description_content_type="text/markdown",
     license='LICENSE',
     classifiers=[
         'Development Status :: 4 - Beta',
