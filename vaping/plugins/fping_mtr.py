@@ -4,7 +4,7 @@ from __future__ import division
 import collections
 import datetime
 import logging
-from scapy.all import (IP, TCP, UDP, sr1)
+import re
 
 import vaping
 from vaping.io import subprocess
@@ -26,40 +26,58 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
         self.hosts = []
         self.mtr_host = self.pluginmgr_config.get("host")
 
+    def parse_traceroute(self, line):
+        """
+        parse output from verbose format
+        """
+        print(line)
+        # skip first line
+        if self.lines_read == 1:
+            return
+        try:
+            logging.debug(line)
+            return line.split()[1]
+
+        except Exception as e:
+            logging.error("failed to get data {}".format(e))
+
     def get_hosts(self):
+        command = "traceroute"
         first_ttl = 1
         max_ttl = 24
         timeout = .3
         protocol = "udp"
         port = 33434
 
-        if protocol == "udp":
-            proto = UDP(dport=port)
-        elif protocol == "tcp":
-            proto = TCP(dport=port)
-        else:
-            raise ValueError("invalid protocol")
+        # -f first_ttl
+        # -m max_ttl
+        args = [
+            command,
+            '-n',
+            # -w wait time seconds
+            '-w1',
+            # -q number of queries
+            '-q1',
+            self.mtr_host,
+        ]
 
-        hosts = []
-        for i in range(first_ttl, max_ttl):
-            pkt = IP(dst=self.mtr_host, ttl=i) / proto
+        # get both stdout and stderr
+        proc = self.popen(args, stdout=subprocess.PIPE,
+                          stderr=subprocess.STDOUT)
 
-            # send recv 1 packet
-            reply = sr1(pkt, verbose=0, timeout=timeout)
-            if reply is None:
-                # no reply
-                # TODO should display this
-                continue
-
-            hosts.append(reply.src)
-            # icmp dest unreachable
-            if reply.type == 3:
-                break
-
+        self.lines_read = 0
+        hosts = list()
+        with proc.stdout:
+            for line in iter(proc.stdout.readline, b''):
+                self.lines_read += 1
+                line = line.decode("utf-8")
+                host = self.parse_traceroute(line)
+                if host:
+                    hosts.append(host)
+        if not len(hosts):
+            raise Exception("no hops found")
         return hosts
 
     def probe(self):
-
         self.hosts = self.get_hosts()
-
         return self._run_proc()
