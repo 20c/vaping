@@ -16,6 +16,39 @@ except ImportError:
     graphsrv = None
 
 
+
+def probe_to_graphsrv(probe):
+    """
+    takes a probe instance and generates
+    a graphsrv data group for it using the
+    probe's config
+    """
+
+    config = probe.pluginmgr_config
+
+    # manual group set up via `group` config key
+
+    if "group" in config:
+        source, group = config["group"].split(".")
+        host = config["host"]
+        graphsrv.group.add(source, group, {host:{"host":host}}, **config)
+        return
+
+    # automatic group setup for fping
+    # FIXME: this should be somehow more dynamic
+
+    for k, v in list(config.items()):
+        if isinstance(v, dict) and "hosts" in v:
+            r = {}
+            for host in v.get("hosts"):
+                if isinstance(host, dict):
+                    r[host["host"]] = host
+                else:
+                    r[host] = {"host":host}
+            graphsrv.group.add(probe.name, k, r, **v)
+            break
+
+
 @vaping.plugin.register('vodka')
 class VodkaPlugin(vaping.plugins.EmitBase):
 
@@ -33,16 +66,7 @@ class VodkaPlugin(vaping.plugins.EmitBase):
 
             for node in self.vaping.config.get("probes", []):
                 probe = vaping.plugin.get_probe(node, self.vaping)
-                for k, v in list(probe.pluginmgr_config.items()):
-                    if isinstance(v, dict) and "hosts" in v:
-                        r = {}
-                        for host in v.get("hosts"):
-                            if isinstance(host, dict):
-                                r[host["host"]] = host
-                            else:
-                                r[host] = {"host":host}
-                        graphsrv.group.add(probe.name, k, r, **v)
-                        break
+                probe_to_graphsrv(probe)
 
         self._is_started = True
 
