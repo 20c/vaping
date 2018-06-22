@@ -52,7 +52,13 @@ class FPingBase(vaping.plugins.TimedProbe):
                 host_args.append(row["host"])
             else:
                 host_args.append(row)
-        return list(set(host_args))
+
+        # using a set changes the order
+        dedupe = list()
+        for each in host_args:
+            if each not in dedupe:
+                dedupe.append(each)
+        return dedupe
 
     def parse_verbose(self, line):
         """
@@ -102,24 +108,19 @@ class FPingBase(vaping.plugins.TimedProbe):
             '-e'
         ]
         args.extend(self.hosts_args())
+        data = list()
 
         # get both stdout and stderr
         proc = self.popen(args, stdout=subprocess.PIPE,
                           stderr=subprocess.STDOUT)
 
-        msg = {}
-        msg['data'] = []
-        msg['type'] = self.plugin_type
-        msg['source'] = self.name
-        msg['ts'] = (datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)).total_seconds()
-
         # TODO poll, timeout, maybe from parent process for better control?
         with proc.stdout:
             for line in iter(proc.stdout.readline, b''):
                 line = line.decode("utf-8")
-                msg['data'].append(self.parse_verbose(line))
+                data.append(self.parse_verbose(line))
 
-        return msg
+        return data
 
 
 @vaping.plugin.register('fping')
@@ -141,4 +142,6 @@ class FPing(FPingBase):
                 self.hosts.extend(v['hosts'])
 
     def probe(self):
-        return self._run_proc()
+        msg = self.new_message()
+        msg["data"] = self._run_proc()
+        return msg

@@ -7,6 +7,7 @@ import logging
 import re
 
 import vaping
+import vaping.plugins.fping
 from vaping.io import subprocess
 from vaping.util import which
 
@@ -30,7 +31,6 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
         """
         parse output from verbose format
         """
-        print(line)
         # skip first line
         if self.lines_read == 1:
             return
@@ -80,4 +80,12 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
 
     def probe(self):
         self.hosts = self.get_hosts()
-        return self._run_proc()
+        msg = self.new_message()
+        msg["data"] = [
+            dict(
+                hops=self.hosts,
+                host=self.mtr_host,
+                data=self._run_proc(),
+                ),
+            ]
+        return msg

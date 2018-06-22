@@ -1,0 +1,13 @@
+probes:
+  - name: mtr
+    type: mtr
+    output:
+      - vodka
+
+    host: 1.1.1.1
+
+plugins:
+  - name: mtr
+    type: fping_mtr
+    count: 3
+    interval: 3s
