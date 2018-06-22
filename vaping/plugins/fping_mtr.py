@@ -81,11 +81,14 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
     def probe(self):
         self.hosts = self.get_hosts()
         msg = self.new_message()
+        data = dict([(hop["host"],hop) for hop in self._run_proc()
+                     if hop and hop["host"] in self.hosts])
+
         msg["data"] = [
             dict(
                 hops=self.hosts,
                 host=self.mtr_host,
-                data=self._run_proc(),
+                data=data,
                 ),
             ]
         return msg
