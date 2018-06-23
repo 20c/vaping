@@ -3,6 +3,7 @@ import datetime
 import logging
 import munge
 import os
+import copy
 
 from future.utils import with_metaclass
 from vaping.config import parse_interval
@@ -70,7 +71,7 @@ class PluginBase(vaping.io.Thread):
 
     def __init__(self, config, ctx):
         if hasattr(self, 'default_config'):
-            self.pluginmgr_config = munge.util.recursive_update(self.default_config, config)
+            self.pluginmgr_config = munge.util.recursive_update(copy.deepcopy(self.default_config), copy.deepcopy(config))
         else:
             self.pluginmgr_config = config
         self.vaping = ctx
