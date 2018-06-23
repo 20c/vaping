@@ -72,7 +72,7 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
                 self.lines_read += 1
                 line = line.decode("utf-8")
                 host = self.parse_traceroute(line)
-                if host:
+                if host and host not in hosts:
                     hosts.append(host)
         if not len(hosts):
             raise Exception("no hops found")
