@@ -28,6 +28,14 @@ pip install -U vodka
 pip install -U graphsrv
 ```
 
+!!! Tip "You can still use old graphsrv"
+    We have recently added a major upgrade to graphsrv by switching to a d3.js based frontend.
+
+    While this upgrade should be seamless on your end, if you still want to use the old graphsrv for now you can do so by pinning the version to 1.2.0
+
+    ```
+    pip install graphsrv==1.2.0
+    ```
 
 Then just start vaping with:
 
