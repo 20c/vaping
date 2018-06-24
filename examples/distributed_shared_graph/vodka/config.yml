@@ -1,0 +1,99 @@
+
+data:
+  - type: fping
+    handlers:
+      - type: index
+        index: host
+      - type: store
+        container: list
+        limit: 500
+
+apps:
+  graphsrv:
+    tmpl_engine: jinja2
+    enabled: true
+
+    # here is where we define host config
+    groups:
+      latency:
+        public_dns:
+          8.8.8.8:
+            name: Google
+            color: red
+          1.1.1.1:
+            name: Cloudflare
+            color: blue
+
+    graphs:
+      multitarget:
+        id_field: host
+        type: multitarget
+        plot_y: avg
+        format_y: ms
+
+      smokestack:
+        id_field: host
+        type: smokestack
+        plot_y: avg
+
+plugins:
+
+  # zero mq probe plugin to vaping-1 instance
+  # (latency name is important, so it can be routed properly to
+  # the similarly named group)
+  - name: latency
+    type: zeromq_probe
+    data: fping
+    interval: 1.0
+    bind: tcp://127.0.0.1:6021
+    async: thread
+
+  # zero mq probe plugin to vaping-2 instance
+  # We cannot have duplicate names so we name it `latency2`
+  # However we still want it to get collected to `latency`
+  # We will do that using the `data_id` config
+  - name: latency_2
+    type: zeromq_probe
+    data_id: latency
+    data: fping
+    interval: 1.0
+    bind: tcp://127.0.0.1:6022
+    async: thread
+
+
+  - name: http
+    type: flask
+    host: 0.0.0.0
+    port: 7021
+    debug: true
+    # set this to gunicorn or uwsgi depending on what you want to run with
+    server: gunicorn
+    async: gevent
+    routes:
+      /targets : graphsrv->targets
+      /graph_data :
+        methods:
+          - POST
+          - GET
+        target: graphsrv->graph_data
+      /graph : graphsrv->graph_view
+      /overview_read_file : graphsrv->overview_read_file
+      /: graphsrv->overview_view
+
+
+logging:
+  version: 1
+  formatters:
+    simple:
+      format: '%(asctime)s - %(name)s - %(levelname)s: %(message)s'
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: DEBUG
+      formatter: simple
+      stream: ext://sys.stdout
+  loggers:
+    vodka:
+      level: DEBUG
+      handlers:
+        - console

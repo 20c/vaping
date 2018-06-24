@@ -7,6 +7,7 @@ theme: readthedocs
 pages:
   - Home: 'index.md'
   - Quick Start Examples: quickstart.md
+  - Advanced Examples: examples.md
   - Configuration: config.md
   - Development: dev.md
 

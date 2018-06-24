@@ -1,0 +1,19 @@
+probes:
+  - name: latency
+    type: std_fping
+    output:
+      - zmq_vodka
+
+    public_dns:
+      hosts:
+        - host: 1.1.1.1
+
+plugins:
+  - name: std_fping
+    type: fping
+    count: 10
+    interval: 3s
+
+  - name: zmq_vodka
+    type: zeromq
+    bind: tcp://127.0.0.1:6021
