@@ -42,6 +42,6 @@ vaping start --home=examples/distributed_shared_graph/vaping-2 --debug
 ```
 
 ```sh
-export VODKA_HOME=examples/distributed_distributed_shared/vodka
+export VODKA_HOME=examples/distributed_shared_graph/vodka
 gunicorn -b 0.0.0.0:7021 vodka.runners.wsgi:application
 ```
