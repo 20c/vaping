@@ -1,17 +1,16 @@
-# Advanced Examples
 ## Two distributed vaping instances into the same graph
 
 This example shows how two run 2 separate vaping instances connected to a vodka instance and plot into the same graph.
 
 !!! Tip "Running a distributed setup"
-  For a complete understanding of running a distributed vaping setup, please read the [Distributed Latency](../quickstart/#example-distributed-latency) example in the quickstart section.
+    For a complete understanding of running a distributed vaping setup, please read the [Distributed Latency](../quickstart/#example-distributed-latency) example in the quickstart section.
 
 !!! Tip "Requires vodka 2.2.6"
-  This requires that you install vodka 2.2.6 or higher
+    This requires that you install vodka 2.2.6 or higher
 
-  ```sh
-  pip install vodka>=2.2.6
-  ```
+    ```sh
+    pip install vodka>=2.2.6
+    ```
 
 #### Vaping instance 1 - this one will ping 1.1.1.1
 
