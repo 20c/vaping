@@ -45,3 +45,37 @@ vaping start --home=examples/distributed_shared_graph/vaping-2 --debug
 export VODKA_HOME=examples/distributed_shared_graph/vodka
 gunicorn -b 0.0.0.0:7021 vodka.runners.wsgi:application
 ```
+
+## MTR
+
+This example will show you how to setup an MTR graph
+
+!!! Tip "Requires graphsrv 1.3.0"
+
+    You need to run graphsrv 1.3.0 or later in order to be able
+    to render MTR graphs
+
+    ```
+    pip install graphsrv>=1.3.0
+    ```
+
+
+!!! Tip "MTR Graph is currently experimental"
+
+    The MTR graph is introduced to vaping in version 0.6.0 and should
+    be considered and early iteration of MTR data visualization to vaping.
+
+    We have ideas on how to make it better, but would also love to hear your
+    thoughts on it.
+
+
+`examples/mtr/config.yml`:
+```yml
+{!examples/mtr/config.yml!}
+```
+
+```sh
+vaping start --home=examples/mtr --debug
+```
+
+

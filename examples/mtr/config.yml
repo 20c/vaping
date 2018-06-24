@@ -1,0 +1,105 @@
+
+probes:
+
+  # mtr probe
+  - name: mtr
+    type: fping_mtr
+
+    # we need to let graphsrv know what the default
+    # graph to render data from this probe should be,
+    # in this case we want it to be `mtr`
+    default_graph: mtr
+
+    # we need to let graphsrv know what data group
+    # to use for data from this probe. Since the probe
+    # itself is not setting up any groups unlike the `fping`
+    # probe.
+    group: mtr.cloudflare_dns
+
+    # target host for the mtr probe
+    host: 1.1.1.1
+
+    output:
+      - vodka
+
+plugins:
+
+  # mtr plugin
+  - name: fping_mtr
+    type: fping_mtr
+    interval: 3s
+
+
+  - name: vodka
+    type: vodka
+    logging:
+      version: 1
+      formatters:
+        simple:
+          format: '%(asctime)s - %(name)s - %(levelname)s: %(message)s'
+      handlers:
+        console:
+          class: logging.StreamHandler
+          level: DEBUG
+          formatter: simple
+          stream: ext://sys.stdout
+      loggers:
+        vodka:
+          level: DEBUG
+          handlers:
+            - console
+
+    data:
+
+      # We have to add a new data type to handle mtr data
+      - type: fping_mtr
+        handlers:
+          - type: index
+            index: host
+          - type: store
+            container: list
+            limit: 100
+
+
+    apps:
+      graphsrv:
+        tmpl_engine: jinja2
+        enabled: true
+        graphs:
+          multitarget:
+            id_field: host
+            type: multitarget
+            plot_y: avg
+            format_y: ms
+
+          smokestack:
+            id_field: host
+            type: smokestack
+            plot_y: avg
+
+          # let graphsrv no to initialize the `mtr`
+          # graph for use
+          mtr:
+            id_field: host
+            type: mtr
+
+    plugins:
+
+      - name: http
+        type: flask
+        host: 0.0.0.0
+        port: 7021
+        debug: true
+        static_url_path: /static
+        server: self
+        async: thread
+        routes:
+          /targets : graphsrv->targets
+          /graph_data :
+            methods:
+              - POST
+              - GET
+            target: graphsrv->graph_data
+          /graph : graphsrv->graph_view
+          /overview_read_file : graphsrv->overview_read_file
+          /: graphsrv->overview_view
