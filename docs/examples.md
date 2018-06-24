@@ -12,7 +12,7 @@ This example shows how two run 2 separate vaping instances connected to a vodka 
     pip install vodka>=2.2.6
     ```
 
-##### Vaping instance 1 - this one will ping 1.1.1.1
+**Vaping instance 1 - this one will ping 1.1.1.1**
 
 `examples/distributed_shared_graph/vaping-1/config.yml`:
 ```yml
@@ -23,7 +23,7 @@ This example shows how two run 2 separate vaping instances connected to a vodka 
 vaping start --home=examples/distributed_shared_graph/vaping-1 --debug
 ```
 
-##### Vaping instance 2 - this one will ping 8.8.8.8
+**Vaping instance 2 - this one will ping 8.8.8.8**
 
 `examples/distributed_shared_graph/vaping-2/config.yml`:
 ```yml
@@ -34,7 +34,7 @@ vaping start --home=examples/distributed_shared_graph/vaping-1 --debug
 vaping start --home=examples/distributed_shared_graph/vaping-2 --debug
 ```
 
-##### Vodka
+**Vodka**
 
 `examples/distributed_shared_graph/vodka/config.yml`:
 ```yml
