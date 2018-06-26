@@ -1,0 +1,6 @@
+plugins:
+  - type: vodka
+    name: vodka
+    apps:
+      graphsrv:
+        enabled: true
