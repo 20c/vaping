@@ -69,6 +69,14 @@ This example will show you how to setup an MTR graph
     thoughts on it.
 
 
+Pay close attention to the commented lines in the example below, as we need to do the following:
+
+- setup the mtr probe
+- setup the fping_mtr plugin
+- setup the fping_mtr data type
+- setup the mtr graph
+
+
 `examples/mtr/config.yml`:
 ```yml
 {!examples/mtr/config.yml!}
