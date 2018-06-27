@@ -7,6 +7,7 @@
 - add home_dir config option
 - add better config testing
 - add last time to fping
+- add first iteration of mtr graph
 
 ### Fixed
 ### Changed
