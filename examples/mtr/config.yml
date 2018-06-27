@@ -77,7 +77,7 @@ plugins:
             type: smokestack
             plot_y: avg
 
-          # let graphsrv no to initialize the `mtr`
+          # let graphsrv know to initialize the `mtr`
           # graph for use
           mtr:
             id_field: host
