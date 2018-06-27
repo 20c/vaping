@@ -59,6 +59,11 @@ This example will show you how to setup an MTR graph
     pip install graphsrv>=1.3.0
     ```
 
+!!! Tip "Requires traceroute"
+
+    We use the `traceroute` command to determine the hops to
+    send to fping. Make sure it is installed.
+
 
 !!! Tip "MTR Graph is currently experimental"
 
