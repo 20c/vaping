@@ -9,6 +9,10 @@
 ### Removed
 ### Security
 
+## [0.6.1]
+### Fixed
+- issue where standalone vaping/vodka would not allow an fping probe to create more than one group
+
 
 ## [0.6.0]
 ### Added
