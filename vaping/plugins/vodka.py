@@ -46,7 +46,6 @@ def probe_to_graphsrv(probe):
                 else:
                     r[host] = {"host":host}
             graphsrv.group.add(probe.name, k, r, **v)
-            break
 
 
 @vaping.plugin.register('vodka')
