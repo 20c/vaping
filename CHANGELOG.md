@@ -3,17 +3,20 @@
 
 ## [Unreleased]
 ### Added
-- added python3.6 to tests
-- add home_dir config option
-- add better config testing
-- add last time to fping
-- add first iteration of mtr graph
-
 ### Fixed
 ### Changed
 ### Deprecated
 ### Removed
 ### Security
+
+
+## [0.6.0]
+### Added
+- added python3.6 to tests
+- add home_dir config option
+- add better config testing
+- add last time to fping
+- add first iteration of mtr graph
 
 
 ## [0.5.0]
