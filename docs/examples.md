@@ -63,7 +63,7 @@ This example will show you how to setup an MTR graph
 !!! Tip "MTR Graph is currently experimental"
 
     The MTR graph is introduced to vaping in version 0.6.0 and should
-    be considered and early iteration of MTR data visualization to vaping.
+    be considered an early iteration of MTR data visualization to vaping.
 
     We have ideas on how to make it better, but would also love to hear your
     thoughts on it.
