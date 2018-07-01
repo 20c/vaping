@@ -1,0 +1,38 @@
+probes:
+  - name: latency
+    type: std_fping
+    output:
+      - graphite_avg
+
+    public_dns:
+      hosts:
+        - host: 8.8.8.8
+          name: Google
+          color: red
+        - host: 4.2.2.1
+          name: Level3
+          color: blue
+        - host: 208.67.222.222
+          name: OpenDNS
+          color: orange
+
+plugins:
+  - name: std_fping
+    type: fping
+    count: 10
+    interval: 10s
+    output:
+      - graphite
+
+  - name: graphite_avg
+    type: graphite
+
+    # will create one file per host
+    # for example: latency.8_8_8_8.avg
+    filename: "{source}-{host}-{field}"
+    graphite_host: "127.0.0.1"
+    protocole: "http"
+    prefix: "vaping"
+    # specified which field to retrieve the value from
+    field: avg
+
