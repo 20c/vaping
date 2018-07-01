@@ -3,6 +3,8 @@
 
 ## [Unreleased]
 ### Added
+- added graphite line protocol output plugin
+
 ### Fixed
 ### Changed
 ### Deprecated
