@@ -14,14 +14,14 @@ class GraphitePlugin(vaping.plugins.TimeSeriesDB):
 
     """
     Graphite plugin that allows vaping to persist data
-    to a graphite via line protocole 
+    to a graphite via line protocole
     """
 
     def __init__(self, config, ctx):
 
         super(GraphitePlugin, self).__init__(config, ctx)
 
-        # get configs    
+        # get configs
         self.proto = self.pluginmgr_config.get("proto", "http")
         self.graphite_host = self.pluginmgr_config.get("graphite_host", "127.0.0.1")
         self.prefix = self.pluginmgr_config.get("prefix", "vaping")
@@ -31,7 +31,7 @@ class GraphitePlugin(vaping.plugins.TimeSeriesDB):
         graphyte.init(str(self.graphite_host), prefix=str(self.prefix))
 
     def create(self, filename):
-      return
+        return
 
     def update(self, filename, time, value):
         filename = filename.replace('.','_')
@@ -44,10 +44,10 @@ class GraphitePlugin(vaping.plugins.TimeSeriesDB):
 
         resp = requests.get("{}}://{}/render/?target={}.{}&from={}&format=raw".format(
             self.proto,self.graphite_host,self.prefix,filename,from_time))
-        
+
         if resp.ok:
             data = str(resp.text).rstrip().split('|')
-            
+
             #create timing tuple
             (metric, fromstamp, tostamp, stepsize) = data[0].split(',')
             times = fromstamp, tostamp, stepsize
