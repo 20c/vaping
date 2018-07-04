@@ -1,0 +1,2 @@
+requests>=2.19.1
+graphyte>=1.4
