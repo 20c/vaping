@@ -4,6 +4,7 @@
 ## [Unreleased]
 ### Added
 - added graphite line protocol output plugin
+- fping: exposed `period` parameter to config (Default to 20)
 
 ### Fixed
 ### Changed
