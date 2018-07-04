@@ -19,12 +19,14 @@ class FPingBase(vaping.plugins.TimedProbe):
         `command` command to run
         `interval` time between pings
         `count` number of pings to send
+        `period` time in milliseconds that fping waits between successive packets to an individual target
     """
 
     default_config = {
         'command': 'fping',
         'interval': '1m',
         'count': 5,
+        'period': 20
     }
 
     def __init__(self, config, ctx):
@@ -35,6 +37,7 @@ class FPingBase(vaping.plugins.TimedProbe):
             raise RuntimeError("fping command not found")
 
         self.count = int(self.pluginmgr_config.get('count', 0))
+        self.period = int(self.pluginmgr_config.get('period', 0))
 
     def hosts_args(self):
         """
@@ -104,7 +107,7 @@ class FPingBase(vaping.plugins.TimedProbe):
             self.pluginmgr_config['command'],
             '-u',
             '-C%d' % self.count,
-            '-p20',
+            '-p%d' % self.period,
             '-e'
         ]
         args.extend(self.hosts_args())
