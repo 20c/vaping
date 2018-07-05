@@ -25,4 +25,4 @@ script:
   - tox
 after_success:
   - codecov
-	- coveralls
+  - coveralls
