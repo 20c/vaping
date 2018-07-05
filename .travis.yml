@@ -20,7 +20,9 @@ install:
   - pip install tox
   - pip install tox-travis
   - pip install codecov
+  - pip install coveralls
 script:
   - tox
 after_success:
   - codecov
+	- coveralls
