@@ -36,25 +36,36 @@ anon_config = {
 class Plugin0(plugins.PluginBase):
     pass
 
+
 @plugin.register('emit0')
 class EmitPlugin0(plugins.EmitBase):
     def emit(self, msg):
         pass
+
 
 @plugin.register('emit_abc')
 class EmitPluginABC(plugins.EmitBase):
     # emit not defined to test TypeError
     pass
 
+
 @plugin.register('probe0')
 class TimedPlugin0(plugins.TimedProbe):
+    default_config = {
+        'interval': '1m',
+        'count': 5,
+        'period': 20,
+    }
+
     def probe(self):
         return []
+
 
 @plugin.register('probe1')
 class ProbePlugin1(plugins.ProbeBase):
     def probe(self):
         return []
+
 
 def test_plugin_registry():
     assert Plugin0 == plugin.get_plugin_class('plugin0')
@@ -65,6 +76,13 @@ def test_plugin_registry():
         @plugin.register('plugin0')
         class p0(plugins.PluginBase):
             pass
+
+
+def test_plugin_default_config():
+    cls = plugin.get_plugin_class("probe0")
+    probe = cls({}, None)
+    assert probe.pluginmgr_config == cls.default_config
+
 
 def test_plugin_instance():
     with pytest.raises(ValueError):

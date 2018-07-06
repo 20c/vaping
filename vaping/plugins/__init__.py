@@ -125,12 +125,13 @@ class TimedProbe(ProbeBase):
     Probe class that calls probe every config defined interval
     """
     def __init__(self, config, ctx, emit=None):
-        if 'interval' not in config:
+        super(TimedProbe, self).__init__(config, ctx, emit)
+
+        if 'interval' not in self.pluginmgr_config:
             raise ValueError('interval not set in config')
-        self.interval = parse_interval(config['interval'])
+        self.interval = parse_interval(self.pluginmgr_config['interval'])
         self.run_level = 0
 
-        super(TimedProbe, self).__init__(config, ctx, emit)
 
     def _run(self):
         self.run_level = 1
