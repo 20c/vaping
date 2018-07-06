@@ -29,23 +29,23 @@ class ZeroMQ(vaping.plugins.EmitBase):
         self.ctx = zmq.Context()
 
         # sanity check config
-        if 'bind' in self.pluginmgr_config:
-            if 'connect' in self.pluginmgr_config:
+        if 'bind' in self.config:
+            if 'connect' in self.config:
                 msg = "bind and connect are mutually exclusive"
                 self.log.critical(msg)
                 raise ValueError(msg)
 
-        elif 'connect' not in self.pluginmgr_config:
+        elif 'connect' not in self.config:
             msg = "missing bind or connect"
             self.log.critical(msg)
             raise ValueError(msg)
 
     def on_start(self):
         self.sock = self.ctx.socket(zmq.PUB)
-        if 'bind' in self.pluginmgr_config:
-            self.sock.bind(self.pluginmgr_config['bind'])
-        elif 'connect' in self.pluginmgr_config:
-            self.sock.connect(self.pluginmgr_config['connect'])
+        if 'bind' in self.config:
+            self.sock.bind(self.config['bind'])
+        elif 'connect' in self.config:
+            self.sock.connect(self.config['connect'])
 
     def on_stop(self):
         if self.sock:

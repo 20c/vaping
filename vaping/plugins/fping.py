@@ -32,12 +32,12 @@ class FPingBase(vaping.plugins.TimedProbe):
     def __init__(self, config, ctx):
         super(FPingBase, self).__init__(config, ctx)
 
-        if not which(self.pluginmgr_config['command']):
+        if not which(self.config['command']):
             self.log.critical("missing fping, install it or set `command` in the fping config")
             raise RuntimeError("fping command not found")
 
-        self.count = int(self.pluginmgr_config.get('count', 0))
-        self.period = int(self.pluginmgr_config.get('period', 0))
+        self.count = int(self.config.get('count', 0))
+        self.period = int(self.config.get('period', 0))
 
     def hosts_args(self):
         """
@@ -104,7 +104,7 @@ class FPingBase(vaping.plugins.TimedProbe):
 
     def _run_proc(self):
         args = [
-            self.pluginmgr_config['command'],
+            self.config['command'],
             '-u',
             '-C%d' % self.count,
             '-p%d' % self.period,
@@ -139,7 +139,7 @@ class FPing(FPingBase):
 
     def init(self):
         self.hosts = []
-        for k, v in list(self.pluginmgr_config.items()):
+        for k, v in list(self.config.items()):
             # dict means it's a group
             if isinstance(v, collections.Mapping):
                 self.hosts.extend(v['hosts'])

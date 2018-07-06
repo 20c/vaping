@@ -81,17 +81,17 @@ def test_plugin_instance():
             continue
         obj = plugin.get_instance(each['name'], None)
         for k,v in list(each.items()):
-            assert v == obj.pluginmgr_config[k]
+            assert v == obj.config[k]
 
     obj = plugin.get_instance(anon_config, None)
-    assert obj.pluginmgr_config == anon_config
+    assert obj.config == anon_config
 
     # copy ctor
     obj = plugin.get_instance('fancy_copy', None)
-    assert 'reeb' == obj.pluginmgr_config['str0']
+    assert 'reeb' == obj.config['str0']
 
     obj = plugin.get_instance({'fancy_copy': {'var0': 'luggage'}}, None)
-    assert 'reeb' == obj.pluginmgr_config['str0']
+    assert 'reeb' == obj.config['str0']
 
     with pytest.raises(TypeError):
         plugin.get_probe('emit0')

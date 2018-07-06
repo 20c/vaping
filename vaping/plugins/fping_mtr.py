@@ -25,7 +25,7 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
 
     def init(self):
         self.hosts = []
-        self.mtr_host = self.pluginmgr_config.get("host")
+        self.mtr_host = self.config.get("host")
 
     def parse_traceroute(self, line):
         """

@@ -67,7 +67,7 @@ then calls `self.init()`
 init(self)
 ```
 
-called after the plugin is initialized, plugin may define this for any
+called after the plugin class is initialized, plugin may define this for any
 other initialization code
 
 #### popen

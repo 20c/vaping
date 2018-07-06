@@ -24,7 +24,7 @@ def probe_to_graphsrv(probe):
     probe's config
     """
 
-    config = probe.pluginmgr_config
+    config = probe.config
 
     # manual group set up via `group` config key
 
@@ -57,7 +57,7 @@ class VodkaPlugin(vaping.plugins.EmitBase):
     def start(self):
         if self._is_started:
             return
-        vodka.run(self.pluginmgr_config, self.vaping.config)
+        vodka.run(self.config, self.vaping.config)
 
         if graphsrv:
             # if graphsrv is installed proceed to generate

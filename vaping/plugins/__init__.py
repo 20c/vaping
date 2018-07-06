@@ -1,9 +1,9 @@
 import abc
+import copy
 import datetime
 import logging
 import munge
 import os
-import copy
 
 from future.utils import with_metaclass
 from vaping.config import parse_interval
@@ -16,7 +16,7 @@ class PluginBase(vaping.io.Thread):
 
     Initializes:
 
-    - `self.plugin_config` as plugins config
+    - `self.config` as plugins config
     - `self.log` as a logging object for plugin
     - `self.vaping` as a reference to the main vaping object
 
@@ -71,11 +71,13 @@ class PluginBase(vaping.io.Thread):
 
     def __init__(self, config, ctx):
         if hasattr(self, 'default_config'):
-            self.pluginmgr_config = munge.util.recursive_update(copy.deepcopy(self.default_config), copy.deepcopy(config))
+            self.config = munge.util.recursive_update(copy.deepcopy(self.default_config), copy.deepcopy(config))
         else:
-            self.pluginmgr_config = config
+            self.config = config
+        # set for pluginmgr
+        self.pluginmgr_config = self.config
         self.vaping = ctx
-        self.name = self.pluginmgr_config.get("name")
+        self.name = self.config.get("name")
         self._logger = None
 
         super(PluginBase, self).__init__()
@@ -179,10 +181,10 @@ class TimeSeriesDB(EmitBase):
         super(TimeSeriesDB, self).__init__(config, ctx)
 
         # filename template
-        self.filename = self.pluginmgr_config.get("filename")
+        self.filename = self.config.get("filename")
 
         # field name to read the value from
-        self.field = self.pluginmgr_config.get("field")
+        self.field = self.config.get("field")
 
         if not self.filename:
             raise ValueError("No filename specified")
