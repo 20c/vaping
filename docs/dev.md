@@ -1,7 +1,6 @@
 
 #
 
-
 ## Plugins
 
 It's quite easy to write plugins for vaping, just inherit from the type you

@@ -19,7 +19,7 @@ setup(
     author='20C',
     author_email='code@20c.com',
     description='vaping is a healthy alternative to smokeping!',
-    long_description='',
+    long_description=long_description,
     long_description_content_type="text/markdown",
     license='LICENSE',
     classifiers=[
