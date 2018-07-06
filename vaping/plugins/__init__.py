@@ -20,11 +20,14 @@ class PluginBase(vaping.io.Thread):
     - `self.log` as a logging object for plugin
     - `self.vaping` as a reference to the main vaping object
 
-    then calls `self.init()` prefork while loading all modules, init() should
-    not do anything active, any files opened may be closed
+    Then calls alls `self.init()` prefork while loading all modules, init() should
+    not do anything active, any files opened may be closed when it forks.
+
+    Plugins should prefer `init()` to `__init__()` to ensure the class is
+    completely done initializing.
 
     Calls `self.on_start()` and `self.on_stop()` before and after running in
-    case any connections need to be created or cleaned up
+    case any connections need to be created or cleaned up.
     """
     def init(self):
         """
@@ -47,7 +50,8 @@ class PluginBase(vaping.io.Thread):
 
     def new_message(self):
         """
-        create a new message
+        creates a new message, setting `type`, `source`, `ts`, `data`
+        - `data` is initialized to an empty array
         """
         msg = {}
         msg['data'] = []

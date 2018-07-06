@@ -59,7 +59,14 @@ Initializes:
 - `self.log` as a logging object for plugin
 - `self.vaping` as a reference to the main vaping object
 
-then calls `self.init()`
+Then calls alls `self.init()` prefork while loading all modules, init() should
+not do anything active, any files opened may be closed when it forks.
+
+Plugins should prefer `init()` to `__init__()` to ensure the class is
+completely done initializing.
+
+Calls `self.on_start()` and `self.on_stop()` before and after running in
+case any connections need to be created or cleaned up.
 
 #### init
 
@@ -67,8 +74,33 @@ then calls `self.init()`
 init(self)
 ```
 
-called after the plugin class is initialized, plugin may define this for any
+called after the plugin is initialized, plugin may define this for any
 other initialization code
+
+#### on_start
+
+```
+on_start(self)
+```
+
+called when the daemon is starting
+
+#### on_stop
+
+```
+on_stop(self)
+```
+
+called when the daemon is stopping
+
+#### new_message
+
+```
+new_message(self)
+```
+
+creates a new message, setting `type`, `source`, `ts`, `data`
+- `data` is initialized to an empty array
 
 #### popen
 
