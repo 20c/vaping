@@ -94,7 +94,7 @@ def test_plugin_instance():
     assert 'reeb' == obj.pluginmgr_config['str0']
 
     with pytest.raises(TypeError):
-        plugin.get_probe('emit0')
+        plugin.get_probe('emit0', None)
     assert None != plugin.get_probe('probe1', None)
     assert not hasattr(plugin.get_probe('probe1', None), 'emit')
 

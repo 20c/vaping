@@ -209,14 +209,14 @@ class TimeSeriesDB(EmitBase):
         """
         raise NotImplementedError()
 
-    def get(self, filename, frm, to):
+    def get(self, filename, from_time, to_time):
         """
         Retrieve data from database for the specified
         timespan
 
         - `filename`: database filename
-        - `frm`: from time
-        - `to`: to time
+        - `from_time`: from time
+        - `to_time`: to time
         """
         raise NotImplementedError()
 
