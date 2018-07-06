@@ -1,4 +1,3 @@
-import pytest
 import time
 
 import vaping.plugins

@@ -1,6 +1,5 @@
 
 import os
-import pytest
 import vaping.plugins.vodka
 from vaping import plugin
 from vaping.plugins.vodka import probe_to_graphsrv
@@ -8,8 +7,9 @@ import graphsrv.group
 
 def test_init(this_dir):
     config_dir = os.path.join(this_dir, 'data', 'config', 'vodka')
-    daemon = vaping.daemon.Vaping(config_dir=config_dir)
-    vodka = plugin.get_instance("vodka")
+    vaping.daemon.Vaping(config_dir=config_dir)
+    plugin.get_instance("vodka")
+
 
 def test_probe_to_graphsrv():
     probe = plugin.get_probe({

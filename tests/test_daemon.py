@@ -24,7 +24,7 @@ def test_empty_config_dir(this_dir):
     config_dir = os.path.join(this_dir, "data", "config", "empty")
 
     with pytest.raises(ValueError) as excinfo:
-        daemon = vaping.daemon.Vaping(config_dir=config_dir)
+        vaping.daemon.Vaping(config_dir=config_dir)
     assert 'no plugins specified' in str(excinfo)
 
 
@@ -36,7 +36,7 @@ def test_empty_config_dict():
 
 def test_empty_config_object():
     with pytest.raises(ValueError) as excinfo:
-        daemon = vaping.daemon.Vaping(config=vaping.Config())
+        vaping.daemon.Vaping(config=vaping.Config())
     assert 'config was not specified' in str(excinfo)
 
 

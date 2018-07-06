@@ -1,7 +1,6 @@
 
 import os
 
-import pytest
 import vaping.plugins.fping_mtr
 from vaping import plugin
 

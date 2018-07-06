@@ -44,8 +44,8 @@ def test_whisper(tmpdir):
         i += 1
 
     # retrieve data from whisper db
-    times_1, values_1 = inst.get(inst.format_filename({}, {"id":1}), t-1,t+9)
-    times_2, values_2 = inst.get(inst.format_filename({}, {"id":2}), t-1,t+9)
+    times_1, values_1 = inst.get(inst.format_filename({}, {"id":1}), t - 1, t + 9)
+    times_2, values_2 = inst.get(inst.format_filename({}, {"id":2}), t - 1, t + 9)
 
     assert times_1[0] == t
     assert times_1[1] == t+10
@@ -58,8 +58,8 @@ def test_whisper(tmpdir):
     def value_assert(points, start):
         i = 0
         for k in points:
-            assert k == start+i
-            i+=1
+            assert k == start + i
+            i += 1
 
     value_assert(values_1, 123)
     value_assert(values_2, 456)
