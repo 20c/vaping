@@ -131,12 +131,13 @@ class TimedProbe(ProbeBase):
     Probe class that calls probe every config defined interval
     """
     def __init__(self, config, ctx, emit=None):
-        if 'interval' not in config:
+        super(TimedProbe, self).__init__(config, ctx, emit)
+
+        if 'interval' not in self.pluginmgr_config:
             raise ValueError('interval not set in config')
-        self.interval = parse_interval(config['interval'])
+        self.interval = parse_interval(self.pluginmgr_config['interval'])
         self.run_level = 0
 
-        super(TimedProbe, self).__init__(config, ctx, emit)
 
     def _run(self):
         self.run_level = 1
@@ -215,14 +216,14 @@ class TimeSeriesDB(EmitBase):
         """
         raise NotImplementedError()
 
-    def get(self, filename, frm, to):
+    def get(self, filename, from_time, to_time):
         """
         Retrieve data from database for the specified
         timespan
 
         - `filename`: database filename
-        - `frm`: from time
-        - `to`: to time
+        - `from_time`: from time
+        - `to_time`: to time
         """
         raise NotImplementedError()
 
