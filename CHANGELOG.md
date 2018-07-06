@@ -7,6 +7,8 @@
 - fping: exposed `period` parameter to config (Default to 20)
 
 ### Fixed
+- update munge to reduce PyYAML requirements #35
+
 ### Changed
 ### Deprecated
 ### Removed
