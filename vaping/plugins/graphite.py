@@ -7,7 +7,14 @@ import requests
 try:
     import graphyte
 except ImportError:
-    graphite = None
+    graphyte = None
+
+
+def munge_filename(filename):
+    filename = filename.replace('.', '_')
+    filename = filename.replace('-', '.')
+    return filename
+
 
 @vaping.plugin.register('graphite')
 class GraphitePlugin(vaping.plugins.TimeSeriesDB):
@@ -18,14 +25,16 @@ class GraphitePlugin(vaping.plugins.TimeSeriesDB):
     """
 
     def __init__(self, config, ctx):
-
         super(GraphitePlugin, self).__init__(config, ctx)
+
+        if not graphyte:
+            self.log.critical("missing graphyte, install it with `pip install graphyte`")
+            raise RuntimeError("graphyte not found")
 
         # get configs
         self.proto = self.pluginmgr_config.get("proto", "http")
         self.graphite_host = self.pluginmgr_config.get("graphite_host", "127.0.0.1")
         self.prefix = self.pluginmgr_config.get("prefix", "vaping")
-
 
     def start(self):
         graphyte.init(str(self.graphite_host), prefix=str(self.prefix))
@@ -34,16 +43,14 @@ class GraphitePlugin(vaping.plugins.TimeSeriesDB):
         return
 
     def update(self, filename, time, value):
-        filename = filename.replace('.','_')
-        filename = filename.replace('-','.')
+        filename = munge_filename(filename)
         graphyte.send('{}'.format(filename), value, time)
 
     def get(self, filename, from_time, to_time=None):
-        filename = filename.replace('.','_')
-        filename = filename.replace('-','.')
+        filename = munge_filename(filename)
 
-        resp = requests.get("{}}://{}/render/?target={}.{}&from={}&format=raw".format(
-            self.proto,self.graphite_host,self.prefix,filename,from_time))
+        resp = requests.get("{}://{}/render/?target={}.{}&from={}&format=raw".format(
+            self.proto, self.graphite_host, self.prefix, filename, from_time))
 
         if resp.ok:
             data = str(resp.text).rstrip().split('|')
@@ -54,10 +61,9 @@ class GraphitePlugin(vaping.plugins.TimeSeriesDB):
 
             #create values list
             values = []
-            for v in  data[1].split(','):
+            for v in data[1].split(','):
                 values.append(float(v))
 
             return times, values
         else:
             raise ValueError("error couldn't get graphite data")
-

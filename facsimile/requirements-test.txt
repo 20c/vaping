@@ -10,6 +10,10 @@ pyzmq>=15.3.0, <18
 whisper>=0.9.15, <2
 rrdtool>=0.1.14, <1
 
+# graphite
+requests>=2.19.1
+graphyte>=1.4
+
 # standalone tests
 graphsrv>=1, <2
 vodka>=2, <3
