@@ -40,6 +40,11 @@ def test_empty_config_object():
     assert 'config was not specified' in str(excinfo)
 
 
+def test_config_object(this_dir):
+    config_dir = os.path.join(this_dir, "data", "config", "fping")
+    vaping.daemon.Vaping(config=vaping.Config(read=config_dir))
+
+
 def test_config_dir_not_found():
     with pytest.raises(IOError) as excinfo:
         daemon = vaping.daemon.Vaping(config_dir="does/not/exist")
@@ -49,7 +54,15 @@ def test_config_dir_not_found():
 def test_load_config_files(data_config_daemon):
     codec = munge.get_codec('yaml')()
     data = codec.loads(data_config_daemon.yml)
-    data['vaping'] = dict(home_dir=os.path.relpath(data_config_daemon.path))
+    data['vaping'] = dict(home_dir=os.path.realpath(data_config_daemon.path))
     daemon = vaping.daemon.Vaping(config=data)
     # print(data_config_daemon.dumps(daemon.config.data))
+    data_config_daemon.expected["vaping"]["home_dir"] = os.path.realpath(data_config_daemon.expected["vaping"]["home_dir"])
     assert data_config_daemon.expected == daemon.config.data
+
+
+def test_start_stop(this_dir):
+    config_dir = os.path.join(this_dir, "data", "config", "fping")
+    daemon = vaping.daemon.Vaping(config=vaping.Config(read=config_dir))
+#    daemon._main()
+#    daemon.stop()
