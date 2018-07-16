@@ -147,14 +147,14 @@ EmitBase(vaping.plugins.PluginBase)
 
 Base class for emit plugins, used for sending data
 
-expects method probe() to be defined
+expects method emit() to be defined
 
 #### emit
 
 ```
-emit(self, data)
+emit(self, message)
 ```
 
-accept data to emit 
+accept message to emit
 
 

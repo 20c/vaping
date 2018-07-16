@@ -69,8 +69,8 @@ class VodkaPlugin(vaping.plugins.EmitBase):
 
         self._is_started = True
 
-    def emit(self, data):
+    def emit(self, message):
         if not self._is_started:
             self.start()
 
-        vodka.data.handle(data.get("type"), data, data_id=data.get("source"), caller=self)
+        vodka.data.handle(message.get("type"), message, data_id=message.get("source"), caller=self)

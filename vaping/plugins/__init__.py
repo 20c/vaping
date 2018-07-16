@@ -166,15 +166,15 @@ class EmitBase(with_metaclass(abc.ABCMeta, PluginBase)):
     """
     Base class for emit plugins, used for sending data
 
-    expects method probe() to be defined
+    expects method emit() to be defined
     """
 
     def __init__(self, config, ctx):
         super(EmitBase, self).__init__(config, ctx)
 
     @abc.abstractmethod
-    def emit(self, data):
-        """ accept data to emit """
+    def emit(self, message):
+        """ accept message to emit """
 
 
 class TimeSeriesDB(EmitBase):
@@ -256,18 +256,17 @@ class TimeSeriesDB(EmitBase):
         """
         return self.filename.format(**self.filename_formatters(data, row))
 
-
-    def emit(self, data):
+    def emit(self, message):
         """
         emit to database
         """
         # handle vaping data that arrives in a list
-        if isinstance(data.get("data"), list):
-            for row in data.get("data"):
+        if isinstance(message.get("data"), list):
+            for row in message.get("data"):
 
 
                 # format filename from data
-                filename = self.format_filename(data, row)
+                filename = self.format_filename(message, row)
 
                 # create database file if it does not exist yet
                 if not os.path.exists(filename):
@@ -275,5 +274,5 @@ class TimeSeriesDB(EmitBase):
 
                 # update database
                 self.log.debug("storing time:%d, %s:%.5f in %s" % (
-                    data.get("ts"), self.field, row.get(self.field), filename))
-                self.update(filename, data.get("ts"), row.get(self.field))
+                    message.get("ts"), self.field, row.get(self.field), filename))
+                self.update(filename, message.get("ts"), row.get(self.field))

@@ -39,7 +39,7 @@ class Plugin0(plugins.PluginBase):
 
 @plugin.register('emit0')
 class EmitPlugin0(plugins.EmitBase):
-    def emit(self, msg):
+    def emit(self, message):
         pass
 
 

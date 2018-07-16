@@ -51,9 +51,7 @@ class ZeroMQ(vaping.plugins.EmitBase):
         if self.sock:
             self.sock.close()
 
-    def emit(self, data):
-# TODO option topic
-#        self.sock.send_multipart([self.topic, data])
-        self.sock.send_json(data)
-        self.log.debug("msg" + str(data))
+    def emit(self, message):
+        self.sock.send_json(message)
+        self.log.debug("msg" + str(message))
         self.log.debug("[0MQ] sync send")
