@@ -5,19 +5,21 @@ from vaping.config import Config
 from pluginmgr.config import ConfigPluginManager
 
 
+def check_method(obj, method, node):
+    if not hasattr(obj, method):
+        name = obj.config.get('name', str(node))
+        raise TypeError("plugin type mismatch, {} is missing ::{}()".format(name, method))
+
+
 class PluginManager(ConfigPluginManager):
     def get_probe(self, node, pctx):
         obj = self.get_instance(node, pctx)
-        if not hasattr(obj, 'probe'):
-            name = obj.pluginmgr_config.get('name', str(node))
-            raise TypeError('%s is not a probe plugin, missing ::probe()' % (name))
+        check_method(obj, "probe", node)
         return obj
 
     def get_output(self, node, pctx):
         obj = self.get_instance(node, pctx)
-        if not hasattr(obj, 'emit'):
-            name = obj.pluginmgr_config.get('name', str(node))
-            raise TypeError('%s is not an output plugin, missing ::emit()' % (name))
+        check_method(obj, "emit", node)
         return obj
 
 

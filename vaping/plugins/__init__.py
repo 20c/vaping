@@ -1,9 +1,9 @@
 import abc
+import copy
 import datetime
 import logging
 import munge
 import os
-import copy
 
 from future.utils import with_metaclass
 from vaping.config import parse_interval
@@ -16,15 +16,18 @@ class PluginBase(vaping.io.Thread):
 
     Initializes:
 
-    - `self.plugin_config` as plugins config
+    - `self.config` as plugins config
     - `self.log` as a logging object for plugin
     - `self.vaping` as a reference to the main vaping object
 
-    then calls `self.init()` prefork while loading all modules, init() should
-    not do anything active, any files opened may be closed
+    Then calls alls `self.init()` prefork while loading all modules, init() should
+    not do anything active, any files opened may be closed when it forks.
+
+    Plugins should prefer `init()` to `__init__()` to ensure the class is
+    completely done initializing.
 
     Calls `self.on_start()` and `self.on_stop()` before and after running in
-    case any connections need to be created or cleaned up
+    case any connections need to be created or cleaned up.
     """
     def init(self):
         """
@@ -47,7 +50,8 @@ class PluginBase(vaping.io.Thread):
 
     def new_message(self):
         """
-        create a new message
+        creates a new message, setting `type`, `source`, `ts`, `data`
+        - `data` is initialized to an empty array
         """
         msg = {}
         msg['data'] = []
@@ -71,11 +75,13 @@ class PluginBase(vaping.io.Thread):
 
     def __init__(self, config, ctx):
         if hasattr(self, 'default_config'):
-            self.pluginmgr_config = munge.util.recursive_update(copy.deepcopy(self.default_config), copy.deepcopy(config))
+            self.config = munge.util.recursive_update(copy.deepcopy(self.default_config), copy.deepcopy(config))
         else:
-            self.pluginmgr_config = config
+            self.config = config
+        # set for pluginmgr
+        self.pluginmgr_config = self.config
         self.vaping = ctx
-        self.name = self.pluginmgr_config.get("name")
+        self.name = self.config.get("name")
         self._logger = None
 
         super(PluginBase, self).__init__()
@@ -160,15 +166,15 @@ class EmitBase(with_metaclass(abc.ABCMeta, PluginBase)):
     """
     Base class for emit plugins, used for sending data
 
-    expects method probe() to be defined
+    expects method emit() to be defined
     """
 
     def __init__(self, config, ctx):
         super(EmitBase, self).__init__(config, ctx)
 
     @abc.abstractmethod
-    def emit(self, data):
-        """ accept data to emit """
+    def emit(self, message):
+        """ accept message to emit """
 
 
 class TimeSeriesDB(EmitBase):
@@ -180,10 +186,10 @@ class TimeSeriesDB(EmitBase):
         super(TimeSeriesDB, self).__init__(config, ctx)
 
         # filename template
-        self.filename = self.pluginmgr_config.get("filename")
+        self.filename = self.config.get("filename")
 
         # field name to read the value from
-        self.field = self.pluginmgr_config.get("field")
+        self.field = self.config.get("field")
 
         if not self.filename:
             raise ValueError("No filename specified")
@@ -250,18 +256,17 @@ class TimeSeriesDB(EmitBase):
         """
         return self.filename.format(**self.filename_formatters(data, row))
 
-
-    def emit(self, data):
+    def emit(self, message):
         """
         emit to database
         """
         # handle vaping data that arrives in a list
-        if isinstance(data.get("data"), list):
-            for row in data.get("data"):
+        if isinstance(message.get("data"), list):
+            for row in message.get("data"):
 
 
                 # format filename from data
-                filename = self.format_filename(data, row)
+                filename = self.format_filename(message, row)
 
                 # create database file if it does not exist yet
                 if not os.path.exists(filename):
@@ -269,5 +274,5 @@ class TimeSeriesDB(EmitBase):
 
                 # update database
                 self.log.debug("storing time:%d, %s:%.5f in %s" % (
-                    data.get("ts"), self.field, row.get(self.field), filename))
-                self.update(filename, data.get("ts"), row.get(self.field))
+                    message.get("ts"), self.field, row.get(self.field), filename))
+                self.update(filename, message.get("ts"), row.get(self.field))
