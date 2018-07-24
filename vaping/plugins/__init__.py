@@ -64,7 +64,7 @@ class PluginBase(vaping.io.Thread):
         """
         creates a subprocess with passed args
         """
-        logging.debug("popen %s", ' '.join(args))
+        self.log.debug("popen %s", ' '.join(args))
         return vaping.io.subprocess.Popen(args, **kwargs)
 
     @property
