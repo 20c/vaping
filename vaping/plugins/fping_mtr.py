@@ -25,21 +25,39 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
 
     def init(self):
         self.hosts = []
+        self.lines_read = 0
         self.mtr_host = self.pluginmgr_config.get("host")
 
-    def parse_traceroute(self, line):
+    def parse_traceroute_line(self, line):
         """
         parse output from verbose format
         """
-        # skip first line
-        if self.lines_read == 1:
-            return
         try:
             logging.debug(line)
-            return line.split()[1]
+            host = line.split()[1]
+            if host != "*":
+                return host
 
         except Exception as e:
             logging.error("failed to get data {}".format(e))
+
+    def parse_traceroute(self, it):
+        self.lines_read = 0
+        hosts = list()
+
+        for line in it:
+            self.lines_read += 1
+            # skip first line
+            if self.lines_read == 1:
+                continue
+            line = line.decode("utf-8")
+            host = self.parse_traceroute_line(line)
+            if host and host not in hosts:
+                hosts.append(host)
+
+        if not len(hosts):
+            raise Exception("no path found")
+        return hosts
 
     def get_hosts(self):
         command = "traceroute"
@@ -65,17 +83,8 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
         proc = self.popen(args, stdout=subprocess.PIPE,
                           stderr=subprocess.STDOUT)
 
-        self.lines_read = 0
-        hosts = list()
         with proc.stdout:
-            for line in iter(proc.stdout.readline, b''):
-                self.lines_read += 1
-                line = line.decode("utf-8")
-                host = self.parse_traceroute(line)
-                if host and host not in hosts:
-                    hosts.append(host)
-        if not len(hosts):
-            raise Exception("no hops found")
+            hosts = self.parse_traceroute(iter(proc.stdout.readline, b''))
         return hosts
 
     def probe(self):
