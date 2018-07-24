@@ -33,7 +33,7 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
             logging.debug(line)
             host = line.split()[1]
             if host != "*":
-                return host
+                return str(host)
 
         except Exception as e:
             logging.error("failed to get data {}".format(e))
@@ -47,7 +47,6 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
             # skip first line
             if self.lines_read == 1:
                 continue
-            line = line.decode("utf-8")
             host = self.parse_traceroute_line(line)
             if host and host not in hosts:
                 hosts.append(host)

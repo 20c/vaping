@@ -119,7 +119,6 @@ class FPingBase(vaping.plugins.TimedProbe):
         # TODO poll, timeout, maybe from parent process for better control?
         with proc.stdout:
             for line in iter(proc.stdout.readline, b''):
-                line = line.decode("utf-8")
                 data.append(self.parse_verbose(line))
 
         return data

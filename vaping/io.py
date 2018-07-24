@@ -1,5 +1,12 @@
+import os
+import sys
+
 # namespace imports
-import subprocess # noqa
+if os.name == 'posix' and sys.version_info < (3, 5, 0):
+    import subprocess32 as subprocess
+else:
+    import subprocess
+
 # FIXME
 #from gevent import subprocess
 from gevent.queue import Queue # noqa
