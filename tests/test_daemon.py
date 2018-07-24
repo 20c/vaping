@@ -30,7 +30,7 @@ def test_empty_config_dir(this_dir):
 
 def test_empty_config_dict():
     with pytest.raises(ValueError) as excinfo:
-        daemon = vaping.daemon.Vaping(config={})
+        vaping.daemon.Vaping(config={})
     assert 'config was not specified' in str(excinfo)
 
 
@@ -47,7 +47,7 @@ def test_config_object(this_dir):
 
 def test_config_dir_not_found():
     with pytest.raises(IOError) as excinfo:
-        daemon = vaping.daemon.Vaping(config_dir="does/not/exist")
+        vaping.daemon.Vaping(config_dir="does/not/exist")
     assert 'config dir not found' in str(excinfo)
 
 
@@ -63,6 +63,6 @@ def test_load_config_files(data_config_daemon):
 
 def test_start_stop(this_dir):
     config_dir = os.path.join(this_dir, "data", "config", "fping")
-    daemon = vaping.daemon.Vaping(config=vaping.Config(read=config_dir))
+    vaping.daemon.Vaping(config=vaping.Config(read=config_dir))
 #    daemon._main()
 #    daemon.stop()

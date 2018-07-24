@@ -1,10 +1,7 @@
 from __future__ import absolute_import
 from __future__ import division
 
-import collections
-import datetime
 import logging
-import re
 
 import vaping
 import vaping.plugins.fping
