@@ -91,4 +91,21 @@ Pay close attention to the commented lines in the example below, as we need to d
 vaping start --home=examples/mtr --debug
 ```
 
+!!! Tip "MTR - Distributed"
 
+    When setting up a distributed MTR probe the group on the vodka end should be setup like this
+
+    ```
+    apps:
+      graphsrv:
+        enabled: true
+
+        groups:
+          mtr:
+            config:
+              default_graph: mtr
+            cloudflare_dns:
+              1.1.1.1:
+                name: Cloudflare
+                color: mediumpurple
+    ```
