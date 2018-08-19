@@ -49,3 +49,6 @@ sends 5 pings to each host every minute, with 20 milliseconds between each one.
 
 The `probes` section is a list defining input sections. It must define at least `type` which may refer directly to a plugin type, or to a config defined type.
 
+## Custom Layouts
+
+It is possible for you to add / edit your layouts, for more information see graphsrv's documentation on the subject at https://graphsrv.readthedocs.io/en/latest/custom/#layout
