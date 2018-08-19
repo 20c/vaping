@@ -3,16 +3,21 @@
 
 ## [Unreleased]
 ### Added
+### Fixed
+### Changed
+### Deprecated
+### Removed
+### Security
+
+
+## [1.0.0]
+### Added
 - added graphite line protocol output plugin
 - fping: exposed `period` parameter to config (Default to 20)
 
 ### Fixed
 - update munge to reduce PyYAML requirements #35
 
-### Changed
-### Deprecated
-### Removed
-### Security
 
 ## [0.6.1]
 ### Fixed

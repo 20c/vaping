@@ -28,6 +28,22 @@ plugins:
 
 The `plugins` section is a list defining which plugins are loaded and possibly config to share between anything else referencing it. Each must define `type`, which can either be a plugin type, or the name of a previously defined type. To reference it later, `name` must be defined.
 
+### fping
+
+- `command` command to run
+- `interval` time between pings
+- `count` number of pings to send
+- `period` time in milliseconds that fping waits between successive packets to an individual target
+
+For example, the default of
+
+```py
+interval: 1m
+count: 5
+period: 20
+```
+
+sends 5 pings to each host every minute, with 20 milliseconds between each one.
 
 ## Probes
 

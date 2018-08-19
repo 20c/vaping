@@ -5,7 +5,7 @@ repo_url: https://github.com/20c/vaping
 theme: readthedocs
 
 pages:
-  - Home: 'index.md'
+  - Home: index.md
   - Quick Start Examples: quickstart.md
   - Advanced Examples: examples.md
   - Configuration: config.md
@@ -19,4 +19,3 @@ markdown_extensions:
   - markdown_include.include
   - tables
   - toc
-
