@@ -38,8 +38,8 @@ def assert_parsed(data, parsed):
     assert data.expected == parsed
 
 
-def test_run_probe(this_dir):
-    config_dir = os.path.join(this_dir, "data", "config", "fping_mtr")
+def test_run_probe(config_dir):
+    config_dir = os.path.join(config_dir, "fping_mtr")
     daemon = vaping.daemon.Vaping(config_dir=config_dir)
     probes = daemon.config.get("probes", None)
 

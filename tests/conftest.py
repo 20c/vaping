@@ -8,6 +8,11 @@ def this_dir():
     return os.path.dirname(__file__)
 
 
+@pytest.fixture
+def config_dir():
+    return os.path.join(this_dir(), "data", "config")
+
+
 pytest.setup_filedata(os.path.dirname(__file__))
 
 

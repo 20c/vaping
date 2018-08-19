@@ -12,6 +12,11 @@ def check_method(obj, method, node):
 
 
 class PluginManager(ConfigPluginManager):
+    def exists(self, name):
+        if name in self._instance:
+            return True
+        return False
+
     def get_probe(self, node, pctx):
         obj = self.get_instance(node, pctx)
         check_method(obj, "probe", node)

@@ -1,5 +1,7 @@
-
+import os
 import pytest
+
+import vaping
 from vaping.config import parse_interval
 
 
@@ -13,3 +15,13 @@ def test_parse_interval():
     with pytest.raises(ValueError):
         parse_interval('1x')
 
+
+def test_probe_plugin_name(config_dir):
+    """
+    checks that vaping correct errors if a probe is named the same as a plugin
+    """
+    config_dir = os.path.join(config_dir, "dupe")
+
+    with pytest.raises(ValueError) as excinfo:
+        vaping.daemon.Vaping(config_dir=config_dir)
+    assert "probes may not share names with plugins" in str(excinfo)

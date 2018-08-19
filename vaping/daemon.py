@@ -79,6 +79,11 @@ class Vaping(object):
 
         plugin.instantiate(self.config['plugins'], self.plugin_context)
 
+        # check that probes don't name clash with plugins
+        for probe in self.config.get('probes', []):
+            if plugin.exists(probe["name"]):
+                raise ValueError("probes may not share names with plugins ({})".format(probe["name"]))
+
         # TODO move to daemon
         pidname = vcfg.get('pidfile', 'vaping.pid')
         self.pidfile = pidfile.PidFile(pidname=pidname, piddir=self.home_dir)
