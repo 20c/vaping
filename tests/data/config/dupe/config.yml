@@ -1,0 +1,15 @@
+probes:
+  # same name as plugin
+  - name: mtr_dupe
+    type: mtr
+    output:
+      - vodka
+
+    host: 1.1.1.1
+
+plugins:
+  # same name as probe 
+  - name: mtr_dupe
+    type: fping_mtr
+    count: 3
+    interval: 3s
