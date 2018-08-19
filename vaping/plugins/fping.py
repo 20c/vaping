@@ -1,6 +1,4 @@
-
-from __future__ import absolute_import
-from __future__ import division
+from __future__ import absolute_import, division, print_function
 
 import collections
 import logging
@@ -137,10 +135,10 @@ class FPing(FPingBase):
 
     def init(self):
         self.hosts = []
-        for k, v in list(self.config.items()):
+        for key, value in list(self.config.items()):
             # dict means it's a group
-            if isinstance(v, collections.Mapping):
-                self.hosts.extend(v['hosts'])
+            if isinstance(value, collections.Mapping):
+                self.hosts.extend(value['hosts'])
 
     def probe(self):
         msg = self.new_message()
