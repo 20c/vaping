@@ -14,6 +14,7 @@
 ### Added
 - added graphite line protocol output plugin
 - fping: exposed `period` parameter to config (Default to 20)
+- error for using duplicate probe names
 
 ### Fixed
 - update munge to reduce PyYAML requirements #35
