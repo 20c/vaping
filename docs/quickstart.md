@@ -19,6 +19,16 @@ pip install vaping
     pip install setuptools -U
     ```
 
+Most examples require `fping` to be installed.
+
+To install for CentOS/RHEL, you can get the package from EPEL:
+
+```sh
+yum install epel-release
+yum install fping
+```
+
+
 ## Example Standalone Latency
 
 The example config file (from `examples/standalone_dns`) uses both vodka and graphsrv plugins, so those will need to be installed with:
