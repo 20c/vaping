@@ -19,13 +19,21 @@ pip install vaping
     pip install setuptools -U
     ```
 
+### Install fping
+
 Most examples require `fping` to be installed.
 
-To install for CentOS/RHEL, you can get the package from EPEL:
+To install for CentOS or RHEL, you can get the package from EPEL:
 
 ```sh
 yum install epel-release
 yum install fping
+```
+
+To install for Debian Or Ubuntu:
+
+```sh
+sudo apt-get install fping
 ```
 
 
