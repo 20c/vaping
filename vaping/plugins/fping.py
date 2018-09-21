@@ -31,7 +31,7 @@ class FPingBase(vaping.plugins.TimedProbe):
 
         if not which(self.config['command']):
             self.log.critical("missing fping, install it or set `command` in the fping config")
-            raise RuntimeError("fping command not found")
+            raise RuntimeError("fping command not found - install the fping package")
 
         self.count = int(self.config.get('count', 0))
         self.period = int(self.config.get('period', 0))
