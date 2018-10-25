@@ -66,7 +66,7 @@ class FPingBase(vaping.plugins.TimedProbe):
         """
         try:
             logging.debug(line)
-            (host, pings) = line.split(':')
+            (host, pings) = line.split(' : ')
             cnt = 0
             lost = 0
             times = []
@@ -97,7 +97,7 @@ class FPingBase(vaping.plugins.TimedProbe):
             return rv
 
         except Exception as e:
-            logging.error("failed to get data {}".format(e))
+            logging.error("failed to get data: {}".format(e))
 
     def _run_proc(self):
         args = [
