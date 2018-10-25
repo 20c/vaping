@@ -10,6 +10,11 @@
 ### Security
 
 
+## [1.0.1] 2018-10-25
+### Fixed
+- ipv6 fping parsing #50
+
+
 ## [1.0.0]
 ### Added
 - added graphite line protocol output plugin
