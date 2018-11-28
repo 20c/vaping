@@ -30,8 +30,9 @@ def probe_to_graphsrv(probe):
 
     if "group" in config:
         source, group = config["group"].split(".")
-        host = config["host"]
-        graphsrv.group.add(source, group, {host:{"host":host}}, **config)
+        group_field = config.get("group_field", "host")
+        group_value = config[group_field]
+        graphsrv.group.add(source, group, {group_value:{group_field:group_value}}, **config)
         return
 
     # automatic group setup for fping
