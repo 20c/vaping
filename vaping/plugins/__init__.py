@@ -161,6 +161,116 @@ class TimedProbe(ProbeBase):
                 sleeptime = datetime.timedelta(seconds=self.interval) - elapsed
                 vaping.io.sleep(sleeptime.total_seconds())
 
+class FileProbe(ProbeBase):
+    """
+    Probes a file and emits everytime a new line is read
+
+    Config:
+        `path`: path to file
+    """
+
+    def __init__(self, config, ctx, emit=None):
+        super(FileProbe, self).__init__(config, ctx, emit)
+        self.path = self.pluginmgr_config.get("path")
+        self.run_level = 0
+        if self.path:
+            self.fh = open(self.path, "r")
+            self.fh.seek(0,2)
+
+
+    def _run(self):
+        self.run_level = 1
+        while self.run_level:
+            for msg in self.probe():
+                #print("MSG", msg)
+                if hasattr(self._emit, 'emit'):
+                    self.log.debug("sending", msg)
+                    self._emit.emit(msg)
+
+            vaping.io.sleep(0.1)
+
+
+
+    def validate_file_handler(self):
+        """
+        Here we validate that our filehandler is pointing
+        to an existing file.
+
+        If it doesnt, because file has been deleted, we close
+        the filehander and try to reopen
+        """
+        if self.fh.closed:
+            try:
+                self.fh = open(self.path, "r")
+                self.fh.seek(0, 2)
+            except OSError as err:
+                logging.error("Could not reopen file: {}".format(err))
+                return False
+
+        open_stat = os.fstat(self.fh.fileno())
+        try:
+            file_stat = os.stat(self.path)
+        except OSError as err:
+            logging.error("Could not stat file: {}".format(err))
+            return False
+
+        if open_stat != file_stat:
+            self.log
+            self.fh.close()
+            return False
+
+        return True
+
+
+    def probe(self):
+        """
+        Probe the file for new lines
+        """
+
+        # make sure the filehandler is still valid
+        # (e.g. file stat hasnt changed, file exists etc.)
+        if not self.validate_file_handler():
+            return []
+
+        messages = []
+
+        # read any new lines and push them onto the stack
+        for line in self.fh.readlines():
+            data = {"path":self.path}
+            msg = self.new_message()
+
+            # process the line - this is where parsing happens
+            data = self.process_line(line, data)
+
+            # process the probe - this is where data assignment
+            # happens
+            data = self.process_probe(data)
+            msg["data"] = [data]
+            messages.append(msg)
+
+
+        # process all new messages before returning them
+        # for emission
+        messages = self.process_messages(messages)
+
+        return messages
+
+
+    def process_line(self, line, data):
+        """ override this - parse your line in here """
+        return data
+
+    def process_probe(self, data):
+        """ override this - assign your data values here """
+        return data
+
+    def process_messages(self, messages):
+        """
+        override this - process your messages before they
+        are emitted
+        """
+
+        return messages
 
 class EmitBase(with_metaclass(abc.ABCMeta, PluginBase)):
     """
