@@ -3,6 +3,9 @@
 
 ## [Unreleased]
 ### Added
+- fileprobe plugin
+- logparse plugin
+
 ### Fixed
 - python3 encoding issue in the fping module
 
