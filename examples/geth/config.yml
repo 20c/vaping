@@ -1,0 +1,116 @@
+
+probes:
+  - name: geth
+    type: logparse
+    default_graph: geth
+    output:
+      - vodka
+
+    group: geth.test
+    group_field: path
+
+    # geth log config file
+    path: /home/dev/geth.log
+    aggregate:
+      # aggregate stacks of 5
+      count: 5
+
+    # field definition
+    fields:
+      blocks:
+        type: int
+        parser: blocks=(\d+)
+        aggregate: sum
+      elapsed:
+        type: float
+        parser: elapsed=([\d\.]+)s
+        aggregate: sum
+      bps:
+        type: float
+        eval: "{blocks}/{elapsed}"
+        aggregate: eval
+
+
+plugins:
+
+  - name: vodka
+    type: vodka
+    logging:
+      version: 1
+      formatters:
+        simple:
+          format: '%(asctime)s - %(name)s - %(levelname)s: %(message)s'
+      handlers:
+        console:
+          class: logging.StreamHandler
+          level: DEBUG
+          formatter: simple
+          stream: ext://sys.stdout
+      loggers:
+        vodka:
+          level: DEBUG
+          handlers:
+            - console
+
+    data:
+      # logparse data type
+      - type: logparse
+        handlers:
+          # index by path name
+          - type: index
+            index: path
+          # store a maximum of 500 data points
+          # server side
+          - type: store
+            container: list
+            limit: 500
+
+
+    apps:
+      graphsrv:
+        tmpl_engine: jinja2
+        enabled: true
+        graphs:
+          multitarget:
+            id_field: host
+            type: multitarget
+            plot_y: avg
+            format_y: ms
+
+
+          geth:
+            id_field: path
+            type: multitarget
+            plot_y: bps
+            format_y: .2f bps
+            inspect: no
+            popover:
+              - field: bps
+                label: blocks p/s
+                formatter: .2f bps
+              - field: blocks
+              - field: elapsed
+                formatter: .2f s
+              - field: messages
+                label: segments
+
+    plugins:
+
+      - name: http
+        type: flask
+        host: 0.0.0.0
+        port: 7021
+        debug: true
+        static_url_path: /static
+        server: self
+        async: thread
+        routes:
+          /targets : graphsrv->targets
+          /graph_data :
+            methods:
+              - POST
+              - GET
+            target: graphsrv->graph_data
+          /graph : graphsrv->graph_view
+          /overview_read_file : graphsrv->overview_read_file
+          /: graphsrv->overview_view
