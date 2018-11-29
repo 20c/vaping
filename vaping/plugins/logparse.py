@@ -44,7 +44,6 @@ class LogParse(vaping.plugins.FileProbe):
     """
 
     default_config = {
-        'parser' : '(\S+)=(\S+)',
         'fields' : {},
         'exclude' : [],
         'include' : [],
