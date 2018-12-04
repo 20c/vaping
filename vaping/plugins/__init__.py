@@ -108,23 +108,58 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
         """
 
     def __init__(self, config, ctx, emit=None):
-        self._emit = emit
+        if emit:
+            self._emit = [emit]
+        else:
+            self._emit = []
+
+        self._emit_queue = vaping.io.Queue()
         super(ProbeBase, self).__init__(config, ctx)
 
     def _run(self):
         super(ProbeBase, self)._run()
         self.run_level = 1
         while self.run_level:
+            self.send_emission()
             msg = self.probe()
-            if not msg:
+            if msg:
+                self.queue_emission(msg)
+            else:
                 self.log.debug("probe returned no data")
+
+
+    def queue_emission(self, msg):
+        """
+        queue an emission of a message for all output plugins
+        """
+        if not msg:
+            return
+        for _emitter in self._emit:
+            if not hasattr(_emitter, 'emit'):
                 continue
+            def emit(emitter=_emitter):
+                self.log.debug("emit to {}".format(emitter.name))
+                emitter.emit(msg)
+            self.log.debug("queue emission to {} ({})".format(
+                           _emitter.name, self._emit_queue.qsize()))
+            self._emit_queue.put(emit)
 
-            # greenlet returns false if not running
-            if hasattr(self._emit, 'emit'):
-                self.log.debug("sending", msg)
-                self._emit.emit(msg)
+    def send_emission(self):
+        """
+        emit and remove the first emission in the queue
+        """
+        if self._emit_queue.empty():
+            return
+        emit = self._emit_queue.get()
+        emit()
 
+
+    def emit_all(self):
+        """
+        emit and remove all emissions in the queue
+        """
+        while not self._emit_queue.empty():
+            self.send_emission()
 
 class TimedProbe(ProbeBase):
     """
@@ -142,16 +177,19 @@ class TimedProbe(ProbeBase):
     def _run(self):
         self.run_level = 1
         while self.run_level:
+
             start = datetime.datetime.now()
+
+            # since the TimedProbe will sleep between cycles
+            # we need to emit all queued emissions each cycle
+            self.emit_all()
+
             msg = self.probe()
 
-            # greenlet returns false if not running
-            if hasattr(self._emit, 'emit'):
-                if msg:
-                    self.log.debug("sending", msg)
-                    self._emit.emit(msg)
-                else:
-                    self.log.debug("probe returned no data")
+            if msg:
+                self.queue_emission(msg)
+            else:
+                self.log.debug("probe returned no data")
 
             done = datetime.datetime.now()
             elapsed = done - start
@@ -181,11 +219,9 @@ class FileProbe(ProbeBase):
     def _run(self):
         self.run_level = 1
         while self.run_level:
+            self.send_emission()
             for msg in self.probe():
-                #print("MSG", msg)
-                if hasattr(self._emit, 'emit'):
-                    self.log.debug("sending", msg)
-                    self._emit.emit(msg)
+                self.queue_emission(msg)
 
             vaping.io.sleep(0.1)
 

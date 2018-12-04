@@ -130,13 +130,14 @@ class Vaping(object):
             # FIXME - needs to check for output defined in plugin
             if 'output' not in probe_config:
                 raise ValueError("no output specified")
-            if len(probe_config['output']) != 1:
-                raise NotImplementedError("only single output is currently supported")
-            # get_probe instantiates, need to set _emit
-            probe._emit = plugin.get_output(probe_config['output'][0], self.plugin_context)
-            if not probe._emit.started:
-                probe._emit.start()
-                self.joins.append(probe._emit)
+
+            # get all output targets and start / join them
+            for output_name in probe_config['output']:
+                output = plugin.get_output(output_name, self.plugin_context)
+                if not output.started:
+                    output.start()
+                    self.joins.append(output)
+                probe._emit.append(output)
 
             probe.start()
             self.joins.append(probe)
