@@ -3,17 +3,20 @@
 
 ## [Unreleased]
 ### Added
+### Fixed
+### Changed
+### Deprecated
+### Removed
+### Security
+
+## [1.1.0] 2018-12-06
+### Added
 - fileprobe plugin
 - logparse plugin
 - support for multiple output targets
 
 ### Fixed
 - python3 encoding issue in the fping module
-
-### Changed
-### Deprecated
-### Removed
-### Security
 
 
 ## [1.0.1] 2018-10-25
