@@ -9,7 +9,7 @@
 ### Removed
 ### Security
 
-## [1.1.0] 2018-12-06
+## [1.1.0] 2018-12-05
 ### Added
 - fileprobe plugin
 - logparse plugin
