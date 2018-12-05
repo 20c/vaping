@@ -5,6 +5,7 @@
 ### Added
 - fileprobe plugin
 - logparse plugin
+- support for multiple output targets
 
 ### Fixed
 - python3 encoding issue in the fping module
