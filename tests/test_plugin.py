@@ -23,6 +23,22 @@ config = {
         'type': 'fancy_probe',
         'var0': 12345,
         },
+        {
+        'name': 'emit_store1',
+        'type': 'emit_store'
+        },
+        {
+        'name': 'emit_store2',
+        'type': 'emit_store'
+        },
+        {
+        'name': 'queue_tester',
+        'type': 'queue_tester',
+        'output': [
+                'emit_store_1',
+                'emit_store_2'
+            ]
+        }
     ],
 }
 
@@ -47,6 +63,21 @@ class EmitPlugin0(plugins.EmitBase):
 class EmitPluginABC(plugins.EmitBase):
     # emit not defined to test TypeError
     pass
+
+@plugin.register('emit_store')
+class EmitPluginStore(plugins.EmitBase):
+    def init(self):
+        super(EmitPluginStore, self).init()
+        self.store = []
+    def emit(self, message):
+        self.store.append(message)
+
+
+@plugin.register('queue_tester')
+class QueueTester(plugins.ProbeBase):
+    def probe(self):
+        msg = self.new_message()
+        return msg
 
 
 @plugin.register('probe0')
@@ -121,3 +152,38 @@ def test_plugin_instance():
     with pytest.raises(TypeError):
         plugin.get_output('probe1', None)
     assert None != plugin.get_output('emit0', None)
+
+
+def test_emission_queuing():
+    plugin.instantiate(config["plugin"], None)
+    queue_tester = plugin.get_instance("queue_tester")
+    emit_store1 = plugin.get_output("emit_store1", None)
+    emit_store2 = plugin.get_output("emit_store2", None)
+
+    # daemon handles this, do it manually here since
+    # we are not starting the daemon
+    queue_tester._emit = [emit_store1, emit_store2]
+
+    message = queue_tester.probe()
+    queue_tester.queue_emission(message)
+
+    queue_tester.send_emission()
+    assert emit_store1.store[0] == message
+    assert emit_store2.store == []
+
+    queue_tester.send_emission()
+    assert emit_store1.store[0] == message
+    assert len(emit_store1.store) == 1
+    assert emit_store2.store[0] == message
+    assert len(emit_store2.store) == 1
+    assert queue_tester._emit_queue.qsize() == 0
+
+    message = queue_tester.probe()
+    queue_tester.queue_emission(message)
+    queue_tester.emit_all()
+    assert len(emit_store1.store) == 2
+    assert len(emit_store2.store) == 2
+    assert queue_tester._emit_queue.qsize() == 0
+
+
+
