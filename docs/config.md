@@ -37,13 +37,26 @@ The `plugins` section is a list defining which plugins are loaded and possibly c
 
 For example, the default of
 
-```py
+```yml
 interval: 1m
 count: 5
 period: 20
 ```
 
 sends 5 pings to each host every minute, with 20 milliseconds between each one.
+
+### whisper
+
+- `retention` is a list of `$time_per_data_point:$length_to_store`
+
+For example:
+
+```yml
+60:1440      # 60 seconds per datapoint, 1440 datapoints = 1 day of retention
+15m:8        # 15 minutes per datapoint, 8 datapoints = 2 hours of retention
+1h:7d        # 1 hour per datapoint, 7 days of retention
+12h:2y       # 12 hours per datapoint, 2 years of retention
+```
 
 ## Probes
 
