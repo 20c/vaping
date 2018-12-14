@@ -3,8 +3,13 @@
 
 ## [Unreleased]
 ### Added
+- fileprobe `backlog` config option
+- fileprobe `max_lines` config option
+- logparse allow custom validators
+- logparse `validate_interval`
 ### Fixed
 ### Changed
+- `vaping.config.parse_interval` now can handle multiunit strings such as 1m30s
 ### Deprecated
 ### Removed
 ### Security

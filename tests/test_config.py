@@ -12,6 +12,12 @@ def test_parse_interval():
     assert 3600 == parse_interval('1h')
     assert 86400 == parse_interval('1d')
 
+    assert 90 == parse_interval("1m30s")
+    assert 90.5 == parse_interval("1m30.5s")
+    assert 3661 == parse_interval("1h1m1s")
+    assert 86401 == parse_interval("1d1s")
+    assert 1800 == parse_interval("0.5h")
+
     with pytest.raises(ValueError):
         parse_interval('1x')
 

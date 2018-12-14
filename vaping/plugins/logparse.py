@@ -4,6 +4,7 @@ import logging
 import re
 
 import vaping
+import vaping.config
 
 @vaping.plugin.register("logparse")
 class LogParse(vaping.plugins.FileProbe):
@@ -138,6 +139,27 @@ class LogParse(vaping.plugins.FileProbe):
                  value = validate(value)
              else:
                 raise
+
+    def validate_elapsed(self, value):
+        return self.validate_interval(value)
+
+    def validate_interval(self, value):
+        """
+        validates a string describing elapsed time or time duration
+
+        Arguments:
+
+            value(str): elapsed time
+
+            Examples:
+                 - 1d2h
+                 - 1m30s
+                 - 30.3s
+
+        Returns:
+            float: seconds
+        """
+        return vaping.config.parse_interval(value)
 
 
     def aggregate(self, messages):
