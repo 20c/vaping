@@ -70,7 +70,7 @@ config_aggr = {
         "str_val":"xyz", "int_val": 123, "float_val": 1.23,
         "eval_val": 123*1.23}, None),
     ("exclude abcde str_val=xyz int_val=123 float_val=1.23,abcde", {}, None),
-    ("include abcde abcde", None, "Could not parse field value")
+    ("include abcde abcde", {}, None)
 ])
 def test_parse_line(line,result,raises):
     inst = plugin.get_instance(config, None)
