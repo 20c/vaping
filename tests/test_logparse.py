@@ -2,6 +2,7 @@ import pytest
 import time
 import sys
 import math
+import datetime
 
 from vaping import plugin
 
@@ -64,6 +65,22 @@ config_aggr = {
 }
 
 
+config_time_parser = {
+    "type" : "logparse",
+    "name" : "logparse_tp_test",
+    "fields" : {
+        "str_val" : {
+            "type": "str",
+            "parser" : "str_val=(\S+)"
+        }
+    },
+    "time_parser": {
+        "find" : "\d\d\d\d.\d\d.\d\d \d\d:\d\d:\d\d",
+        "format" : "%Y.%m.%d %H:%M:%S"
+    }
+}
+
+
 
 @pytest.mark.parametrize("line,result,raises", [
     ("include abcde str_val=xyz int_val=123 float_val=1.23 abcde", {
@@ -121,4 +138,25 @@ def test_aggregate(line, iterations,result,raises):
         for msg in messages:
             assert msg["data"] == [result[i]]
             i += 1
+
+
+@pytest.mark.parametrize("line,result,raises", [
+    ("2018.12.12 01:02:03 str_val=test", "2018.12.12 01:02:03", None),
+    ("2018.12 01:02:03 str_val=test", {}, None)
+])
+def test_time_parser(line,result,raises):
+    inst = plugin.get_instance(config_time_parser, None)
+    if raises:
+        with pytest.raises(ValueError) as exception_info:
+            _result = inst.process_line(line, {})
+        assert str(exception_info).find(raises) > -1
+    else:
+        _result = inst.process_line(line, {})
+        if not result:
+            assert _result == result
+        else:
+            dt = datetime.datetime.fromtimestamp(_result["ts"])
+            assert dt.strftime("%Y.%m.%d %H:%M:%S") == result
+
+
 
