@@ -2,9 +2,11 @@ from __future__ import absolute_import
 
 import logging
 import re
+import datetime
 
 import vaping
 import vaping.config
+
 
 @vaping.plugin.register("logparse")
 class LogParse(vaping.plugins.FileProbe):
@@ -32,6 +34,8 @@ class LogParse(vaping.plugins.FileProbe):
             `eval` evaluate to create the value, other fields
                 values will be available in the string formatting
 
+        `time_parser` if specified will be passed to strptime to
+            generate a timestamp from the logline
 
         `exclude` list of regex patterns that will cause
             lines to be excluded on match
@@ -57,6 +61,7 @@ class LogParse(vaping.plugins.FileProbe):
         self.aggregate_count = self.config.get("aggregate").get("count", 0)
         self.exclude = self.config.get("exclude", [])
         self.include = self.config.get("include", [])
+        self.time_parser = self.config.get("time_parser")
 
     def parse_line(self, line):
         """
@@ -285,6 +290,22 @@ class LogParse(vaping.plugins.FileProbe):
         return self.aggregate_sum(field_name, rows) / len(rows)
 
 
+    def parse_time(self, line):
+        find = self.time_parser.get("find")
+        fmt = self.time_parser.get("format")
+        if not find or not fmt:
+            raise ValueError("time_parser needs to be a dict with `find` and `format` keys")
+
+        time_string = re.search(find, line)
+        if not time_string:
+            raise ValueError("Could not find time string {} in line {}".format(find, line))
+
+
+        dt = datetime.datetime.strptime(time_string.group(0), fmt)
+        if dt.year == 1900:
+            dt = dt.replace(year=datetime.datetime.now().year)
+        return (dt-datetime.datetime(1970,1,1)).total_seconds()
+
 
     def process_line(self, line, data):
         """
@@ -295,10 +316,23 @@ class LogParse(vaping.plugins.FileProbe):
         Should return the data object
         """
 
-        data.update(self.parse_line(line))
+        data = self.parse_line(line)
+        if not data:
+            return {}
+
+        if self.time_parser:
+            try:
+                data.update(ts=self.parse_time(line))
+            except ValueError as exc:
+                self.log.debug(exc)
+                return {}
+
         return data
 
 
     def process_messages(self, messages):
+        for message in messages:
+            if message["data"] and message["data"][0] and message["data"][0].get("ts"):
+                message["ts"] = message["data"][0]["ts"]
         return self.aggregate(messages)
 
