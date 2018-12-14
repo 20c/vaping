@@ -37,6 +37,10 @@ class LogParse(vaping.plugins.FileProbe):
         `time_parser` if specified will be passed to strptime to
             generate a timestamp from the logline
 
+            time_parser:
+                find: \d\d:\d\d:\d\d
+                format: %H:%M:%S
+
         `exclude` list of regex patterns that will cause
             lines to be excluded on match
 
