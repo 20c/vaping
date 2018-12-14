@@ -205,15 +205,30 @@ class FileProbe(ProbeBase):
 
     Config:
         `path`: path to file
+        `backlog`: number of bytes to read from backlog (default 0)
+        `max_lines`: maximum number of lines to read during probe
+            (default 1000)
     """
 
     def __init__(self, config, ctx, emit=None):
         super(FileProbe, self).__init__(config, ctx, emit)
         self.path = self.pluginmgr_config.get("path")
         self.run_level = 0
+        self.backlog = int(self.pluginmgr_config.get("backlog",0))
+        self.max_lines = int(self.pluginmgr_config.get("max_lines",1000))
+
         if self.path:
             self.fh = open(self.path, "r")
             self.fh.seek(0,2)
+
+            if self.backlog:
+                try:
+                    self.fh.seek(self.fh.tell() - self.backlog, os.SEEK_SET)
+                except ValueError as exc:
+                    if str(exc).find("negative seek position") > -1:
+                        self.fh.seek(0)
+                    else:
+                        raise
 
 
     def _run(self):
@@ -271,7 +286,7 @@ class FileProbe(ProbeBase):
         messages = []
 
         # read any new lines and push them onto the stack
-        for line in self.fh.readlines():
+        for line in self.fh.readlines(self.max_lines):
             data = {"path":self.path}
             msg = self.new_message()
 
