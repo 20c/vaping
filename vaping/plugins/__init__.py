@@ -291,7 +291,10 @@ class FileProbe(ProbeBase):
             msg = self.new_message()
 
             # process the line - this is where parsing happens
-            data = self.process_line(line, data)
+            parsed = self.process_line(line, data)
+            if not parsed:
+                continue
+            data.update(parsed)
 
             # process the probe - this is where data assignment
             # happens
