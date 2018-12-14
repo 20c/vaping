@@ -7,9 +7,11 @@
 - fileprobe `max_lines` config option
 - logparse allow custom validators
 - logparse `validate_interval`
+- logparse `time_parser config option
 ### Fixed
+- fileprobe lines that can't be processed are now skipped
 ### Changed
-- `vaping.config.parse_interval` now can handle multiunit strings such as 1m30s
+- parse_interval now can handle multiunit strings such as 1m30s
 ### Deprecated
 ### Removed
 ### Security
