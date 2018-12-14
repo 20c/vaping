@@ -89,13 +89,17 @@ class LogParse(vaping.plugins.FileProbe):
         data = {}
 
         for k,v in fields.items():
-            data[k] = self.parse_field_value(v, line)
+            try:
+                data[k] = self.parse_field_value(v, line)
+            except (ValueError, TypeError) as exc:
+                self.log.debug(str(exc))
+                return {}
 
         for k,v in fields.items():
             if "eval" in v:
                 data[k] = eval(v["eval"].format(**data))
             if "type" in v:
-                data[k] = __builtins__.get(v["type"]).__call__(data[k])
+                data[k] = self.validate_value(data[k], v["type"])
 
             #print(k, data[k])
 
@@ -120,9 +124,20 @@ class LogParse(vaping.plugins.FileProbe):
 
         # apply field type
         if "type" in field and value is not None:
-            value = __builtins__.get(field["type"]).__call__(value)
+            value = self.validate_value(value, field["type"])
 
         return value
+
+
+    def validate_value(self, value, typ):
+        try:
+            return __builtins__.get(typ).__call__(value)
+        except AttributeError:
+             validate = getattr(self, "validate_{}".format(typ), None)
+             if validate:
+                 value = validate(value)
+             else:
+                raise
 
 
     def aggregate(self, messages):
