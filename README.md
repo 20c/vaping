@@ -28,6 +28,16 @@ to distribute.
 pip install vaping
 ```
 
+Note, you will need a compiler and python development libraries for some components.
+
+On CentOS/RHEL:
+
+```sh
+yum install gcc python-devel
+```
+
+gcc and it didnt work then i installed python-devel
+
 
 ## Usage
 
