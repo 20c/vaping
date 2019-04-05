@@ -6,7 +6,7 @@ pytest-filedata>=0.3, <1
 tox>=2.3.1, <4
 
 # plugins
-pyzmq>=15.3.0, <18
+pyzmq==18.0.1
 whisper>=0.9.15, <2
 rrdtool>=0.1.14, <1
 
