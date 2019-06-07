@@ -33,7 +33,7 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
             logging.debug(line)
             host = line.split()[1]
             if host != "*":
-                return str(host)
+                return host.decode('ascii')
 
         except Exception as e:
             logging.error("failed to get data {}".format(e))
