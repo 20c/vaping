@@ -9,9 +9,11 @@
 - logparse `validate_interval`
 - logparse `time_parser` config option
 ### Fixed
+- mtr plugin py3 compatibility issues
 - fileprobe lines that can't be processed are now skipped
 - fix #62 timeseriesdb plugins crash when `update` is given `None` as a value
 ### Changed
+- move from `facsimile` to `ctl` for package / release management
 - parse_interval now can handle multiunit strings such as 1m30s
 ### Deprecated
 ### Removed
