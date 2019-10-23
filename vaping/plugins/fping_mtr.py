@@ -33,7 +33,12 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
             logging.debug(line)
             host = line.split()[1]
             if host != "*":
-                return host.decode('ascii')
+                try:
+                    return host.decode('ascii')
+                except AttributeError:
+                    # No `decode` on `str` in py3
+                    # assume already decoded str
+                    return host
 
         except Exception as e:
             logging.error("failed to get data {}".format(e))
