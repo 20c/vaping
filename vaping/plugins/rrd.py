@@ -47,4 +47,6 @@ class RRDToolPlugin(vaping.plugins.TimeSeriesDB):
         )
 
     def update(self, filename, time, value):
+        if value is None:
+            return
         rrdtool.update(filename, "%d:%.4f" % (time, value))

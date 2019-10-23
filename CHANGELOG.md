@@ -7,9 +7,10 @@
 - fileprobe `max_lines` config option
 - logparse allow custom validators
 - logparse `validate_interval`
-- logparse `time_parser config option
+- logparse `time_parser` config option
 ### Fixed
 - fileprobe lines that can't be processed are now skipped
+- fix #62 timeseriesdb plugins crash when `update` is given `None` as a value
 ### Changed
 - parse_interval now can handle multiunit strings such as 1m30s
 ### Deprecated

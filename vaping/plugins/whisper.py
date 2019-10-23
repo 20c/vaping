@@ -41,6 +41,8 @@ class WhisperPlugin(vaping.plugins.TimeSeriesDB):
         )
 
     def update(self, filename, time, value):
+        if value is None:
+            return
         whisper.update(filename, value, time)
 
     def get(self, filename, from_time, to_time=None):

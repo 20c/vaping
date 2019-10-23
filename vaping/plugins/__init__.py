@@ -437,6 +437,6 @@ class TimeSeriesDB(EmitBase):
                     self.create(filename)
 
                 # update database
-                self.log.debug("storing time:%d, %s:%.5f in %s" % (
-                    message.get("ts"), self.field, row.get(self.field), filename))
+                self.log.debug("storing time:%d, %s:%s in %s" % (
+                    message.get("ts"), self.field, row.get(self.field, "-"), filename))
                 self.update(filename, message.get("ts"), row.get(self.field))
