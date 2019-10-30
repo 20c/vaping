@@ -52,6 +52,10 @@ def probe_to_graphsrv(probe):
 @vaping.plugin.register('vodka')
 class VodkaPlugin(vaping.plugins.EmitBase):
 
+    """
+    Plugin that emits to vodka data
+    """
+
     def init(self):
         self._is_started = False
 

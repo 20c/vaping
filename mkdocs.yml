@@ -4,12 +4,28 @@ repo_url: https://github.com/20c/vaping
 
 theme: readthedocs
 
-pages:
+nav:
   - Home: index.md
   - Quick Start Examples: quickstart.md
   - Advanced Examples: examples.md
   - Configuration: config.md
   - Development: dev.md
+  - API:
+    - vaping: api/vaping.md
+    - vaping.cli: api/vaping.cli.md
+    - vaping.config: api/vaping.config.md
+    - vaping.daemon: api/vaping.daemon.md
+    - vaping.io: api/vaping.io.md
+    - vaping.plugins: api/vaping.plugins.md
+    - vaping.plugins.command: api/vaping.plugins.command.md
+    - vaping.plugins.fping: api/vaping.plugins.fping.md
+    - vaping.plugins.fping_mtr: api/vaping.plugins.fping_mtr.md
+    - vaping.plugins.logparse: api/vaping.plugins.logparse.md
+    - vaping.plugins.rrd: api/vaping.plugins.rrd.md
+    - vaping.plugins.vodka: api/vaping.plugins.vodka.md
+    - vaping.plugins.whisper: api/vaping.plugins.whisper.md
+    - vaping.plugins.zeromq: api/vaping.plugins.zeromq.md
+
 
 markdown_extensions:
   - abbr
@@ -19,3 +35,4 @@ markdown_extensions:
   - markdown_include.include
   - tables
   - toc
+  - pymdgen

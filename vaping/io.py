@@ -1,3 +1,16 @@
+"""
+vaping io functionality
+
+currently relies on gevent and imports these functions/classes
+
+- `Queue`
+- `JoinableQueue`
+- `Empty`
+- `Thread` (`gevent.Greenlet`)
+- `joinall`
+- `sleep`
+"""
+
 import os
 import sys
 

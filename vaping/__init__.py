@@ -12,7 +12,26 @@ def check_method(obj, method, node):
 
 
 class PluginManager(ConfigPluginManager):
+    """
+    Vaping plugin manager
+
+    An instance of this will be instantiated automatically and be available
+    as `vaping.plugin`
+    """
+
     def exists(self, name):
+        """
+        Check if plugin instance exists
+
+        **Arguments**
+
+        - name (`str`): plugin instance name
+
+        **Returns**
+
+        `True` if instance exists, `False` if not
+        """
+
         if name in self._instance:
             return True
         return False

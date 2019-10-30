@@ -10,6 +10,10 @@ def parse_interval(val):
     converts a string to float of seconds
         .5 = 500ms
         90 = 1m30s
+
+    **Arguments**
+
+    - val (`str`)
     """
     re_intv = re.compile(r"([\d\.]+)([a-zA-Z]+)")
     val = val.strip()
@@ -33,6 +37,9 @@ def parse_interval(val):
     return total
 
 class Config(munge.Config):
+    """
+    Vaping config manager
+    """
     defaults = {
         'config': {
             'vaping': {

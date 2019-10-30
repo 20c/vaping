@@ -13,10 +13,19 @@ class FPingBase(vaping.plugins.TimedProbe):
     FPing base plugin
 
     config:
-        `command` command to run
-        `interval` time between pings
-        `count` number of pings to send
-        `period` time in milliseconds that fping waits between successive packets to an individual target
+
+    # Config
+
+    - command (`str=fping`): command to run
+    - interval (`str=1m`): time between pings
+    - count (`int=5`): number of pings to send
+    - period (`int=20`): time in milliseconds that fping waits
+    between successive packets to an individual target
+
+    # Instanced Attributes
+
+    - count (`int`): number of fpings to send
+    - period (`int`): time in milliseconds that fping waits between successive packets
     """
 
     default_config = {
@@ -63,6 +72,19 @@ class FPingBase(vaping.plugins.TimedProbe):
     def parse_verbose(self, line):
         """
         parse output from verbose format
+
+        **Returns**
+
+        parsed fping result (`dict`)
+
+        - `host`: host name
+        - `cnt`: fpings sent
+        - `loss`
+        - `data`: list of inidivual fping times
+        - `min`: smallest fping time
+        - `max`: biggest fping time
+        - `avg`: average fping time
+        - `last`: last fping time
         """
         try:
             logging.debug(line)
@@ -127,10 +149,13 @@ class FPing(FPingBase):
     """
     Run fping on configured hosts
 
-    config:
-        `command` command to run
-        `interval` time between pings
-        `count` number of pings to send
+    # Config
+
+    - command (`str=fping`): command to run
+    - interval (`str=1m`): time between pings
+    - count (`int=5`): number of pings to send
+    - period (`int=20`): time in milliseconds that fping waits
+    between successive packets to an individual target
     """
 
     def init(self):

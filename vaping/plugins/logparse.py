@@ -16,40 +16,46 @@ class LogParse(vaping.plugins.FileProbe):
     Will parse a log line by line and probe to emit data
     over a specified interval.
 
-    config:
-        `path` log file path
+    # Config
 
-        `fields` field definition
+    - path (`str`): log file path
+    - fields (`dict`): field definition
 
-            field name as key
+        field name as key
 
-            `parser` regex pattern to parse field value, needs to
-                one group in it
+        `parser` regex pattern to parse field value, needs to
+            one group in it
 
-            `type` value type (int, float etc.)
+        `type` value type (int, float etc.)
 
-            `aggregate` how to aggregate the field if aggregation
-                is turned on (sum, avg, eval)
+        `aggregate` how to aggregate the field if aggregation
+            is turned on (sum, avg, eval)
 
-            `eval` evaluate to create the value, other fields
-                values will be available in the string formatting
+        `eval` evaluate to create the value, other fields
+            values will be available in the string formatting
 
-        `time_parser` if specified will be passed to strptime to
-            generate a timestamp from the logline
+    - time_parser (`dict`) if specified will be passed to strptime to
+    generate a timestamp from the logline
 
-            time_parser:
-                find: \d\d:\d\d:\d\d
-                format: %H:%M:%S
+    ```
+    time_parser:
+        find: \d\d:\d\d:\d\d
+        format: %H:%M:%S
+    ```
+    - exclude (`list`): list of regex patterns that will cause
+      lines to be excluded on match
+    - include (`list`): list of regex patterns that will cause
+    - aggregate (`dict`): aggregation config
+        -`count` aggregate n lines
 
-        `exclude` list of regex patterns that will cause
-            lines to be excluded on match
+    # Instance Attributes
 
-        `include` list of regex patterns that will cause
-            lines to be included on match
-
-        `aggregate` aggregation config
-
-            `count` aggregate n lines
+    - stack (`list`)
+    - fields (`dict`): field config
+    - aggregate_count (`int`)
+    - exclude (`list`)
+    - include (`list`)
+    - time_parser (`dict`)
     """
 
     default_config = {
@@ -71,6 +77,10 @@ class LogParse(vaping.plugins.FileProbe):
         """
         Here is where we parse values out of a single line read from the log
         and return a dict containg keys and values
+
+        **Arguments**
+
+        - line (`str`)
         """
 
         # if a list of exclude patterns is specified
@@ -156,17 +166,13 @@ class LogParse(vaping.plugins.FileProbe):
         """
         validates a string describing elapsed time or time duration
 
-        Arguments:
+        **Arguments**
 
-            value(str): elapsed time
+        - value (`str`): elapsed time (example: 1d2h)
 
-            Examples:
-                 - 1d2h
-                 - 1m30s
-                 - 30.3s
+        **Returns**
 
-        Returns:
-            float: seconds
+        seconds (`float`)
         """
         return vaping.config.parse_interval(value)
 
@@ -176,6 +182,14 @@ class LogParse(vaping.plugins.FileProbe):
         """
         Takes a list of messages and aggregates them
         according to aggration config
+
+        **Arguments**
+
+        - messagges (`list<dict>`)
+
+        **Returns**
+
+        list of aggregated messages (`list<dict>`)
         """
 
         # aggregation is not turned on, just return
@@ -224,6 +238,10 @@ class LogParse(vaping.plugins.FileProbe):
         """
         Takesa vaping message with multiple items
         in it's data property and aggregates that data
+
+        **Arguments**
+
+        - message (`dict`): vaping message dict
         """
 
         # first data point is the main data point
@@ -257,10 +275,19 @@ class LogParse(vaping.plugins.FileProbe):
     def aggregate_field(self, field_name, rows):
         """
         takes a field name and a set of rows and will
-        return an aggregate value
+        return an aggregated value
 
         this requires for the field to have it's `aggregate`
         config specified in the probe config
+
+        **Arguments**
+
+        - field_name (`str`)
+        - rows (`list`)
+
+        **Returns**
+
+        aggregated value
         """
 
         field = self.fields.get(field_name,{})
@@ -280,17 +307,57 @@ class LogParse(vaping.plugins.FileProbe):
 
 
     def aggregate_sum(self, field_name, rows):
+        """
+        Aggregate sum
+
+        **Arguments**
+
+        - field_name (`str`): field to aggregate
+        - rows (`list`): list of vaping message data rows
+
+        **Returns**
+
+        sum
+        """
         c = 0
         for row in rows:
             c = c + row.get(field_name, 0)
         return c
 
     def aggregate_eval(self, field_name, rows):
+        """
+        Aggregate using an `eval()` result
+
+        Needs to have `eval` set in the field config. Value will
+        be passed straight to the `eval()` function so caution is
+        advised.
+
+        **Arguments**
+
+        - field_name (`str`): field to aggregate
+        - rows (`list`): list of vaping message data rows
+
+        **Returns**
+
+        eval result
+        """
         return eval(self.fields[field_name].get("eval").format(
             **rows[0]))
 
 
     def aggregate_avg(self, field_name, rows):
+        """
+        Aggregate average value
+
+        **Arguments**
+
+        - field_name (`str`): field to aggregate
+        - rows (`list`): list of vaping message data rows
+
+        **Returns**
+
+        avg (`float`)
+        """
         return self.aggregate_sum(field_name, rows) / len(rows)
 
 
@@ -318,6 +385,11 @@ class LogParse(vaping.plugins.FileProbe):
         emit object.
 
         Should return the data object
+
+        **Arguments**
+
+        - line (`str`): log line
+        - data (`dict`): current emit dict
         """
 
         data = self.parse_line(line)
@@ -335,6 +407,20 @@ class LogParse(vaping.plugins.FileProbe):
 
 
     def process_messages(self, messages):
+        """
+        Process vaping messages before the are emitted
+
+        Aggregation is handled here
+
+        **Arguments**
+
+        - messages (`list`): list of vaping messages
+
+        **Returns**
+
+        Result of self.aggregate
+        """
+
         for message in messages:
             if message["data"] and message["data"][0] and message["data"][0].get("ts"):
                 message["ts"] = message["data"][0]["ts"]

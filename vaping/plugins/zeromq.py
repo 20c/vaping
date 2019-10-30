@@ -12,7 +12,12 @@ import vaping.plugins
 @vaping.plugin.register('zeromq')
 class ZeroMQ(vaping.plugins.EmitBase):
     """
-    plugin to emit messages via zeromq
+    plugin to emit json encoded messages via zeromq
+
+    # Instanced Attributes
+
+    - ctx (`zmq Context`)
+    - sock (`zmq socket`)
     """
 
     def __init__(self, config, ctx):

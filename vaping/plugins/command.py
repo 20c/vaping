@@ -12,6 +12,21 @@ from vaping.io import subprocess
 @vaping.plugin.register('command')
 class CommandProbe(vaping.plugins.TimedProbe):
 
+    """
+    Probe type plugin that allows you to run an arbitrary
+    command for each host and return the command output as
+    data
+
+    # Config
+
+    - command (`str`): command to run (use `{host}` to reference the host)
+    - interval (`float`): time between probes
+
+    # Instanced Attributes
+
+    - command (`str`): command to run
+    """
+
     default_config = {
         'command': None,
         'interval': '1m',

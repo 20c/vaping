@@ -12,15 +12,14 @@ import vaping.io
 
 class PluginBase(vaping.io.Thread):
     """
-    Base plugin class
+    Base plugin interface
 
-    Initializes:
+    # Instanced Attributes
 
-    - `self.config` as plugins config
-    - `self.log` as a logging object for plugin
-    - `self.vaping` as a reference to the main vaping object
+    - config (`dict`): plugin config
+    - vaping: reference to the main vaping object
 
-    Then calls alls `self.init()` prefork while loading all modules, init() should
+    Calls `self.init()` prefork while loading all modules, init() should
     not do anything active, any files opened may be closed when it forks.
 
     Plugins should prefer `init()` to `__init__()` to ensure the class is
@@ -50,8 +49,13 @@ class PluginBase(vaping.io.Thread):
 
     def new_message(self):
         """
-        creates a new message, setting `type`, `source`, `ts`, `data`
-        - `data` is initialized to an empty array
+        creates and returns new message `dict`, setting `type`, `source`, `ts`, `data`
+
+        `data` is initialized to an empty array
+
+        **Returns**
+
+        message (`dict`)
         """
         msg = {}
         msg['data'] = []
@@ -63,17 +67,31 @@ class PluginBase(vaping.io.Thread):
     def popen(self, args, **kwargs):
         """
         creates a subprocess with passed args
+
+        **Returns**
+
+        Popen instance
         """
         self.log.debug("popen %s", ' '.join(args))
         return vaping.io.subprocess.Popen(args, **kwargs)
 
     @property
     def log(self):
+        """
+        logger instance for plugin type
+        """
         if not self._logger:
             self._logger = logging.getLogger('vaping.plugins.' + self.plugin_type)
         return self._logger
 
     def __init__(self, config, ctx):
+        """
+        **Arguments**
+
+        - config (`dict`)
+        - ctx: vaping context
+        """
+
         if hasattr(self, 'default_config'):
             self.config = munge.util.recursive_update(copy.deepcopy(self.default_config), copy.deepcopy(config))
         else:
@@ -131,6 +149,10 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
     def queue_emission(self, msg):
         """
         queue an emission of a message for all output plugins
+
+        **Arguments**
+
+        - msg (`dict`): dict containing `type`, `source`, `ts` and `data` keys
         """
         if not msg:
             return
@@ -203,11 +225,18 @@ class FileProbe(ProbeBase):
     """
     Probes a file and emits everytime a new line is read
 
-    Config:
-        `path`: path to file
-        `backlog`: number of bytes to read from backlog (default 0)
-        `max_lines`: maximum number of lines to read during probe
-            (default 1000)
+    # Config
+
+    - path (`str`): path to file
+    - backlog (`int=0`): number of bytes to read from backlog
+    - max_lines (`int=1000`): maximum number of lines to read during probe
+
+    # Instanced Attributes
+
+    - path (`str`): path to file
+    - backlog (`int`): number of bytes to read from backlog
+    - max_lines (`int`): maximum number of liens to read during probe
+    - fh (`filehandler`): file handler for opened file (only available if `path` is set)
     """
 
     def __init__(self, config, ctx, emit=None):
@@ -343,7 +372,17 @@ class EmitBase(with_metaclass(abc.ABCMeta, PluginBase)):
 
 class TimeSeriesDB(EmitBase):
     """
-    Base class for timeseries db storage plugins
+    Base interface for timeseries db storage plugins
+
+    # Config
+
+    - filename (`str`): database file name template
+    - field (`str`): fieeld name to read the value from
+
+    # Instanced Attributes
+
+    - filename (`str`): database file name template
+    - field (`str`): fieeld name to read the value from
     """
 
     def __init__(self, config, ctx):
@@ -366,7 +405,9 @@ class TimeSeriesDB(EmitBase):
         """
         Create database
 
-        - `filename`: database filename
+        **Arguments**
+
+        - filename (`str`): database filename
         """
         raise NotImplementedError()
 
@@ -374,9 +415,11 @@ class TimeSeriesDB(EmitBase):
         """
         Update database
 
-        - `filename`: database filename
-        - `time`: timestamp
-        - `value`
+        **Arguments**
+
+        - filename (`str`): database filename
+        - time (`int`): epoch timestamp
+        - value (`mixed`)
         """
         raise NotImplementedError()
 
@@ -385,9 +428,11 @@ class TimeSeriesDB(EmitBase):
         Retrieve data from database for the specified
         timespan
 
-        - `filename`: database filename
-        - `from_time`: from time
-        - `to_time`: to time
+        **Arguments**
+
+        - filename (`str`): database filename
+        - from_time (`int`): epoch timestamp start
+        - to_time (`int`): epoch timestamp end
         """
         raise NotImplementedError()
 
@@ -398,8 +443,14 @@ class TimeSeriesDB(EmitBase):
         Values are gotten from the vaping data message as well as the
         currently processed row in the message
 
-        - `data`: vaping message
-        - `row`: vaping message data row
+        **Arguments**
+
+        - data (`dict`): vaping message
+        - row (`dict`): vaping message data row
+
+        **Returns**
+
+        formatter variables (`dict`)
         """
 
         r = {
@@ -415,14 +466,24 @@ class TimeSeriesDB(EmitBase):
         Returns a formatted filename using the template stored
         in self.filename
 
-        - `data`: vaping message
-        - `row`: vaping message data row
+        **Arguments**
+
+        - data (`dict`): vaping message
+        - row (`dict`): vaping message data row
+
+        **Returns**
+
+        formatted version of self.filename (`str`)
         """
         return self.filename.format(**self.filename_formatters(data, row))
 
     def emit(self, message):
         """
         emit to database
+
+        **Arguments**
+
+        - message (`dict`): vaping message dict
         """
         # handle vaping data that arrives in a list
         if isinstance(message.get("data"), list):

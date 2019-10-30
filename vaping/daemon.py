@@ -1,4 +1,3 @@
-
 from __future__ import absolute_import
 from builtins import object
 
@@ -26,6 +25,9 @@ class PluginContext(object):
 
     @property
     def config(self):
+        """
+        config
+        """
         return self.__config
 
 
@@ -90,6 +92,9 @@ class Vaping(object):
 
     @property
     def log(self):
+        """
+        logger instance
+        """
         if not self._logger:
             self._logger = logging.getLogger(__name__)
         return self._logger

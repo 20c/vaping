@@ -8,6 +8,8 @@
 - logparse allow custom validators
 - logparse `validate_interval`
 - logparse `time_parser` config option
+- code documentation improvements
+- pymdgen for apidocs
 ### Fixed
 - mtr plugin py3 compatibility issues
 - fileprobe lines that can't be processed are now skipped

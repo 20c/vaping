@@ -1,0 +1,1 @@
+{pymdgen:vaping.config}

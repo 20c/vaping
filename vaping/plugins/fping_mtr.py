@@ -14,10 +14,16 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
     """
     Run fping on a traceroute path
 
-    config:
-        `command` command to run
-        `interval` time between pings
-        `count` number of pings to send
+    # Config
+
+    - interval (`float`) time between pings
+    - count (`int`) number of pings to send
+
+    # Instanced Attributes
+
+    - hosts (`list`)
+    - lines_read (`int`)
+    - mtr_host (`str`)
     """
 
     def init(self):
@@ -27,7 +33,15 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
 
     def parse_traceroute_line(self, line):
         """
-        parse output from verbose format
+        parse host from verbose traceroute result format
+
+        **Arguments**
+
+        - line (string type): line from traceroutei result output
+
+        **Returns**
+
+        host (`str`)
         """
         try:
             logging.debug(line)
@@ -44,6 +58,18 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
             logging.error("failed to get data {}".format(e))
 
     def parse_traceroute(self, it):
+        """
+        parse traceroute output
+
+        **Arguments**
+
+        - it: collection of lines to iterate through
+
+        **Returns**
+
+        hosts (`list<str>`): list of hosts in the traceroute result
+        """
+
         self.lines_read = 0
         hosts = list()
 
@@ -61,6 +87,15 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
         return hosts
 
     def get_hosts(self):
+        """
+        Run traceroute for the `mtr_host` host and return
+        the hosts found in the route
+
+        **Returns**
+
+        hosts (`list<str>`): list of hosts in the route to `mtr_host`
+        """
+
         command = "traceroute"
         first_ttl = 1
         max_ttl = 24
@@ -89,6 +124,14 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
         return hosts
 
     def probe(self):
+        """
+        Gets a list of hosts via `get_hosts` and then runs fping
+        against all of them to build mtr data
+
+        **Returns**
+
+        msg (`dict`)
+        """
         self.hosts = self.get_hosts()
         msg = self.new_message()
         data = dict([(hop["host"],hop) for hop in self._run_proc()

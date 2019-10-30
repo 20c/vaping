@@ -11,6 +11,9 @@ import vaping.daemon
 
 
 class Context(munge.click.Context):
+    """
+    Extended `click` context to use for vaping cli
+    """
     app_name = 'vaping'
     config_class = vaping.Config
 
@@ -28,6 +31,17 @@ def update_context(ctx, kwargs):
 
 
 def mk_daemon(ctx):
+    """
+    Return a daemon.Vaping instance
+
+    **Arguments**
+
+    - ctx (`Context`): vaping `click` context instance
+
+    **Returns**
+
+    `vaping.daemon.Vaping` instance
+    """
     if not ctx.config.meta:
         raise ValueError("no config specified, please use specify a home directory")
     return vaping.daemon.Vaping(ctx.config)
