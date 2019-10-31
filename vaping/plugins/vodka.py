@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 import vaping
 import vaping.config
+import vaping.io
 
 try:
     import vodka
@@ -58,10 +59,31 @@ class VodkaPlugin(vaping.plugins.EmitBase):
 
     def init(self):
         self._is_started = False
+        self._is_starting = False
 
     def start(self):
+        """
+        We are delaying the vodka startup to
+        circumvent some sort of race condition that
+        causes flask to be unresponsive when running
+        with py3 (and probably certain versions of py2.7)
+
+        FIXME: look into this more
+        """
+        if self._is_starting:
+            return
+
+        self._is_starting = True
+
+        # actually start vodka plugin after a short sleep
+        vaping.io.sleep(0.5)
+        self._start()
+
+    def _start(self):
+
         if self._is_started:
             return
+        self._is_started = True
         vodka.run(self.config, self.vaping.config)
 
         if graphsrv:
@@ -72,7 +94,6 @@ class VodkaPlugin(vaping.plugins.EmitBase):
                 probe = vaping.plugin.get_probe(node, self.vaping)
                 probe_to_graphsrv(probe)
 
-        self._is_started = True
 
     def emit(self, message):
         if not self._is_started:
