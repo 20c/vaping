@@ -12,7 +12,7 @@
 - code documentation improvements
 - pymdgen for apidocs
 ### Fixed
-- fixed daemon mode in py3
+- fix startup issues with python 3.6+ and python2.7 on certain distributions
 - mtr plugin py3 compatibility issues
 - fileprobe lines that can't be processed are now skipped
 - fix #62 timeseriesdb plugins crash when `update` is given `None` as a value
