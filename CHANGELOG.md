@@ -3,6 +3,7 @@
 
 ## [Unreleased]
 ### Added
+- python3.7 support
 - fileprobe `backlog` config option
 - fileprobe `max_lines` config option
 - logparse allow custom validators
