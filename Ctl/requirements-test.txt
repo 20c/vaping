@@ -4,7 +4,7 @@ pytest>=2.9.2, <4
 pytest-cov>=2.3.0, <3
 # pinning to <0.4 for now until tests are fixed to
 # work with pytest-filedata 0.4
-pytest-filedata>=0.3, <0.4
+pytest-filedata==0.4.0
 tox>=2.3.1, <4
 
 # plugins
