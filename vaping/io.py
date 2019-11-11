@@ -24,4 +24,12 @@ else:
 #from gevent import subprocess
 from gevent.queue import Queue, JoinableQueue, Empty # noqa
 from gevent import Greenlet as Thread # noqa
-from gevent import joinall, sleep # noqa
+from gevent import joinall, sleep, monkey # noqa
+
+monkey.patch_thread()
+monkey.patch_subprocess()
+monkey.patch_select()
+
+# FIXME: patching time breaks startup, figure
+# out why as it makes sense for it to be patched
+# monkey.patch_time()

@@ -59,27 +59,8 @@ class VodkaPlugin(vaping.plugins.EmitBase):
 
     def init(self):
         self._is_started = False
-        self._is_starting = False
 
     def start(self):
-        """
-        We are delaying the vodka startup to
-        circumvent some sort of race condition that
-        causes flask to be unresponsive when running
-        with py3 (and probably certain versions of py2.7)
-
-        FIXME: look into this more
-        """
-        if self._is_starting:
-            return
-
-        self._is_starting = True
-
-        # actually start vodka plugin after a short sleep
-        vaping.io.sleep(0.5)
-        self._start()
-
-    def _start(self):
 
         if self._is_started:
             return
