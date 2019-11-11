@@ -25,16 +25,11 @@ else:
 from gevent.queue import Queue, JoinableQueue, Empty # noqa
 from gevent import Greenlet as Thread # noqa
 from gevent import joinall, sleep, monkey # noqa
-monkey.patch_all(time=False,
-                socket=False,
-                dns=False,
-                thread=True,
-                os=False,
-                signal=False,
-                sys=False,
-                Event=False,
-                queue=False,
-                aggressive=False,
-                builtins=False,
-                subprocess=True,
-                ssl=False)
+
+monkey.patch_thread()
+monkey.patch_subprocess()
+monkey.patch_select()
+
+# FIXME: patching time breaks startup, figure
+# out why as it makes sense for it to be patched
+# monkey.patch_time()
