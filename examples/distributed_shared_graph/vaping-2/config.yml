@@ -4,9 +4,10 @@ probes:
     output:
       - zmq_vodka
 
-    public_dns:
-      hosts:
-        - host: 8.8.8.8
+    groups:
+      - name: public_dns
+        hosts:
+          - host: 8.8.8.8
 
 plugins:
   - name: std_fping

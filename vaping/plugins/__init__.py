@@ -1,9 +1,10 @@
+import collections
+import os
 import abc
 import copy
 import datetime
 import logging
 import munge
-import os
 
 from future.utils import with_metaclass
 from vaping.config import parse_interval
@@ -28,6 +29,32 @@ class PluginBase(vaping.io.Thread):
     Calls `self.on_start()` and `self.on_stop()` before and after running in
     case any connections need to be created or cleaned up.
     """
+
+    @property
+    def groups(self):
+
+        """
+        `dict` - group configurations keyed by name
+        """
+
+        group_config = {}
+
+        # legacy way of threating any dict as a potential
+        # group config (pre #44 implementation)
+        # supported until vaping 2.0
+
+        for k,v in list(self.config.items()):
+            if isinstance(v, collections.Mapping):
+                group_config[k] = v
+
+        # explicit groups object (#44 implementation)
+
+        for _group_config in self.config.get("groups",[]):
+            group_config[_group_config["name"]] = _group_config
+
+        return group_config
+
+
     def init(self):
         """
         called after the plugin is initialized, plugin may define this for any

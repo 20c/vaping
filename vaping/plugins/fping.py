@@ -160,10 +160,9 @@ class FPing(FPingBase):
 
     def init(self):
         self.hosts = []
-        for key, value in list(self.config.items()):
-            # dict means it's a group
-            if isinstance(value, collections.Mapping):
-                self.hosts.extend(value['hosts'])
+
+        for name, group_config in list(self.groups.items()):
+            self.hosts.extend(group_config.get("hosts",[]))
 
     def probe(self):
         msg = self.new_message()

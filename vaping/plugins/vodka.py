@@ -37,17 +37,18 @@ def probe_to_graphsrv(probe):
         return
 
     # automatic group setup for fping
-    # FIXME: this should be somehow more dynamic
 
-    for k, v in list(config.items()):
-        if isinstance(v, dict) and "hosts" in v:
-            r = {}
-            for host in v.get("hosts"):
-                if isinstance(host, dict):
-                    r[host["host"]] = host
-                else:
-                    r[host] = {"host":host}
-            graphsrv.group.add(probe.name, k, r, **v)
+    for group_name, group_config in list(probe.groups.items()):
+        if "hosts" not in group_config:
+            continue
+
+        r = {}
+        for host in group_config.get("hosts"):
+            if isinstance(host, dict):
+                r[host["host"]] = host
+            else:
+                r[host] = {"host":host}
+        graphsrv.group.add(probe.name, group_name, r, **group_config)
 
 
 @vaping.plugin.register('vodka')
