@@ -30,4 +30,4 @@ def test_probe_plugin_name(config_dir):
 
     with pytest.raises(ValueError) as excinfo:
         vaping.daemon.Vaping(config_dir=config_dir)
-    assert "probes may not share names with plugins" in str(excinfo)
+    assert "probes may not share names with plugins" in str(excinfo.value)
