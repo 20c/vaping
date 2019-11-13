@@ -80,7 +80,10 @@ Stops a vaping process identified by `$VAPING_HOME/vaping.pid`
 
 ## Documentation
 
-Documentation is created with mkdocs and available at <http://vaping.readthedocs.io/en/latest/>
+Documentation is created with mkdocs and available here:
+
+**stable**: <http://vaping.readthedocs.io/en/stable/>
+**latest**: <http://vaping.readthedocs.io/en/latest/>
 
 
 ## Changes
