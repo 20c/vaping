@@ -3,6 +3,7 @@ import pytest
 
 import vaping
 from vaping.config import parse_interval
+from vaping import plugin
 
 
 def test_parse_interval():
@@ -31,3 +32,67 @@ def test_probe_plugin_name(config_dir):
     with pytest.raises(ValueError) as excinfo:
         vaping.daemon.Vaping(config_dir=config_dir)
     assert "probes may not share names with plugins" in str(excinfo.value)
+
+
+def test_plugin_legacy_groups():
+
+    """
+    test legacy plugin groups
+    TODO: remove with vaping 2.0
+    """
+
+    probe = plugin.get_probe({
+        "type" : "fping",
+        "name" : "probe_b",
+        "interval" : "3s",
+        "dns": {
+            "hosts": [{
+                "host" : "1.1.1.1",
+                "name" : "Cloudflare"
+            }]
+        }
+    }, {})
+
+    expected = {
+        "dns": {
+            "hosts": [{
+                "host" : "1.1.1.1",
+                "name": "Cloudflare"
+            }]
+        }
+    }
+
+    assert probe.groups == expected
+
+def test_plugin_groups():
+
+    """
+    test plugin groups as per #44 implementation
+    """
+
+    probe = plugin.get_probe({
+        "type" : "fping",
+        "name" : "probe_c",
+        "interval" : "3s",
+        "groups": [{
+            "name": "dns",
+            "hosts": [{
+                "host" : "1.1.1.1",
+                "name" : "Cloudflare"
+            }]
+        }]
+    }, {})
+
+
+    expected = {
+        "dns": {
+            "name": "dns",
+            "hosts": [{
+                "host" : "1.1.1.1",
+                "name": "Cloudflare"
+            }]
+        }
+    }
+
+    assert probe.groups == expected
+

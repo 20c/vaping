@@ -37,10 +37,8 @@ class CommandProbe(vaping.plugins.TimedProbe):
         if 'command' not in self.config:
             raise ValueError('command is required')
 
-        for k, v in list(self.config.items()):
-            # dict means it's a group - FIXME explicit groups
-            if isinstance(v, collections.Mapping):
-                self.hosts = v['hosts']
+        for name, group_config in list(self.groups.items()):
+            self.hosts.extend(group_config.get("hosts",[]))
 
         self.command = self.config['command']
 

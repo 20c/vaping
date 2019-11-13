@@ -12,6 +12,9 @@ def test_init(this_dir):
 
 
 def test_probe_to_graphsrv():
+
+    # vodka setup with single group plugin
+
     probe = plugin.get_probe({
         "type" : "fping_mtr",
         "name" : "probe_a",
@@ -23,6 +26,10 @@ def test_probe_to_graphsrv():
     group = graphsrv.group.groups.get("a").get("b")
 
     assert group["targets"] == {"1.1.1.1":{"host":"1.1.1.1"}}
+
+    # vodka setup with legacy plugin groups (before implementation
+    # of #44)
+    # TODO: remove with vaping 2.0
 
     probe = plugin.get_probe({
         "type" : "fping",
@@ -37,5 +44,25 @@ def test_probe_to_graphsrv():
     }, {})
     probe_to_graphsrv(probe)
     group = graphsrv.group.groups.get("probe_b").get("dns")
+
+    assert group["targets"] == {"1.1.1.1":{"host":"1.1.1.1", "name":"Cloudflare"}}
+
+    # vodka setup with plugin group implementation as
+    # per #44
+
+    probe = plugin.get_probe({
+        "type" : "fping",
+        "name" : "probe_c",
+        "interval" : "3s",
+        "groups": [{
+            "name": "dns",
+            "hosts": [{
+                "host" : "1.1.1.1",
+                "name" : "Cloudflare"
+            }]
+        }]
+    }, {})
+    probe_to_graphsrv(probe)
+    group = graphsrv.group.groups.get("probe_c").get("dns")
 
     assert group["targets"] == {"1.1.1.1":{"host":"1.1.1.1", "name":"Cloudflare"}}

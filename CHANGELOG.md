@@ -18,6 +18,7 @@
 - fix #62 timeseriesdb plugins crash when `update` is given `None` as a value
 - fix #54 pytest > 3 for testing
 ### Changed
+- plugin groups can now be maintained under an explicit `groups` section in the plugin config (#44)
 - move from `facsimile` to `ctl` for package / release management
 - parse_interval now can handle multiunit strings such as 1m30s
 ### Deprecated

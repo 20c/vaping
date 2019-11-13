@@ -4,17 +4,18 @@ probes:
     output:
       - graphite_avg
 
-    public_dns:
-      hosts:
-        - host: 8.8.8.8
-          name: Google
-          color: red
-        - host: 4.2.2.1
-          name: Level3
-          color: blue
-        - host: 208.67.222.222
-          name: OpenDNS
-          color: orange
+    groups:
+      - name: public_dns
+        hosts:
+          - host: 8.8.8.8
+            name: Google
+            color: red
+          - host: 4.2.2.1
+            name: Level3
+            color: blue
+          - host: 208.67.222.222
+            name: OpenDNS
+            color: orange
 
 plugins:
   - name: std_fping
