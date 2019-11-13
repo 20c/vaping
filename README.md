@@ -83,6 +83,7 @@ Stops a vaping process identified by `$VAPING_HOME/vaping.pid`
 Documentation is created with mkdocs and available here:
 
 **stable**: <http://vaping.readthedocs.io/en/stable/>
+
 **latest**: <http://vaping.readthedocs.io/en/latest/>
 
 
