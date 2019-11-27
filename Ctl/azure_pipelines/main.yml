@@ -6,7 +6,7 @@ resources:
     type: github
     endpoint: github
     name: tox-dev/azure-pipelines-template
-    ref: master
+#    ref: master
 
 trigger:
   batch: true
@@ -19,6 +19,11 @@ pr:
   branches:
     include:
     - master
+
+variables:
+  PYTEST_ADDOPTS: "-v -v -ra --showlocals"
+  PYTEST_XDIST_PROC_NR: 'auto'
+  CI_RUN: 'yes'
 
 jobs:
 - template: run-tox-env.yml@tox
