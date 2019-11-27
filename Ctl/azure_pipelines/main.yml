@@ -2,7 +2,7 @@
 name: $(BuildDefinitionName)_$(Date:yyyyMMdd)$(Rev:.rr)
 resources:
   repositories:
-  - repository: tox
+  - repository: tox-dev
     type: github
     endpoint: github
     name: tox-dev/azure-pipelines-template
