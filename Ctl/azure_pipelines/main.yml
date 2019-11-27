@@ -34,7 +34,7 @@ stages:
         py39:
           image: [linux]
         py38:
-          image: [linux]
+          image: [linux, macOs]
         py37:
           image: [linux, macOs]
         py36:
@@ -42,15 +42,14 @@ stages:
         py35:
           image: [linux, macOs]
         py34:
-          image: [linux, macOs]
+          image: [linux]
         py27:
           image: [linux, macOS]
   #      dev: null
       before:
         - script: 'sudo apt-get update -y && sudo apt-get install fping librrd-dev traceroute'
           displayName: Install deps via apt-get
-          condition: and(succeeded(), eq(variables['image_name'], 'linux'), in(variables['TOXENV'], 'py37', 'py36', 'py35', 'py34', 'py27'))
-
+          condition: and(succeeded(), eq(variables['image_name'], 'linux'), startsWith(variables['TOXENV'], 'py'))
         - script: 'brew update -vvv && brew install fping rrdtool'
           displayName: Install deps via brew
-          condition: and(succeeded(), eq(variables['image_name'], 'macOs'), in(variables['TOXENV'], 'py37', 'py36', 'py35', 'py34', 'py27'))
+          condition: and(succeeded(), eq(variables['image_name'], 'macOs'), startsWith(variables['TOXENV'], 'py'))
