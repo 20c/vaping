@@ -4,7 +4,7 @@ probes:
     output:
       - vodka
 
-    host: 1.1.1.1
+    host: 8.8.8.2
 
 plugins:
   - name: fping_mtr
