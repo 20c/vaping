@@ -48,7 +48,7 @@ stages:
           image: [linux, macOS]
   #      dev: null
       before:
-        - script: 'sudo apt-get update -y && sudo apt-get upgrade && sudo apt-get install fping librrd-dev traceroute'
+        - script: 'sudo apt-get update -y && sudo apt-get install fping librrd-dev traceroute'
           displayName: Install deps via apt-get
           condition: and(succeeded(), eq(variables['image_name'], 'linux'), startsWith(variables['TOXENV'], 'py'))
         - script: 'brew update -vvv && brew install fping rrdtool'
