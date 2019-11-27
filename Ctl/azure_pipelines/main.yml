@@ -12,6 +12,7 @@ trigger:
   batch: true
   branches:
     include:
+    - azure_pipelines
     - master
     - refs/tags/*
 
