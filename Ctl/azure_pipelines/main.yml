@@ -29,18 +29,22 @@ jobs:
 - template: run-tox-env.yml@tox
   parameters:
     jobs:
-      fix_lint: null
-      docs: null
-      py38:
-        image: [linux]
-      py37:
-        image: [linux, windows, macOs]
+#      fix_lint: null
+#      docs: null
+#      py38:
+#        image: [linux]
+#      py37:
+#        image: [linux, windows, macOs]
       py27:
-        image: [linux, windows, macOs]
-      py36:
-        image: [linux, windows, macOs]
-      py35:
-        image: [linux, windows, macOs]
-      py34:
-        image: [linux, windows, macOs]
-      dev: null
+        image: [linux]
+#      py36:
+#        image: [linux, windows, macOs]
+#      py35:
+#        image: [linux, windows, macOs]
+#      py34:
+#        image: [linux, windows, macOs]
+#      dev: null
+    before:
+      - script: 'sudo apt-get update -y && sudo apt-get install fping librrd-dev traceroute'
+        displayName: install deps via apt-get
+        condition: and(succeeded(), eq(variables['image_name'], 'linux'), in(variables['TOXENV'], 'py37', 'py36', 'py35', 'py34', 'py27'))
