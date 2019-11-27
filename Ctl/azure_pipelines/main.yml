@@ -1,6 +1,41 @@
 
-trigger:
-- master
+name: $(BuildDefinitionName)_$(Date:yyyyMMdd)$(Rev:.rr)
+resources:
+  repositories:
+  - repository: tox
+    type: github
+    endpoint: github
+    name: tox-dev/azure-pipelines-template
+    ref: master
 
-pool:
-  vmImage: ubuntu-latest
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+    - refs/tags/*
+
+pr:
+  branches:
+    include:
+    - master
+
+jobs:
+- template: run-tox-env.yml@tox
+  parameters:
+    jobs:
+      fix_lint: null
+      docs: null
+      py38:
+        image: [linux]
+      py37:
+        image: [linux, windows, macOs]
+      py27:
+        image: [linux, windows, macOs]
+      py36:
+        image: [linux, windows, macOs]
+      py35:
+        image: [linux, windows, macOs]
+      py34:
+        image: [linux, windows, macOs]
+      dev: null
