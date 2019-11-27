@@ -6,7 +6,8 @@ resources:
     type: github
     endpoint: github
     name: tox-dev/azure-pipelines-template
-    ref: refs/tags/0.2
+    # master for py 3.8 and 3.9
+    ref: master
 
 trigger:
   batch: true
