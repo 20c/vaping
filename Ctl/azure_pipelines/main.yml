@@ -1,5 +1,5 @@
 
-name: $(BuildDefinitionName):$(Date:yyyyMMdd)$(Rev:.rr)
+name: $(BuildDefinitionName)+$(Date:yyyyMMdd)$(Rev:.rr)
 resources:
   repositories:
   - repository: tox
