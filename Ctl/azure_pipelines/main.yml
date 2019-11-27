@@ -36,14 +36,14 @@ jobs:
 #        image: [linux]
 #      py37:
 #        image: [linux, windows, macOs]
-      py27:
-        image: [linux, macOS]
-#      py36:
-#        image: [linux, windows, macOs]
+      py36:
+        image: [linux, macOs]
 #      py35:
 #        image: [linux, windows, macOs]
 #      py34:
 #        image: [linux, windows, macOs]
+      py27:
+        image: [linux, macOS]
 #      dev: null
     before:
       - script: 'sudo apt-get update -y && sudo apt-get install fping librrd-dev traceroute'
