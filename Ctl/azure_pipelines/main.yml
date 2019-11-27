@@ -46,9 +46,13 @@ jobs:
         image: [linux, macOS]
 #      dev: null
     before:
+      - script: 'traceroute -n -w1 -q1 8.8.8.8'
+        displayName: test traceroute
+
       - script: 'sudo apt-get update -y && sudo apt-get install fping librrd-dev traceroute'
         displayName: install deps via apt-get
         condition: and(succeeded(), eq(variables['image_name'], 'linux'), in(variables['TOXENV'], 'py37', 'py36', 'py35', 'py34', 'py27'))
+
       - script: 'brew update -vvv && brew install fping rrdtool'
         displayName: install deps via brew
         condition: and(succeeded(), eq(variables['image_name'], 'macOs'), in(variables['TOXENV'], 'py37', 'py36', 'py35', 'py34', 'py27'))
