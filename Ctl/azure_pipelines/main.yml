@@ -32,8 +32,9 @@ stages:
   - template: run-tox-env.yml@tox
     parameters:
       jobs:
-        py39:
-          image: [linux]
+        # gevent doesn't work on python 3.9 yet
+        # py39:
+        #   image: [linux]
         py38:
           image: [linux, macOs]
         py37:
