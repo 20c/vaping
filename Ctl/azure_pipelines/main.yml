@@ -2,11 +2,11 @@
 name: $(BuildDefinitionName)_$(Date:yyyyMMdd)$(Rev:.rr)
 resources:
   repositories:
-  - repository: tox-dev
+  - repository: tox
     type: github
     endpoint: github
     name: tox-dev/azure-pipelines-template
-#    ref: master
+    ref: refs/tags/0.2
 
 trigger:
   batch: true
