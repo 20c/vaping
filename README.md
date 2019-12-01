@@ -35,8 +35,6 @@ On CentOS/RHEL:
 yum install gcc python-devel
 ```
 
-gcc and it didnt work then i installed python-devel
-
 
 ## Usage
 
