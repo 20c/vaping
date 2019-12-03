@@ -1,0 +1,77 @@
+0.3.0:
+  added:
+  - py3 support
+  - better startup failure messages
+  - check for plugin requirements (fping, zeromq)
+  - added on_start() and on_stop() events to plugins
+  - zeromq can connect or bind to socket
+  changed:
+  - call start() on emit plugins
+  fixed:
+  - '#2 error if zeromq is missing'
+  - '#3 daemonize closes plugin fds'
+0.4.0:
+  added:
+  - timeseries db abstraction plugin
+  - whisper db plugin
+  - RRDtool db plugin
+  fixed:
+  - pinned pluginmgr dependency to 0.4.0 as 0.5.0 currently breaks vaping
+0.5.0:
+  changed:
+  - port to pluginmgr .5
+  - updated other deps
+  fixed:
+  - 'issue #29: Python3 complains about bytes-like object in fping.py'
+0.6.0:
+  added:
+  - added python3.6 to tests
+  - add home_dir config option
+  - add better config testing
+  - add last time to fping
+  - add first iteration of mtr graph
+0.6.1:
+  fixed:
+  - issue where standalone vaping/vodka would not allow an fping probe to create more
+    than one group
+1.0.0:
+  added:
+  - added graphite line protocol output plugin
+  - 'fping: exposed `period` parameter to config (Default to 20)'
+  - error for using duplicate probe names
+  fixed:
+  - 'update munge to reduce PyYAML requirements #35'
+1.0.1:
+  fixed:
+  - 'ipv6 fping parsing #50'
+1.1.0:
+  added:
+  - fileprobe plugin
+  - logparse plugin
+  - support for multiple output targets
+  fixed:
+  - python3 encoding issue in the fping module
+Unreleased:
+  added:
+  - python3.7 support
+  - fileprobe `backlog` config option
+  - fileprobe `max_lines` config option
+  - logparse allow custom validators
+  - logparse `validate_interval`
+  - logparse `time_parser` config option
+  - code documentation improvements
+  - pymdgen for apidocs
+  changed:
+  - plugin groups can now be maintained under an explicit `groups` section in the
+    plugin config (#44)
+  - move from `facsimile` to `ctl` for package / release management
+  - parse_interval now can handle multiunit strings such as 1m30s
+  deprecated: []
+  fixed:
+  - fix startup issues with python 3.6+ and python2.7 on certain distributions
+  - mtr plugin py3 compatibility issues
+  - fileprobe lines that can't be processed are now skipped
+  - 'fix #62 timeseriesdb plugins crash when `update` is given `None` as a value'
+  - 'fix #54 pytest > 3 for testing'
+  removed: []
+  security: []
