@@ -92,7 +92,7 @@ The current change log is available at <https://github.com/20c/vaping/blob/maste
 
 ## License
 
-Copyright 2016-2017 20C, LLC
+Copyright 2016-2019 20C, LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this softare except in compliance with the License.
