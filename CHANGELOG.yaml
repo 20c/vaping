@@ -51,7 +51,7 @@
   - support for multiple output targets
   fixed:
   - python3 encoding issue in the fping module
-Unreleased:
+1.2.0:
   added:
   - python3.7 support
   - fileprobe `backlog` config option
@@ -73,3 +73,10 @@ Unreleased:
   - fileprobe lines that can't be processed are now skipped
   - 'fix #62 timeseriesdb plugins crash when `update` is given `None` as a value'
   - 'fix #54 pytest > 3 for testing'
+Unreleased:
+  added: []
+  changed: []
+  deprecated: []
+  fixed: []
+  removed: []
+  security: []

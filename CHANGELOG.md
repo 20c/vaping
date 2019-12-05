@@ -2,6 +2,9 @@
 
 
 ## Unreleased
+
+
+## 1.2.0
 ### Added
 - python3.7 support
 - fileprobe `backlog` config option
