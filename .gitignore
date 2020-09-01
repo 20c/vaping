@@ -6,6 +6,7 @@
 .coverage*
 .pytest_cache/
 .tox
+*.bak
 coverage.xml
 dist/
 site/
