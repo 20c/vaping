@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 import logging
 import re
 import datetime
@@ -10,7 +8,7 @@ import vaping.config
 
 @vaping.plugin.register("logparse")
 class LogParse(vaping.plugins.FileProbe):
-    """
+    r"""
     Log parse plugin base
 
     Will parse a log line by line and probe to emit data
@@ -58,12 +56,7 @@ class LogParse(vaping.plugins.FileProbe):
     - time_parser (`dict`)
     """
 
-    default_config = {
-        'fields' : {},
-        'exclude' : [],
-        'include' : [],
-        'aggregate' : {}
-    }
+    default_config = {"fields": {}, "exclude": [], "include": [], "aggregate": {}}
 
     def init(self):
         self.stack = []
@@ -91,7 +84,6 @@ class LogParse(vaping.plugins.FileProbe):
                 if re.search(pattern, line):
                     return {}
 
-
         # if a list of include patterns is specified
         # check if the line matches any of them
         # and ignore it if it does not
@@ -104,27 +96,26 @@ class LogParse(vaping.plugins.FileProbe):
             if not matched:
                 return {}
 
-        fields = self.config.get("fields",{})
+        fields = self.config.get("fields", {})
 
         data = {}
 
-        for k,v in fields.items():
+        for k, v in list(fields.items()):
             try:
                 data[k] = self.parse_field_value(v, line)
             except (ValueError, TypeError) as exc:
                 self.log.debug(str(exc))
                 return {}
 
-        for k,v in fields.items():
+        for k, v in list(fields.items()):
             if "eval" in v:
                 data[k] = eval(v["eval"].format(**data))
             if "type" in v:
                 data[k] = self.validate_value(data[k], v["type"])
 
-            #print(k, data[k])
+            # print(k, data[k])
 
         return data
-
 
     def parse_field_value(self, field, line):
         """
@@ -134,12 +125,11 @@ class LogParse(vaping.plugins.FileProbe):
 
         value = None
 
-
         # parse field value
         if "parser" in field:
             match = re.search(field["parser"], line)
             if not match:
-                raise ValueError("Could not parse field value {}\n{}".format(field, line))
+                raise ValueError(f"Could not parse field value {field}\n{line}")
             value = match.group(1)
 
         # apply field type
@@ -148,15 +138,14 @@ class LogParse(vaping.plugins.FileProbe):
 
         return value
 
-
     def validate_value(self, value, typ):
         try:
             return __builtins__.get(typ).__call__(value)
         except AttributeError:
-             validate = getattr(self, "validate_{}".format(typ), None)
-             if validate:
-                 value = validate(value)
-             else:
+            validate = getattr(self, f"validate_{typ}", None)
+            if validate:
+                value = validate(value)
+            else:
                 raise
 
     def validate_elapsed(self, value):
@@ -175,7 +164,6 @@ class LogParse(vaping.plugins.FileProbe):
         seconds (`float`)
         """
         return vaping.config.parse_interval(value)
-
 
     def aggregate(self, messages):
 
@@ -202,12 +190,10 @@ class LogParse(vaping.plugins.FileProbe):
         # push messages onto stack
         self.stack = self.stack + messages
 
-
         # stack is still smaller than the aggregation count
         # return empty list
         if len(self.stack) < self.aggregate_count:
             return rv
-
 
         # while stack is bigger than the aggregation count
         # pop messages off the stack and aggregate
@@ -219,20 +205,18 @@ class LogParse(vaping.plugins.FileProbe):
 
             # join data of other messages to first message
             # no aggregation yet
-            for other in self.stack[:self.aggregate_count-1]:
+            for other in self.stack[: self.aggregate_count - 1]:
                 message["data"].extend(other["data"])
                 self.stack.remove(self.stack[0])
 
             # append multi-data message to result
             rv.append(message)
 
-
         # aggregate
         for message in rv:
             self.aggregate_message(message)
 
         return rv
-
 
     def aggregate_message(self, message):
         """
@@ -252,14 +236,13 @@ class LogParse(vaping.plugins.FileProbe):
         # TODO: move to class property
         finalizers = ["eval"]
 
-
         # aggregate
-        for k,v in self.fields.items():
+        for k, v in list(self.fields.items()):
             if v.get("aggregate") not in finalizers:
                 main[k] = self.aggregate_field(k, message["data"])
 
         # aggregate finalizers
-        for k,v in self.fields.items():
+        for k, v in list(self.fields.items()):
             if v.get("aggregate") in finalizers:
                 main[k] = self.aggregate_field(k, message["data"])
 
@@ -270,7 +253,6 @@ class LogParse(vaping.plugins.FileProbe):
         # remove everything but the main data point from
         # the message
         message["data"] = [main]
-
 
     def aggregate_field(self, field_name, rows):
         """
@@ -290,7 +272,7 @@ class LogParse(vaping.plugins.FileProbe):
         aggregated value
         """
 
-        field = self.fields.get(field_name,{})
+        field = self.fields.get(field_name, {})
 
         # no aggregator specified in field config
         # return the value of the last row as is
@@ -298,13 +280,10 @@ class LogParse(vaping.plugins.FileProbe):
             return rows[-1][field_name]
 
         # get aggregate function
-        aggregate = getattr(self,
-            "aggregate_{}".format(field.get("aggregate")))
+        aggregate = getattr(self, "aggregate_{}".format(field.get("aggregate")))
 
         r = aggregate(field_name, rows)
         return r
-
-
 
     def aggregate_sum(self, field_name, rows):
         """
@@ -341,9 +320,7 @@ class LogParse(vaping.plugins.FileProbe):
 
         eval result
         """
-        return eval(self.fields[field_name].get("eval").format(
-            **rows[0]))
-
+        return eval(self.fields[field_name].get("eval").format(**rows[0]))
 
     def aggregate_avg(self, field_name, rows):
         """
@@ -360,23 +337,22 @@ class LogParse(vaping.plugins.FileProbe):
         """
         return self.aggregate_sum(field_name, rows) / len(rows)
 
-
     def parse_time(self, line):
         find = self.time_parser.get("find")
         fmt = self.time_parser.get("format")
         if not find or not fmt:
-            raise ValueError("time_parser needs to be a dict with `find` and `format` keys")
+            raise ValueError(
+                "time_parser needs to be a dict with `find` and `format` keys"
+            )
 
         time_string = re.search(find, line)
         if not time_string:
-            raise ValueError("Could not find time string {} in line {}".format(find, line))
-
+            raise ValueError(f"Could not find time string {find} in line {line}")
 
         dt = datetime.datetime.strptime(time_string.group(0), fmt)
         if dt.year == 1900:
             dt = dt.replace(year=datetime.datetime.now().year)
-        return (dt-datetime.datetime(1970,1,1)).total_seconds()
-
+        return (dt - datetime.datetime(1970, 1, 1)).total_seconds()
 
     def process_line(self, line, data):
         """
@@ -405,7 +381,6 @@ class LogParse(vaping.plugins.FileProbe):
 
         return data
 
-
     def process_messages(self, messages):
         """
         Process vaping messages before the are emitted
@@ -425,4 +400,3 @@ class LogParse(vaping.plugins.FileProbe):
             if message["data"] and message["data"][0] and message["data"][0].get("ts"):
                 message["ts"] = message["data"][0]["ts"]
         return self.aggregate(messages)
-

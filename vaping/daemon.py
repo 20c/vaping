@@ -1,6 +1,3 @@
-from __future__ import absolute_import
-from builtins import object
-
 import daemon
 import pid as pidfile
 import os
@@ -15,10 +12,11 @@ import vaping.io
 from vaping import plugin
 
 
-class PluginContext(object):
+class PluginContext:
     """
     Context to pass to plugins for getting extra information
     """
+
     def __init__(self, config):
         # probably should be a deep copy for security from plugins
         self.__config = config.copy()
@@ -31,7 +29,7 @@ class PluginContext(object):
         return self.__config
 
 
-class Vaping(object):
+class Vaping:
     """ Vaping daemon class """
 
     def __init__(self, config=None, config_dir=None):
@@ -55,39 +53,41 @@ class Vaping(object):
         self._logger = None
         self.plugin_context = PluginContext(self.config)
 
-        vcfg = self.config.get('vaping', None)
+        vcfg = self.config.get("vaping", None)
         if not vcfg:
             vcfg = dict()
 
         # get either home_dir from config, or use config_dir
-        self.home_dir = vcfg.get('home_dir', None)
+        self.home_dir = vcfg.get("home_dir", None)
         if not self.home_dir:
-            self.home_dir = self.config.meta['config_dir']
+            self.home_dir = self.config.meta["config_dir"]
 
         if not os.path.exists(self.home_dir):
-            raise ValueError("home directory '{}' does not exist".format(self.home_dir))
+            raise ValueError(f"home directory '{self.home_dir}' does not exist")
 
         if not os.access(self.home_dir, os.W_OK):
-            raise ValueError("home directory '{}' is not writable".format(self.home_dir))
+            raise ValueError(f"home directory '{self.home_dir}' is not writable")
 
         # change to home for working dir
         os.chdir(self.home_dir)
 
         # instantiate all defined plugins
         # TODO remove and let them lazy init?
-        plugins = self.config.get('plugins', None)
+        plugins = self.config.get("plugins", None)
         if not plugins:
-            raise ValueError('no plugins specified')
+            raise ValueError("no plugins specified")
 
-        plugin.instantiate(self.config['plugins'], self.plugin_context)
+        plugin.instantiate(self.config["plugins"], self.plugin_context)
 
         # check that probes don't name clash with plugins
-        for probe in self.config.get('probes', []):
+        for probe in self.config.get("probes", []):
             if plugin.exists(probe["name"]):
-                raise ValueError("probes may not share names with plugins ({})".format(probe["name"]))
+                raise ValueError(
+                    "probes may not share names with plugins ({})".format(probe["name"])
+                )
 
         # TODO move to daemon
-        pidname = vcfg.get('pidfile', 'vaping.pid')
+        pidname = vcfg.get("pidfile", "vaping.pid")
         self.pidfile = pidfile.PidFile(pidname=pidname, piddir=self.home_dir)
 
     @property
@@ -104,18 +104,20 @@ class Vaping(object):
         daemonize and exec main()
         """
         kwargs = {
-            'pidfile': self.pidfile,
-            'working_directory': self.home_dir,
-            }
+            "pidfile": self.pidfile,
+            "working_directory": self.home_dir,
+        }
 
         # FIXME - doesn't work
         if not detach:
-            kwargs.update({
-                'detach_process': False,
-                'files_preserve': [0,1,2],
-                'stdout': sys.stdout,
-                'stderr': sys.stderr,
-                })
+            kwargs.update(
+                {
+                    "detach_process": False,
+                    "files_preserve": [0, 1, 2],
+                    "stdout": sys.stdout,
+                    "stderr": sys.stderr,
+                }
+            )
 
         ctx = daemon.DaemonContext(**kwargs)
 
@@ -126,18 +128,18 @@ class Vaping(object):
         """
         process
         """
-        probes = self.config.get('probes', None)
+        probes = self.config.get("probes", None)
         if not probes:
-            raise ValueError('no probes specified')
+            raise ValueError("no probes specified")
 
-        for probe_config in self.config['probes']:
+        for probe_config in self.config["probes"]:
             probe = plugin.get_probe(probe_config, self.plugin_context)
             # FIXME - needs to check for output defined in plugin
-            if 'output' not in probe_config:
+            if "output" not in probe_config:
                 raise ValueError("no output specified")
 
             # get all output targets and start / join them
-            for output_name in probe_config['output']:
+            for output_name in probe_config["output"]:
                 output = plugin.get_output(output_name, self.plugin_context)
                 if not output.started:
                     output.start()
@@ -188,4 +190,3 @@ class Vaping(object):
             for mod in self.joins:
                 self.log.debug("stopping %s", mod.name)
                 mod.on_stop()
-

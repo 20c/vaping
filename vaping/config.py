@@ -1,5 +1,3 @@
-from __future__ import division
-
 import re
 
 import munge
@@ -22,32 +20,30 @@ def parse_interval(val):
     for match in re_intv.findall(val):
         unit = match[1]
         count = float(match[0])
-        if unit == 's':
+        if unit == "s":
             total += count
-        elif unit == 'm':
+        elif unit == "m":
             total += count * 60
-        elif unit == 'ms':
+        elif unit == "ms":
             total += count / 1000
         elif unit == "h":
             total += count * 3600
-        elif unit == 'd':
+        elif unit == "d":
             total += count * 86400
         else:
             raise ValueError("unknown unit from interval string '%s'" % val)
     return total
 
+
 class Config(munge.Config):
     """
     Vaping config manager
     """
+
     defaults = {
-        'config': {
-            'vaping': {
-                'home_dir': None,
-                'pidfile': 'vaping.pid',
-                'plugin_path': [],
-                },
-            },
-        'config_dir': '~/.vaping',
-        'codec': 'yaml',
-        }
+        "config": {
+            "vaping": {"home_dir": None, "pidfile": "vaping.pid", "plugin_path": [],},
+        },
+        "config_dir": "~/.vaping",
+        "codec": "yaml",
+    }

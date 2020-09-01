@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 import os
 
 import click
@@ -14,19 +12,20 @@ class Context(munge.click.Context):
     """
     Extended `click` context to use for vaping cli
     """
-    app_name = 'vaping'
+
+    app_name = "vaping"
     config_class = vaping.Config
 
 
 def update_context(ctx, kwargs):
     ctx.update_options(kwargs)
 
-    if not isinstance(ctx.config['vaping']['plugin_path'], list):
-        raise ValueError('config item vaping.plugin_path must be a list')
+    if not isinstance(ctx.config["vaping"]["plugin_path"], list):
+        raise ValueError("config item vaping.plugin_path must be a list")
     # set plugin search path to defined + home/plugins
-    searchpath = ctx.config['vaping']['plugin_path']
+    searchpath = ctx.config["vaping"]["plugin_path"]
     if ctx.home:
-        searchpath.append(os.path.join(ctx.home, 'plugins'))
+        searchpath.append(os.path.join(ctx.home, "plugins"))
     vaping.plugin.searchpath = searchpath
 
 
@@ -62,7 +61,9 @@ def cli(ctx, **kwargs):
 @click.version_option()
 @Context.options
 @Context.pass_context()
-@click.option('-d', '--no-fork', help='do not fork into background', is_flag=True, default=False)
+@click.option(
+    "-d", "--no-fork", help="do not fork into background", is_flag=True, default=False
+)
 def start(ctx, **kwargs):
     """
     start a vaping process
@@ -71,7 +72,7 @@ def start(ctx, **kwargs):
 
     daemon = mk_daemon(ctx)
 
-    if ctx.debug or kwargs['no_fork']:
+    if ctx.debug or kwargs["no_fork"]:
         daemon.run()
     else:
         daemon.start()

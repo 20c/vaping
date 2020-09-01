@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 import vaping
 import vaping.config
 import vaping.io
@@ -17,7 +15,6 @@ except ImportError:
     graphsrv = None
 
 
-
 def probe_to_graphsrv(probe):
     """
     takes a probe instance and generates
@@ -33,7 +30,9 @@ def probe_to_graphsrv(probe):
         source, group = config["group"].split(".")
         group_field = config.get("group_field", "host")
         group_value = config[group_field]
-        graphsrv.group.add(source, group, {group_value:{group_field:group_value}}, **config)
+        graphsrv.group.add(
+            source, group, {group_value: {group_field: group_value}}, **config
+        )
         return
 
     # automatic group setup for fping
@@ -47,11 +46,11 @@ def probe_to_graphsrv(probe):
             if isinstance(host, dict):
                 r[host["host"]] = host
             else:
-                r[host] = {"host":host}
+                r[host] = {"host": host}
         graphsrv.group.add(probe.name, group_name, r, **group_config)
 
 
-@vaping.plugin.register('vodka')
+@vaping.plugin.register("vodka")
 class VodkaPlugin(vaping.plugins.EmitBase):
 
     """
@@ -76,9 +75,10 @@ class VodkaPlugin(vaping.plugins.EmitBase):
                 probe = vaping.plugin.get_probe(node, self.vaping)
                 probe_to_graphsrv(probe)
 
-
     def emit(self, message):
         if not self._is_started:
             self.start()
 
-        vodka.data.handle(message.get("type"), message, data_id=message.get("source"), caller=self)
+        vodka.data.handle(
+            message.get("type"), message, data_id=message.get("source"), caller=self
+        )

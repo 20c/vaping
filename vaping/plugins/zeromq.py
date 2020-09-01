@@ -1,5 +1,3 @@
-from builtins import str
-
 try:
     import zmq.green as zmq
 except ImportError:
@@ -9,7 +7,7 @@ import vaping
 import vaping.plugins
 
 
-@vaping.plugin.register('zeromq')
+@vaping.plugin.register("zeromq")
 class ZeroMQ(vaping.plugins.EmitBase):
     """
     plugin to emit json encoded messages via zeromq
@@ -21,7 +19,7 @@ class ZeroMQ(vaping.plugins.EmitBase):
     """
 
     def __init__(self, config, ctx):
-        super(ZeroMQ, self).__init__(config, ctx)
+        super().__init__(config, ctx)
 
         self.sock = None
 
@@ -34,23 +32,23 @@ class ZeroMQ(vaping.plugins.EmitBase):
         self.ctx = zmq.Context()
 
         # sanity check config
-        if 'bind' in self.config:
-            if 'connect' in self.config:
+        if "bind" in self.config:
+            if "connect" in self.config:
                 msg = "bind and connect are mutually exclusive"
                 self.log.critical(msg)
                 raise ValueError(msg)
 
-        elif 'connect' not in self.config:
+        elif "connect" not in self.config:
             msg = "missing bind or connect"
             self.log.critical(msg)
             raise ValueError(msg)
 
     def on_start(self):
         self.sock = self.ctx.socket(zmq.PUB)
-        if 'bind' in self.config:
-            self.sock.bind(self.config['bind'])
-        elif 'connect' in self.config:
-            self.sock.connect(self.config['connect'])
+        if "bind" in self.config:
+            self.sock.bind(self.config["bind"])
+        elif "connect" in self.config:
+            self.sock.connect(self.config["connect"])
 
     def on_stop(self):
         if self.sock:

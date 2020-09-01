@@ -2,6 +2,10 @@
 
 
 ## Unreleased
+### Removed
+- python2.7 support
+- python3.4 support
+- python3.5 support
 
 
 ## 1.2.0

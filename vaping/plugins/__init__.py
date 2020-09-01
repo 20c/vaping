@@ -43,17 +43,16 @@ class PluginBase(vaping.io.Thread):
         # group config (pre #44 implementation)
         # supported until vaping 2.0
 
-        for k,v in list(self.config.items()):
+        for k, v in list(self.config.items()):
             if isinstance(v, collections.Mapping):
                 group_config[k] = v
 
         # explicit groups object (#44 implementation)
 
-        for _group_config in self.config.get("groups",[]):
+        for _group_config in self.config.get("groups", []):
             group_config[_group_config["name"]] = _group_config
 
         return group_config
-
 
     def init(self):
         """
@@ -85,10 +84,12 @@ class PluginBase(vaping.io.Thread):
         message (`dict`)
         """
         msg = {}
-        msg['data'] = []
-        msg['type'] = self.plugin_type
-        msg['source'] = self.name
-        msg['ts'] = (datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)).total_seconds()
+        msg["data"] = []
+        msg["type"] = self.plugin_type
+        msg["source"] = self.name
+        msg["ts"] = (
+            datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)
+        ).total_seconds()
         return msg
 
     def popen(self, args, **kwargs):
@@ -99,7 +100,7 @@ class PluginBase(vaping.io.Thread):
 
         Popen instance
         """
-        self.log.debug("popen %s", ' '.join(args))
+        self.log.debug("popen %s", " ".join(args))
         return vaping.io.subprocess.Popen(args, **kwargs)
 
     @property
@@ -108,7 +109,7 @@ class PluginBase(vaping.io.Thread):
         logger instance for plugin type
         """
         if not self._logger:
-            self._logger = logging.getLogger('vaping.plugins.' + self.plugin_type)
+            self._logger = logging.getLogger("vaping.plugins." + self.plugin_type)
         return self._logger
 
     def __init__(self, config, ctx):
@@ -119,8 +120,10 @@ class PluginBase(vaping.io.Thread):
         - ctx: vaping context
         """
 
-        if hasattr(self, 'default_config'):
-            self.config = munge.util.recursive_update(copy.deepcopy(self.default_config), copy.deepcopy(config))
+        if hasattr(self, "default_config"):
+            self.config = munge.util.recursive_update(
+                copy.deepcopy(self.default_config), copy.deepcopy(config)
+            )
         else:
             self.config = config
         # set for pluginmgr
@@ -129,7 +132,7 @@ class PluginBase(vaping.io.Thread):
         self.name = self.config.get("name")
         self._logger = None
 
-        super(PluginBase, self).__init__()
+        super().__init__()
         self.init()
 
     def _run(self):
@@ -159,10 +162,10 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
             self._emit = []
 
         self._emit_queue = vaping.io.Queue()
-        super(ProbeBase, self).__init__(config, ctx)
+        super().__init__(config, ctx)
 
     def _run(self):
-        super(ProbeBase, self)._run()
+        super()._run()
         self.run_level = 1
         while self.run_level:
             self.send_emission()
@@ -171,7 +174,6 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
                 self.queue_emission(msg)
             else:
                 self.log.debug("probe returned no data")
-
 
     def queue_emission(self, msg):
         """
@@ -184,13 +186,18 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
         if not msg:
             return
         for _emitter in self._emit:
-            if not hasattr(_emitter, 'emit'):
+            if not hasattr(_emitter, "emit"):
                 continue
+
             def emit(emitter=_emitter):
-                self.log.debug("emit to {}".format(emitter.name))
+                self.log.debug(f"emit to {emitter.name}")
                 emitter.emit(msg)
-            self.log.debug("queue emission to {} ({})".format(
-                           _emitter.name, self._emit_queue.qsize()))
+
+            self.log.debug(
+                "queue emission to {} ({})".format(
+                    _emitter.name, self._emit_queue.qsize()
+                )
+            )
             self._emit_queue.put(emit)
 
     def send_emission(self):
@@ -202,7 +209,6 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
         emit = self._emit_queue.get()
         emit()
 
-
     def emit_all(self):
         """
         emit and remove all emissions in the queue
@@ -210,18 +216,19 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
         while not self._emit_queue.empty():
             self.send_emission()
 
+
 class TimedProbe(ProbeBase):
     """
     Probe class that calls probe every config defined interval
     """
+
     def __init__(self, config, ctx, emit=None):
-        super(TimedProbe, self).__init__(config, ctx, emit)
+        super().__init__(config, ctx, emit)
 
-        if 'interval' not in self.pluginmgr_config:
-            raise ValueError('interval not set in config')
-        self.interval = parse_interval(self.pluginmgr_config['interval'])
+        if "interval" not in self.pluginmgr_config:
+            raise ValueError("interval not set in config")
+        self.interval = parse_interval(self.pluginmgr_config["interval"])
         self.run_level = 0
-
 
     def _run(self):
         self.run_level = 1
@@ -248,6 +255,7 @@ class TimedProbe(ProbeBase):
                 sleeptime = datetime.timedelta(seconds=self.interval) - elapsed
                 vaping.io.sleep(sleeptime.total_seconds())
 
+
 class FileProbe(ProbeBase):
     """
     Probes a file and emits everytime a new line is read
@@ -267,15 +275,15 @@ class FileProbe(ProbeBase):
     """
 
     def __init__(self, config, ctx, emit=None):
-        super(FileProbe, self).__init__(config, ctx, emit)
+        super().__init__(config, ctx, emit)
         self.path = self.pluginmgr_config.get("path")
         self.run_level = 0
-        self.backlog = int(self.pluginmgr_config.get("backlog",0))
-        self.max_lines = int(self.pluginmgr_config.get("max_lines",1000))
+        self.backlog = int(self.pluginmgr_config.get("backlog", 0))
+        self.max_lines = int(self.pluginmgr_config.get("max_lines", 1000))
 
         if self.path:
-            self.fh = open(self.path, "r")
-            self.fh.seek(0,2)
+            self.fh = open(self.path)
+            self.fh.seek(0, 2)
 
             if self.backlog:
                 try:
@@ -286,7 +294,6 @@ class FileProbe(ProbeBase):
                     else:
                         raise
 
-
     def _run(self):
         self.run_level = 1
         while self.run_level:
@@ -295,8 +302,6 @@ class FileProbe(ProbeBase):
                 self.queue_emission(msg)
 
             vaping.io.sleep(0.1)
-
-
 
     def validate_file_handler(self):
         """
@@ -308,17 +313,17 @@ class FileProbe(ProbeBase):
         """
         if self.fh.closed:
             try:
-                self.fh = open(self.path, "r")
+                self.fh = open(self.path)
                 self.fh.seek(0, 2)
             except OSError as err:
-                logging.error("Could not reopen file: {}".format(err))
+                logging.error(f"Could not reopen file: {err}")
                 return False
 
         open_stat = os.fstat(self.fh.fileno())
         try:
             file_stat = os.stat(self.path)
         except OSError as err:
-            logging.error("Could not stat file: {}".format(err))
+            logging.error(f"Could not stat file: {err}")
             return False
 
         if open_stat != file_stat:
@@ -327,7 +332,6 @@ class FileProbe(ProbeBase):
             return False
 
         return True
-
 
     def probe(self):
         """
@@ -343,7 +347,7 @@ class FileProbe(ProbeBase):
 
         # read any new lines and push them onto the stack
         for line in self.fh.readlines(self.max_lines):
-            data = {"path":self.path}
+            data = {"path": self.path}
             msg = self.new_message()
 
             # process the line - this is where parsing happens
@@ -358,13 +362,11 @@ class FileProbe(ProbeBase):
             msg["data"] = [data]
             messages.append(msg)
 
-
         # process all new messages before returning them
         # for emission
         messages = self.process_messages(messages)
 
         return messages
-
 
     def process_line(self, line, data):
         """ override this - parse your line in here """
@@ -382,6 +384,7 @@ class FileProbe(ProbeBase):
 
         return messages
 
+
 class EmitBase(with_metaclass(abc.ABCMeta, PluginBase)):
     """
     Base class for emit plugins, used for sending data
@@ -390,7 +393,7 @@ class EmitBase(with_metaclass(abc.ABCMeta, PluginBase)):
     """
 
     def __init__(self, config, ctx):
-        super(EmitBase, self).__init__(config, ctx)
+        super().__init__(config, ctx)
 
     @abc.abstractmethod
     def emit(self, message):
@@ -413,7 +416,7 @@ class TimeSeriesDB(EmitBase):
     """
 
     def __init__(self, config, ctx):
-        super(TimeSeriesDB, self).__init__(config, ctx)
+        super().__init__(config, ctx)
 
         # filename template
         self.filename = self.config.get("filename")
@@ -425,8 +428,9 @@ class TimeSeriesDB(EmitBase):
             raise ValueError("No filename specified")
 
         if not self.field:
-            raise ValueError("No field specified, field should specify which value to store in the database")
-
+            raise ValueError(
+                "No field specified, field should specify which value to store in the database"
+            )
 
     def create(self, filename):
         """
@@ -481,9 +485,9 @@ class TimeSeriesDB(EmitBase):
         """
 
         r = {
-            "source" : data.get("source"),
-            "field" : self.field,
-            "type" : data.get("type")
+            "source": data.get("source"),
+            "field": self.field,
+            "type": data.get("type"),
         }
         r.update(**row)
         return r
@@ -516,7 +520,6 @@ class TimeSeriesDB(EmitBase):
         if isinstance(message.get("data"), list):
             for row in message.get("data"):
 
-
                 # format filename from data
                 filename = self.format_filename(message, row)
 
@@ -525,6 +528,13 @@ class TimeSeriesDB(EmitBase):
                     self.create(filename)
 
                 # update database
-                self.log.debug("storing time:%d, %s:%s in %s" % (
-                    message.get("ts"), self.field, row.get(self.field, "-"), filename))
+                self.log.debug(
+                    "storing time:%d, %s:%s in %s"
+                    % (
+                        message.get("ts"),
+                        self.field,
+                        row.get(self.field, "-"),
+                        filename,
+                    )
+                )
                 self.update(filename, message.get("ts"), row.get(self.field))
