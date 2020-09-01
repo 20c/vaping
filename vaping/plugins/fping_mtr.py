@@ -6,7 +6,7 @@ from vaping.io import subprocess
 from vaping.util import which
 
 
-@vaping.plugin.register('fping_mtr')
+@vaping.plugin.register("fping_mtr")
 class FPingMTR(vaping.plugins.fping.FPingBase):
     """
     Run fping on a traceroute path
@@ -45,7 +45,7 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
             host = line.split()[1]
             if host != "*":
                 try:
-                    return host.decode('ascii')
+                    return host.decode("ascii")
                 except AttributeError:
                     # No `decode` on `str` in py3
                     # assume already decoded str
@@ -96,7 +96,7 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
         command = "traceroute"
         first_ttl = 1
         max_ttl = 24
-        timeout = .3
+        timeout = 0.3
         protocol = "udp"
         port = 33434
 
@@ -104,20 +104,19 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
         # -m max_ttl
         args = [
             command,
-            '-n',
+            "-n",
             # -w wait time seconds
-            '-w1',
+            "-w1",
             # -q number of queries
-            '-q1',
+            "-q1",
             self.mtr_host,
         ]
 
         # get both stdout and stderr
-        proc = self.popen(args, stdout=subprocess.PIPE,
-                          stderr=subprocess.STDOUT)
+        proc = self.popen(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
         with proc.stdout:
-            hosts = self.parse_traceroute(iter(proc.stdout.readline, b''))
+            hosts = self.parse_traceroute(iter(proc.stdout.readline, b""))
         return hosts
 
     def probe(self):
@@ -131,14 +130,13 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
         """
         self.hosts = self.get_hosts()
         msg = self.new_message()
-        data = {hop["host"]:hop for hop in self._run_proc()
-                     if hop and hop["host"] in self.hosts}
+        data = {
+            hop["host"]: hop
+            for hop in self._run_proc()
+            if hop and hop["host"] in self.hosts
+        }
 
         msg["data"] = [
-            dict(
-                hops=self.hosts,
-                host=self.mtr_host,
-                data=data,
-                ),
-            ]
+            dict(hops=self.hosts, host=self.mtr_host, data=data,),
+        ]
         return msg

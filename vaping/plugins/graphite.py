@@ -9,12 +9,12 @@ except ImportError:
 
 
 def munge_filename(filename):
-    filename = filename.replace('.', '_')
-    filename = filename.replace('-', '.')
+    filename = filename.replace(".", "_")
+    filename = filename.replace("-", ".")
     return filename
 
 
-@vaping.plugin.register('graphite')
+@vaping.plugin.register("graphite")
 class GraphitePlugin(vaping.plugins.TimeSeriesDB):
 
     """
@@ -26,7 +26,9 @@ class GraphitePlugin(vaping.plugins.TimeSeriesDB):
         super().__init__(config, ctx)
 
         if not graphyte:
-            self.log.critical("missing graphyte, install it with `pip install graphyte`")
+            self.log.critical(
+                "missing graphyte, install it with `pip install graphyte`"
+            )
             raise RuntimeError("graphyte not found")
 
         # get configs
@@ -42,24 +44,27 @@ class GraphitePlugin(vaping.plugins.TimeSeriesDB):
 
     def update(self, filename, time, value):
         filename = munge_filename(filename)
-        graphyte.send(f'{filename}', value, time)
+        graphyte.send(f"{filename}", value, time)
 
     def get(self, filename, from_time, to_time=None):
         filename = munge_filename(filename)
 
-        resp = requests.get("{}://{}/render/?target={}.{}&from={}&format=raw".format(
-            self.proto, self.graphite_host, self.prefix, filename, from_time))
+        resp = requests.get(
+            "{}://{}/render/?target={}.{}&from={}&format=raw".format(
+                self.proto, self.graphite_host, self.prefix, filename, from_time
+            )
+        )
 
         if resp.ok:
-            data = str(resp.text).rstrip().split('|')
+            data = str(resp.text).rstrip().split("|")
 
-            #create timing tuple
-            (metric, fromstamp, tostamp, stepsize) = data[0].split(',')
+            # create timing tuple
+            (metric, fromstamp, tostamp, stepsize) = data[0].split(",")
             times = fromstamp, tostamp, stepsize
 
-            #create values list
+            # create values list
             values = []
-            for v in data[1].split(','):
+            for v in data[1].split(","):
                 values.append(float(v))
 
             return times, values

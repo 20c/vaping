@@ -12,8 +12,8 @@ expect_verbose = {
         "avg": 298.19,
         "cnt": 3,
         "loss": 0.0,
-#        "last" : 302.58,
-        },
+        #        "last" : 302.58,
+    },
     "10.130.133.2 : 100 - 50": {
         "host": "10.130.133.2",
         "min": 50.0,
@@ -21,19 +21,19 @@ expect_verbose = {
         "avg": 75.0,
         "cnt": 3,
         "loss": 0.333,
-        },
-    "10.130.133.2 : - - -": {
-        "host": "10.130.133.2",
-        "cnt": 3,
-        "loss": 1,
-        },
-    "example.com: Temporary failure in name resolution": {
-       }
-    }
+    },
+    "10.130.133.2 : - - -": {"host": "10.130.133.2", "cnt": 3, "loss": 1,},
+    "example.com: Temporary failure in name resolution": {},
+}
+
 
 def assert_parsed(data, parsed):
     # dump in json format for easily adding expected
-    print("echo \\\n'{}'\\\n > {}/{}.expected".format(data.dumps(parsed), data.path, data.name))
+    print(
+        "echo \\\n'{}'\\\n > {}/{}.expected".format(
+            data.dumps(parsed), data.path, data.name
+        )
+    )
     assert data.expected == parsed
 
 

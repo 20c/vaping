@@ -26,22 +26,19 @@ class FPingBase(vaping.plugins.TimedProbe):
     - period (`int`): time in milliseconds that fping waits between successive packets
     """
 
-    default_config = {
-        'command': 'fping',
-        'interval': '1m',
-        'count': 5,
-        'period': 20
-    }
+    default_config = {"command": "fping", "interval": "1m", "count": 5, "period": 20}
 
     def __init__(self, config, ctx):
         super().__init__(config, ctx)
 
-        if not which(self.config['command']):
-            self.log.critical("missing fping, install it or set `command` in the fping config")
+        if not which(self.config["command"]):
+            self.log.critical(
+                "missing fping, install it or set `command` in the fping config"
+            )
             raise RuntimeError("fping command not found - install the fping package")
 
-        self.count = int(self.config.get('count', 0))
-        self.period = int(self.config.get('period', 0))
+        self.count = int(self.config.get("count", 0))
+        self.period = int(self.config.get("period", 0))
 
     def hosts_args(self):
         """
@@ -86,14 +83,14 @@ class FPingBase(vaping.plugins.TimedProbe):
         """
         try:
             logging.debug(line)
-            (host, pings) = line.split(' : ')
+            (host, pings) = line.split(" : ")
             cnt = 0
             lost = 0
             times = []
-            pings = pings.strip().split(' ')
+            pings = pings.strip().split(" ")
             cnt = len(pings)
             for latency in pings:
-                if latency == '-':
+                if latency == "-":
                     continue
                 times.append(float(latency))
 
@@ -104,16 +101,16 @@ class FPingBase(vaping.plugins.TimedProbe):
                 loss = 0.0
 
             rv = {
-                'host': host.strip(),
-                'cnt': cnt,
-                'loss': loss,
-                'data': times,
-                }
+                "host": host.strip(),
+                "cnt": cnt,
+                "loss": loss,
+                "data": times,
+            }
             if times:
-                rv['min'] = min(times)
-                rv['max'] = max(times)
-                rv['avg'] = sum(times) / len(times)
-                rv['last'] = times[-1]
+                rv["min"] = min(times)
+                rv["max"] = max(times)
+                rv["avg"] = sum(times) / len(times)
+                rv["last"] = times[-1]
             return rv
 
         except Exception as e:
@@ -121,28 +118,27 @@ class FPingBase(vaping.plugins.TimedProbe):
 
     def _run_proc(self):
         args = [
-            self.config['command'],
-            '-u',
-            '-C%d' % self.count,
-            '-p%d' % self.period,
-            '-e'
+            self.config["command"],
+            "-u",
+            "-C%d" % self.count,
+            "-p%d" % self.period,
+            "-e",
         ]
         args.extend(self.hosts_args())
         data = list()
 
         # get both stdout and stderr
-        proc = self.popen(args, stdout=subprocess.PIPE,
-                          stderr=subprocess.STDOUT)
+        proc = self.popen(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
         # TODO poll, timeout, maybe from parent process for better control?
         with proc.stdout:
-            for line in iter(proc.stdout.readline, b''):
+            for line in iter(proc.stdout.readline, b""):
                 data.append(self.parse_verbose(line.decode("utf-8")))
 
         return data
 
 
-@vaping.plugin.register('fping')
+@vaping.plugin.register("fping")
 class FPing(FPingBase):
     """
     Run fping on configured hosts
@@ -160,7 +156,7 @@ class FPing(FPingBase):
         self.hosts = []
 
         for name, group_config in list(self.groups.items()):
-            self.hosts.extend(group_config.get("hosts",[]))
+            self.hosts.extend(group_config.get("hosts", []))
 
     def probe(self):
         msg = self.new_message()

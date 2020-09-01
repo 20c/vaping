@@ -5,7 +5,7 @@ from pluginmgr.config import ConfigPluginManager
 
 def check_method(obj, method, node):
     if not hasattr(obj, method):
-        name = obj.config.get('name', str(node))
+        name = obj.config.get("name", str(node))
         raise TypeError(f"plugin type mismatch, {name} is missing ::{method}()")
 
 
@@ -45,4 +45,4 @@ class PluginManager(ConfigPluginManager):
         return obj
 
 
-plugin = PluginManager('vaping.plugins')
+plugin = PluginManager("vaping.plugins")
