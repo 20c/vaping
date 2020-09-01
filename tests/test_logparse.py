@@ -18,15 +18,15 @@ config = {
     "fields" : {
         "str_val" : {
             "type": "str",
-            "parser" : "str_val=(\S+)"
+            "parser" : r"str_val=(\S+)"
         },
         "int_val" : {
             "type" : "int",
-            "parser": "int_val=(\S+)"
+            "parser": r"int_val=(\S+)"
         },
         "float_val" : {
             "type" : "float",
-            "parser": "float_val=(\S+)"
+            "parser": r"float_val=(\S+)"
         },
         "eval_val" : {
             "type" : "float",
@@ -44,12 +44,12 @@ config_aggr = {
     "fields" : {
         "int_val" : {
             "type" : "int",
-            "parser": "int_val=(\S+)",
+            "parser": r"int_val=(\S+)",
             "aggregate" : "sum"
         },
         "float_val" : {
             "type" : "float",
-            "parser" : "float_val=(\S+)",
+            "parser" : r"float_val=(\S+)",
             "aggregate" : "avg"
         },
         "eval_val" : {
@@ -59,7 +59,7 @@ config_aggr = {
         },
         "no_aggr" : {
             "type" : "int",
-            "parser" : "int_val=(\S+)"
+            "parser" : r"int_val=(\S+)"
         }
     }
 }
@@ -71,11 +71,11 @@ config_time_parser = {
     "fields" : {
         "str_val" : {
             "type": "str",
-            "parser" : "str_val=(\S+)"
+            "parser" : r"str_val=(\S+)"
         }
     },
     "time_parser": {
-        "find" : "\d\d\d\d.\d\d.\d\d \d\d:\d\d:\d\d",
+        "find" : r"\d\d\d\d.\d\d.\d\d \d\d:\d\d:\d\d",
         "format" : "%Y.%m.%d %H:%M:%S"
     }
 }

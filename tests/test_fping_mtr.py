@@ -1,4 +1,3 @@
-
 import os
 
 import vaping.plugins.fping_mtr
@@ -34,7 +33,7 @@ expect_verbose = {
 
 def assert_parsed(data, parsed):
     # dump in json format for easily adding expected
-    print(("echo \\\n'{}'\\\n > {}/{}.expected".format(data.dumps(parsed), data.path, data.name)))
+    print("echo \\\n'{}'\\\n > {}/{}.expected".format(data.dumps(parsed), data.path, data.name))
     assert data.expected == parsed
 
 
@@ -50,10 +49,10 @@ def test_run_probe(config_dir):
 
 def test_parse_traceroute(data_mtr_traceroute):
     mtr = vaping.plugin.get_plugin_class("fping_mtr")({}, None)
-    print((data_mtr_traceroute.input))
-    print((data_mtr_traceroute.expected))
+    print(data_mtr_traceroute.input)
+    print(data_mtr_traceroute.expected)
     print("=======")
     hosts = mtr.parse_traceroute(data_mtr_traceroute.input.splitlines())
-    print(("HOSTS: {}".format(hosts)))
+    print(f"HOSTS: {hosts}")
     # XXX need to refactor to properly test if host and hosts not in host
     assert_parsed(data_mtr_traceroute, hosts)

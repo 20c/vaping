@@ -1,5 +1,3 @@
-
-
 import vaping
 import vaping.config
 import requests
@@ -25,7 +23,7 @@ class GraphitePlugin(vaping.plugins.TimeSeriesDB):
     """
 
     def __init__(self, config, ctx):
-        super(GraphitePlugin, self).__init__(config, ctx)
+        super().__init__(config, ctx)
 
         if not graphyte:
             self.log.critical("missing graphyte, install it with `pip install graphyte`")
@@ -44,7 +42,7 @@ class GraphitePlugin(vaping.plugins.TimeSeriesDB):
 
     def update(self, filename, time, value):
         filename = munge_filename(filename)
-        graphyte.send('{}'.format(filename), value, time)
+        graphyte.send(f'{filename}', value, time)
 
     def get(self, filename, from_time, to_time=None):
         filename = munge_filename(filename)

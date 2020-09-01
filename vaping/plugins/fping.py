@@ -1,5 +1,3 @@
-
-
 import collections
 import logging
 
@@ -36,7 +34,7 @@ class FPingBase(vaping.plugins.TimedProbe):
     }
 
     def __init__(self, config, ctx):
-        super(FPingBase, self).__init__(config, ctx)
+        super().__init__(config, ctx)
 
         if not which(self.config['command']):
             self.log.critical("missing fping, install it or set `command` in the fping config")
@@ -119,7 +117,7 @@ class FPingBase(vaping.plugins.TimedProbe):
             return rv
 
         except Exception as e:
-            logging.error("failed to get data: {}".format(e))
+            logging.error(f"failed to get data: {e}")
 
     def _run_proc(self):
         args = [

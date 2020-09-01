@@ -1,5 +1,3 @@
-
-
 import vaping
 import vaping.config
 
@@ -19,7 +17,7 @@ class WhisperPlugin(vaping.plugins.TimeSeriesDB):
     def __init__(self, config, ctx):
         if not whisper:
             raise ImportError("whisper not found")
-        super(WhisperPlugin, self).__init__(config, ctx)
+        super().__init__(config, ctx)
 
         # whisper specific config
         self.retention = self.config.get("retention", ['3s:1d'])

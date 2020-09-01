@@ -1,4 +1,3 @@
-
 import pytest
 import vaping.plugins.zeromq
 

@@ -1,4 +1,3 @@
-
 import pytest
 from vaping import plugin
 from vaping import plugins
@@ -67,7 +66,7 @@ class EmitPluginABC(plugins.EmitBase):
 @plugin.register('emit_store')
 class EmitPluginStore(plugins.EmitBase):
     def init(self):
-        super(EmitPluginStore, self).init()
+        super().init()
         self.store = []
     def emit(self, message):
         self.store.append(message)

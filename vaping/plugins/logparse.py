@@ -1,5 +1,3 @@
-
-
 import logging
 import re
 import datetime
@@ -10,7 +8,7 @@ import vaping.config
 
 @vaping.plugin.register("logparse")
 class LogParse(vaping.plugins.FileProbe):
-    """
+    r"""
     Log parse plugin base
 
     Will parse a log line by line and probe to emit data
@@ -139,7 +137,7 @@ class LogParse(vaping.plugins.FileProbe):
         if "parser" in field:
             match = re.search(field["parser"], line)
             if not match:
-                raise ValueError("Could not parse field value {}\n{}".format(field, line))
+                raise ValueError(f"Could not parse field value {field}\n{line}")
             value = match.group(1)
 
         # apply field type
@@ -153,7 +151,7 @@ class LogParse(vaping.plugins.FileProbe):
         try:
             return __builtins__.get(typ).__call__(value)
         except AttributeError:
-             validate = getattr(self, "validate_{}".format(typ), None)
+             validate = getattr(self, f"validate_{typ}", None)
              if validate:
                  value = validate(value)
              else:
@@ -369,7 +367,7 @@ class LogParse(vaping.plugins.FileProbe):
 
         time_string = re.search(find, line)
         if not time_string:
-            raise ValueError("Could not find time string {} in line {}".format(find, line))
+            raise ValueError(f"Could not find time string {find} in line {line}")
 
 
         dt = datetime.datetime.strptime(time_string.group(0), fmt)

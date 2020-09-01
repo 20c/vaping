@@ -129,7 +129,7 @@ class PluginBase(vaping.io.Thread):
         self.name = self.config.get("name")
         self._logger = None
 
-        super(PluginBase, self).__init__()
+        super().__init__()
         self.init()
 
     def _run(self):
@@ -159,10 +159,10 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
             self._emit = []
 
         self._emit_queue = vaping.io.Queue()
-        super(ProbeBase, self).__init__(config, ctx)
+        super().__init__(config, ctx)
 
     def _run(self):
-        super(ProbeBase, self)._run()
+        super()._run()
         self.run_level = 1
         while self.run_level:
             self.send_emission()
@@ -187,7 +187,7 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
             if not hasattr(_emitter, 'emit'):
                 continue
             def emit(emitter=_emitter):
-                self.log.debug("emit to {}".format(emitter.name))
+                self.log.debug(f"emit to {emitter.name}")
                 emitter.emit(msg)
             self.log.debug("queue emission to {} ({})".format(
                            _emitter.name, self._emit_queue.qsize()))
@@ -215,7 +215,7 @@ class TimedProbe(ProbeBase):
     Probe class that calls probe every config defined interval
     """
     def __init__(self, config, ctx, emit=None):
-        super(TimedProbe, self).__init__(config, ctx, emit)
+        super().__init__(config, ctx, emit)
 
         if 'interval' not in self.pluginmgr_config:
             raise ValueError('interval not set in config')
@@ -267,14 +267,14 @@ class FileProbe(ProbeBase):
     """
 
     def __init__(self, config, ctx, emit=None):
-        super(FileProbe, self).__init__(config, ctx, emit)
+        super().__init__(config, ctx, emit)
         self.path = self.pluginmgr_config.get("path")
         self.run_level = 0
         self.backlog = int(self.pluginmgr_config.get("backlog",0))
         self.max_lines = int(self.pluginmgr_config.get("max_lines",1000))
 
         if self.path:
-            self.fh = open(self.path, "r")
+            self.fh = open(self.path)
             self.fh.seek(0,2)
 
             if self.backlog:
@@ -308,17 +308,17 @@ class FileProbe(ProbeBase):
         """
         if self.fh.closed:
             try:
-                self.fh = open(self.path, "r")
+                self.fh = open(self.path)
                 self.fh.seek(0, 2)
             except OSError as err:
-                logging.error("Could not reopen file: {}".format(err))
+                logging.error(f"Could not reopen file: {err}")
                 return False
 
         open_stat = os.fstat(self.fh.fileno())
         try:
             file_stat = os.stat(self.path)
         except OSError as err:
-            logging.error("Could not stat file: {}".format(err))
+            logging.error(f"Could not stat file: {err}")
             return False
 
         if open_stat != file_stat:
@@ -390,7 +390,7 @@ class EmitBase(with_metaclass(abc.ABCMeta, PluginBase)):
     """
 
     def __init__(self, config, ctx):
-        super(EmitBase, self).__init__(config, ctx)
+        super().__init__(config, ctx)
 
     @abc.abstractmethod
     def emit(self, message):
@@ -413,7 +413,7 @@ class TimeSeriesDB(EmitBase):
     """
 
     def __init__(self, config, ctx):
-        super(TimeSeriesDB, self).__init__(config, ctx)
+        super().__init__(config, ctx)
 
         # filename template
         self.filename = self.config.get("filename")

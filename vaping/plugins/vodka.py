@@ -1,5 +1,3 @@
-
-
 import vaping
 import vaping.config
 import vaping.io

@@ -1,4 +1,3 @@
-
 import os
 import vaping.plugins.vodka
 from vaping import plugin

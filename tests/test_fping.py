@@ -1,4 +1,3 @@
-
 import os
 import vaping.plugins.fping
 from vaping import plugin

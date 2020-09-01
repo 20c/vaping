@@ -17,7 +17,7 @@ class TSDBTestPlugin(vaping.plugins.TimeSeriesDB):
     """
 
     def __init__(self, config, ctx):
-        super(TSDBTestPlugin, self).__init__(config, ctx)
+        super().__init__(config, ctx)
         self.updated = {}
 
     def create(self, filename):

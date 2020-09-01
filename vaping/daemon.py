@@ -1,6 +1,3 @@
-
-from builtins import object
-
 import daemon
 import pid as pidfile
 import os
@@ -15,7 +12,7 @@ import vaping.io
 from vaping import plugin
 
 
-class PluginContext(object):
+class PluginContext:
     """
     Context to pass to plugins for getting extra information
     """
@@ -31,7 +28,7 @@ class PluginContext(object):
         return self.__config
 
 
-class Vaping(object):
+class Vaping:
     """ Vaping daemon class """
 
     def __init__(self, config=None, config_dir=None):
@@ -65,10 +62,10 @@ class Vaping(object):
             self.home_dir = self.config.meta['config_dir']
 
         if not os.path.exists(self.home_dir):
-            raise ValueError("home directory '{}' does not exist".format(self.home_dir))
+            raise ValueError(f"home directory '{self.home_dir}' does not exist")
 
         if not os.access(self.home_dir, os.W_OK):
-            raise ValueError("home directory '{}' is not writable".format(self.home_dir))
+            raise ValueError(f"home directory '{self.home_dir}' is not writable")
 
         # change to home for working dir
         os.chdir(self.home_dir)

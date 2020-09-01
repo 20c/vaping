@@ -1,6 +1,3 @@
-
-
-
 import logging
 
 import vaping
@@ -55,7 +52,7 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
                     return host
 
         except Exception as e:
-            logging.error("failed to get data {}".format(e))
+            logging.error(f"failed to get data {e}")
 
     def parse_traceroute(self, it):
         """
@@ -134,8 +131,8 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
         """
         self.hosts = self.get_hosts()
         msg = self.new_message()
-        data = dict([(hop["host"],hop) for hop in self._run_proc()
-                     if hop and hop["host"] in self.hosts])
+        data = {hop["host"]:hop for hop in self._run_proc()
+                     if hop and hop["host"] in self.hosts}
 
         msg["data"] = [
             dict(

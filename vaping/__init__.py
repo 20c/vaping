@@ -1,5 +1,3 @@
-
-
 # import to namespace
 from vaping.config import Config
 from pluginmgr.config import ConfigPluginManager
@@ -8,7 +6,7 @@ from pluginmgr.config import ConfigPluginManager
 def check_method(obj, method, node):
     if not hasattr(obj, method):
         name = obj.config.get('name', str(node))
-        raise TypeError("plugin type mismatch, {} is missing ::{}()".format(name, method))
+        raise TypeError(f"plugin type mismatch, {name} is missing ::{method}()")
 
 
 class PluginManager(ConfigPluginManager):

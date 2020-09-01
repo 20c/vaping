@@ -1,5 +1,3 @@
-
-
 import vaping
 import vaping.config
 
@@ -19,7 +17,7 @@ class RRDToolPlugin(vaping.plugins.TimeSeriesDB):
     def __init__(self, config, ctx):
         if not rrdtool:
             raise ImportError("rrdtool not found")
-        super(RRDToolPlugin, self).__init__(config, ctx)
+        super().__init__(config, ctx)
 
 
     def init(self):

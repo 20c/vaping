@@ -1,5 +1,3 @@
-from builtins import str
-
 try:
     import zmq.green as zmq
 except ImportError:
@@ -21,7 +19,7 @@ class ZeroMQ(vaping.plugins.EmitBase):
     """
 
     def __init__(self, config, ctx):
-        super(ZeroMQ, self).__init__(config, ctx)
+        super().__init__(config, ctx)
 
         self.sock = None
 
