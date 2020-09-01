@@ -92,12 +92,20 @@ pip install -U vodka
 pip install -U graphsrv
 ```
 
-Also if you are using `zmq` to send data between the processes (the default) you will need to install the zmq
-library
+Also if you are using `zmq` to send data between the processes (the default) you will need to install the pyzmq and zmq
+
+```sh
+pip install "pyzmq<20"
+```
+
+In some instances you may also be required to install the zmq module alongside it.
+If you are getting startup issues try adding
 
 ```sh
 pip install zmq
 ```
+
+as well
 
 The main difference is the collector is running in a separate process than the
 web server, which allows you to graph things from multiple locations, as well
