@@ -2,6 +2,8 @@
 
 
 ## Unreleased
+### Fixed
+- added needed dependencies so gevent and other bits compile (thanks @seanknox)
 ### Removed
 - python2.7 support
 - python3.4 support

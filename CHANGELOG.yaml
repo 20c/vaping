@@ -77,7 +77,8 @@ Unreleased:
   added: []
   changed: []
   deprecated: []
-  fixed: []
+  fixed:
+    - added needed dependencies so gevent and other bits compile (thanks @seanknox)
   removed:
     - python2.7 support
     - python3.4 support
