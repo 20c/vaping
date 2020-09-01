@@ -11,7 +11,7 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 # image that builds vaping and deps
 FROM base as builder
 
-RUN apk --update --no-cache add gcc libc-dev $dep_packages
+RUN apk --update --no-cache add gcc make file libc-dev libffi-dev py-gevent $dep_packages
 
 # create venv
 RUN python3 -m venv "$VIRTUAL_ENV"
