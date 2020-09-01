@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+
 
 import logging
 import re
@@ -108,14 +108,14 @@ class LogParse(vaping.plugins.FileProbe):
 
         data = {}
 
-        for k,v in fields.items():
+        for k,v in list(fields.items()):
             try:
                 data[k] = self.parse_field_value(v, line)
             except (ValueError, TypeError) as exc:
                 self.log.debug(str(exc))
                 return {}
 
-        for k,v in fields.items():
+        for k,v in list(fields.items()):
             if "eval" in v:
                 data[k] = eval(v["eval"].format(**data))
             if "type" in v:
@@ -254,12 +254,12 @@ class LogParse(vaping.plugins.FileProbe):
 
 
         # aggregate
-        for k,v in self.fields.items():
+        for k,v in list(self.fields.items()):
             if v.get("aggregate") not in finalizers:
                 main[k] = self.aggregate_field(k, message["data"])
 
         # aggregate finalizers
-        for k,v in self.fields.items():
+        for k,v in list(self.fields.items()):
             if v.get("aggregate") in finalizers:
                 main[k] = self.aggregate_field(k, message["data"])
 
