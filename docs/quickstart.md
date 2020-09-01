@@ -121,6 +121,11 @@ gunicorn -b 0.0.0.0:7021 vodka.runners.wsgi:application
 
 You should be able to browse to port 7021 to see the display.
 
+#### Gunicorn fails to start
+
+If gunicorn fails to start and doesn't tell you why, its probably some missing
+dependency. You can force it to output what it is failing on by passing the
+`--preload` argument to the `gunicorn` command.
 
 ### nginx
 
