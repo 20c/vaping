@@ -58,6 +58,13 @@ class VodkaPlugin(vaping.plugins.EmitBase):
     Plugin that emits to vodka data
     """
 
+    # starting vodka automatically when vaping is spinning
+    # up all the plugins causes some inconsistent behaviour
+    # in daemon mode, so we allow it to lazy start for now
+    #
+    # TODO: might need to revisit later
+    lazy_start = True
+
     def init(self):
         self._is_started = False
 

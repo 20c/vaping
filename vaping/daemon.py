@@ -5,6 +5,7 @@ import signal
 import sys
 
 import logging
+import logging.config
 
 import vaping
 import vaping.config
@@ -51,6 +52,7 @@ class Vaping:
 
         self.joins = []
         self._logger = None
+
         self.plugin_context = PluginContext(self.config)
 
         vcfg = self.config.get("vaping", None)
@@ -90,19 +92,21 @@ class Vaping:
         pidname = vcfg.get("pidfile", "vaping.pid")
         self.pidfile = pidfile.PidFile(pidname=pidname, piddir=self.home_dir)
 
+
     @property
     def log(self):
         """
         logger instance
         """
         if not self._logger:
-            self._logger = logging.getLogger(__name__)
+            self._logger = logging.getLogger("vaping")
         return self._logger
 
     def _exec(self, detach=True):
         """
         daemonize and exec main()
         """
+
         kwargs = {
             "pidfile": self.pidfile,
             "working_directory": self.home_dir,
@@ -128,28 +132,33 @@ class Vaping:
         """
         process
         """
-        probes = self.config.get("probes", None)
-        if not probes:
-            raise ValueError("no probes specified")
+        # configure vaping logging
+        if "logging" in self.config:
+            logging.config.dictConfig(self.config.get("logging"))
 
-        for probe_config in self.config["probes"]:
-            probe = plugin.get_probe(probe_config, self.plugin_context)
-            # FIXME - needs to check for output defined in plugin
-            if "output" not in probe_config:
-                raise ValueError("no output specified")
+        try:
+            probes = self.config.get("probes", None)
+            if not probes:
+                raise ValueError("no probes specified")
 
-            # get all output targets and start / join them
-            for output_name in probe_config["output"]:
-                output = plugin.get_output(output_name, self.plugin_context)
-                if not output.started:
-                    output.start()
+            for probe_config in self.config["probes"]:
+                probe = plugin.get_probe(probe_config, self.plugin_context)
+
+                # get all output targets and start / join them
+                for output_name in probe_config.get("output", []):
+                    output = plugin.get_output(output_name, self.plugin_context)
+                    if not output.started and not output.__class__.lazy_start:
+                        output.start()
                     self.joins.append(output)
-                probe._emit.append(output)
+                    probe._emit.append(output)
 
-            probe.start()
-            self.joins.append(probe)
+                probe.start()
+                self.joins.append(probe)
 
-        vaping.io.joinall(self.joins)
+            vaping.io.joinall(self.joins)
+        except Exception as exc:
+            self.log.error(exc)
+
         return 0
 
     def start(self):
