@@ -27,3 +27,30 @@ plugins:
   - name: zmq_vodka
     type: zeromq
     bind: tcp://127.0.0.1:6021
+
+
+
+logging:
+  version: 1
+  formatters:
+    simple:
+      format: '%(asctime)s - %(name)s - %(levelname)s: %(message)s'
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: DEBUG
+      formatter: simple
+      stream: ext://sys.stdout
+
+    #file:
+    #  class: logging.FileHandler
+    #  level: DEBUG
+    #  formatter: simple
+    #  filename: /home/dev/sandbox/vaping/vaping.log
+
+  loggers:
+    vaping:
+      level: DEBUG
+      handlers:
+        - console
+        #- file

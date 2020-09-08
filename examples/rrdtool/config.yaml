@@ -34,3 +34,29 @@ plugins:
       - "DS:latency:GAUGE:4:0:U"
     archives:
       - "RRA:AVERAGE:0.5:1:1000"
+
+
+logging:
+  version: 1
+  formatters:
+    simple:
+      format: '%(asctime)s - %(name)s - %(levelname)s: %(message)s'
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: DEBUG
+      formatter: simple
+      stream: ext://sys.stdout
+
+    #file:
+    #  class: logging.FileHandler
+    #  level: DEBUG
+    #  formatter: simple
+    #  filename: /home/dev/sandbox/vaping/vaping.log
+
+  loggers:
+    vaping:
+      level: DEBUG
+      handlers:
+        - console
+        #- file
