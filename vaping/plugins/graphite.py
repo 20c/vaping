@@ -43,6 +43,10 @@ class GraphitePlugin(vaping.plugins.TimeSeriesDB):
         return
 
     def update(self, filename, time, value):
+
+        if value is None:
+            return
+
         filename = munge_filename(filename)
         graphyte.send(f"{filename}", value, time)
 
