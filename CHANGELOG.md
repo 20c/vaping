@@ -6,6 +6,7 @@
 - python3.8 support
 ### Fixed
 - docker: added needed dependencies so gevent and other bits compile (thanks @seanknox)
+- unknown name/type config attribute in vodka config (#84)
 ### Removed
 - python2.7 support
 - python3.4 support
