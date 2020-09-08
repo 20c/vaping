@@ -1,6 +1,7 @@
 import vaping
 import vaping.config
 import vaping.io
+import copy
 
 try:
     import vodka
@@ -64,8 +65,19 @@ class VodkaPlugin(vaping.plugins.EmitBase):
 
         if self._is_started:
             return
+
+        # deep copy vodka plugin config and prepare to pass
+        # to vodka as it's own copy with type and name keys
+        # removed
+
+        vodka_config = copy.deepcopy(self.config)
+        if "name" in vodka_config:
+            del vodka_config["name"]
+        if "type" in vodka_config:
+            del vodka_config["type"]
+
         self._is_started = True
-        vodka.run(self.config, self.vaping.config)
+        vodka.run(vodka_config, self.vaping.config)
 
         if graphsrv:
             # if graphsrv is installed proceed to generate
