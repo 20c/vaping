@@ -2,6 +2,8 @@
 
 
 ## Unreleased
+### Added
+- python3.8 support
 ### Fixed
 - docker: added needed dependencies so gevent and other bits compile (thanks @seanknox)
 ### Removed

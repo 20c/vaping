@@ -74,7 +74,8 @@
   - 'fix #62 timeseriesdb plugins crash when `update` is given `None` as a value'
   - 'fix #54 pytest > 3 for testing'
 Unreleased:
-  added: []
+  added:
+    - python3.8 support
   changed: []
   deprecated: []
   fixed:
