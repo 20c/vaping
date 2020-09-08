@@ -10,7 +10,6 @@ data:
 
 apps:
   graphsrv:
-    tmpl_engine: jinja2
     enabled: true
 
     # here is where we define host config
@@ -63,8 +62,7 @@ plugins:
 
   - name: http
     type: flask
-    host: 0.0.0.0
-    port: 7021
+    bind: 0.0.0.0:7021
     debug: true
     # set this to gunicorn or uwsgi depending on what you want to run with
     server: gunicorn
