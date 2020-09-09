@@ -61,8 +61,11 @@ class Vaping:
 
         # get either home_dir from config, or use config_dir
         self.home_dir = vcfg.get("home_dir", None)
+
         if not self.home_dir:
             self.home_dir = self.config.meta["config_dir"]
+
+        self.home_dir = os.path.abspath(self.home_dir)
 
         if not os.path.exists(self.home_dir):
             raise ValueError(f"home directory '{self.home_dir}' does not exist")
