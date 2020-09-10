@@ -53,6 +53,10 @@ class Vaping:
         self.joins = []
         self._logger = None
 
+        # configure vaping logging
+        if "logging" in self.config:
+            logging.config.dictConfig(self.config.get("logging"))
+
         self.plugin_context = PluginContext(self.config)
 
         vcfg = self.config.get("vaping", None)
@@ -91,9 +95,13 @@ class Vaping:
                     "probes may not share names with plugins ({})".format(probe["name"])
                 )
 
-        # TODO move to daemon
-        pidname = vcfg.get("pidfile", "vaping.pid")
-        self.pidfile = pidfile.PidFile(pidname=pidname, piddir=self.home_dir)
+        self.pidname = vcfg.get("pidfile", "vaping.pid")
+
+    @property
+    def pidfile(self):
+        if not hasattr(self, "_pidfile"):
+            self._pidfile = pidfile.PidFile(pidname=self.pidname, piddir=self.home_dir)
+        return self._pidfile
 
 
     @property
@@ -105,14 +113,22 @@ class Vaping:
             self._logger = logging.getLogger("vaping")
         return self._logger
 
+    @property
+    def get_logging_handles(self):
+        handles = []
+        logger = self.log
+        for handler in logger.handlers:
+            handles.append(handler.stream.fileno())
+        return handles
+
     def _exec(self, detach=True):
         """
         daemonize and exec main()
         """
 
         kwargs = {
-            "pidfile": self.pidfile,
             "working_directory": self.home_dir,
+            "files_preserve": [0] + self.get_logging_handles,
         }
 
         # FIXME - doesn't work
@@ -129,16 +145,13 @@ class Vaping:
         ctx = daemon.DaemonContext(**kwargs)
 
         with ctx:
-            self._main()
+            with self.pidfile:
+                self._main()
 
     def _main(self):
         """
         process
         """
-        # configure vaping logging
-        if "logging" in self.config:
-            logging.config.dictConfig(self.config.get("logging"))
-
         try:
             probes = self.config.get("probes", None)
             if not probes:
