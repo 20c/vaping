@@ -128,6 +128,12 @@ class Vaping:
 
         kwargs = {
             "working_directory": self.home_dir,
+
+            # we preserve stdin and any file logging handlers
+            # we setup - for some reason stdin is required
+            # to be kept to fix startup issues (#85).
+            #
+            # TODO: revisit this rabbit hole
             "files_preserve": [0] + self.get_logging_handles,
         }
 
