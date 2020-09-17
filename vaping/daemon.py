@@ -110,7 +110,7 @@ class Vaping:
         logger instance
         """
         if not self._logger:
-            self._logger = logging.getLogger("vaping")
+            self._logger = logging.getLogger(__name__)
         return self._logger
 
     @property
