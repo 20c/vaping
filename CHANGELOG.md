@@ -8,6 +8,9 @@
 - docker: added needed dependencies so gevent and other bits compile (thanks @seanknox)
 - unknown name/type config attribute in vodka config (#84)
 - NoneType error in graphite plugin (#78)
+- startup issue in daemon mode (#85)
+- logging in daemon mode (#79)
+- some performance issues in daemon mode (#33)
 ### Removed
 - python2.7 support
 - python3.4 support

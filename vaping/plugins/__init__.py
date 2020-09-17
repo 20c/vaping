@@ -15,6 +15,13 @@ class PluginBase(vaping.io.Thread):
     """
     Base plugin interface
 
+    # Class Attributes
+
+    - lazy_start (`bool`=`False`): if `True` plugin will not be
+      started on vaping start, but when at a later point (usually
+      when it starts emitting). Note that the plugin itself will
+      need to call `self.start()` somewhere explicitly when this is `True`.
+
     # Instanced Attributes
 
     - config (`dict`): plugin config
@@ -29,6 +36,8 @@ class PluginBase(vaping.io.Thread):
     Calls `self.on_start()` and `self.on_stop()` before and after running in
     case any connections need to be created or cleaned up.
     """
+
+    lazy_start = False
 
     @property
     def groups(self):
@@ -131,6 +140,7 @@ class PluginBase(vaping.io.Thread):
         self.vaping = ctx
         self.name = self.config.get("name")
         self._logger = None
+        self.lazy_start = False
 
         super().__init__()
         self.init()

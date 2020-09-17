@@ -29,22 +29,6 @@ plugins:
 
   - name: vodka
     type: vodka
-    logging:
-      version: 1
-      formatters:
-        simple:
-          format: '%(asctime)s - %(name)s - %(levelname)s: %(message)s'
-      handlers:
-        console:
-          class: logging.StreamHandler
-          level: DEBUG
-          formatter: simple
-          stream: ext://sys.stdout
-      loggers:
-        vodka:
-          level: DEBUG
-          handlers:
-            - console
 
     data:
       - type: fping
@@ -89,3 +73,35 @@ plugins:
           /graph : graphsrv->graph_view
           /overview_read_file : graphsrv->overview_read_file
           /: graphsrv->overview_view
+
+
+logging:
+  version: 1
+  formatters:
+    simple:
+      format: '%(asctime)s - %(name)s - %(levelname)s: %(message)s'
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: DEBUG
+      formatter: simple
+      stream: ext://sys.stdout
+
+    #file:
+    #  class: logging.FileHandler
+    #  level: DEBUG
+    #  formatter: simple
+    #  filename: /home/dev/sandbox/vaping/vaping.log
+
+  loggers:
+    vaping:
+      level: DEBUG
+      handlers:
+        - console
+        #- file
+    vodka:
+      level: DEBUG
+      handlers:
+        - console
+        #- file
+

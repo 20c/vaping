@@ -5,6 +5,7 @@ import signal
 import sys
 
 import logging
+import logging.config
 
 import vaping
 import vaping.config
@@ -51,6 +52,11 @@ class Vaping:
 
         self.joins = []
         self._logger = None
+
+        # configure vaping logging
+        if "logging" in self.config:
+            logging.config.dictConfig(self.config.get("logging"))
+
         self.plugin_context = PluginContext(self.config)
 
         vcfg = self.config.get("vaping", None)
@@ -59,8 +65,11 @@ class Vaping:
 
         # get either home_dir from config, or use config_dir
         self.home_dir = vcfg.get("home_dir", None)
+
         if not self.home_dir:
             self.home_dir = self.config.meta["config_dir"]
+
+        self.home_dir = os.path.abspath(self.home_dir)
 
         if not os.path.exists(self.home_dir):
             raise ValueError(f"home directory '{self.home_dir}' does not exist")
@@ -86,9 +95,14 @@ class Vaping:
                     "probes may not share names with plugins ({})".format(probe["name"])
                 )
 
-        # TODO move to daemon
-        pidname = vcfg.get("pidfile", "vaping.pid")
-        self.pidfile = pidfile.PidFile(pidname=pidname, piddir=self.home_dir)
+        self.pidname = vcfg.get("pidfile", "vaping.pid")
+
+    @property
+    def pidfile(self):
+        if not hasattr(self, "_pidfile"):
+            self._pidfile = pidfile.PidFile(pidname=self.pidname, piddir=self.home_dir)
+        return self._pidfile
+
 
     @property
     def log(self):
@@ -99,13 +113,28 @@ class Vaping:
             self._logger = logging.getLogger(__name__)
         return self._logger
 
+    @property
+    def get_logging_handles(self):
+        handles = []
+        logger = self.log
+        for handler in logger.handlers:
+            handles.append(handler.stream.fileno())
+        return handles
+
     def _exec(self, detach=True):
         """
         daemonize and exec main()
         """
+
         kwargs = {
-            "pidfile": self.pidfile,
             "working_directory": self.home_dir,
+
+            # we preserve stdin and any file logging handlers
+            # we setup - for some reason stdin is required
+            # to be kept to fix startup issues (#85).
+            #
+            # TODO: revisit this rabbit hole
+            "files_preserve": [0] + self.get_logging_handles,
         }
 
         # FIXME - doesn't work
@@ -122,34 +151,36 @@ class Vaping:
         ctx = daemon.DaemonContext(**kwargs)
 
         with ctx:
-            self._main()
+            with self.pidfile:
+                self._main()
 
     def _main(self):
         """
         process
         """
-        probes = self.config.get("probes", None)
-        if not probes:
-            raise ValueError("no probes specified")
+        try:
+            probes = self.config.get("probes", None)
+            if not probes:
+                raise ValueError("no probes specified")
 
-        for probe_config in self.config["probes"]:
-            probe = plugin.get_probe(probe_config, self.plugin_context)
-            # FIXME - needs to check for output defined in plugin
-            if "output" not in probe_config:
-                raise ValueError("no output specified")
+            for probe_config in self.config["probes"]:
+                probe = plugin.get_probe(probe_config, self.plugin_context)
 
-            # get all output targets and start / join them
-            for output_name in probe_config["output"]:
-                output = plugin.get_output(output_name, self.plugin_context)
-                if not output.started:
-                    output.start()
+                # get all output targets and start / join them
+                for output_name in probe_config.get("output", []):
+                    output = plugin.get_output(output_name, self.plugin_context)
+                    if not output.started and not output.__class__.lazy_start:
+                        output.start()
                     self.joins.append(output)
-                probe._emit.append(output)
+                    probe._emit.append(output)
 
-            probe.start()
-            self.joins.append(probe)
+                probe.start()
+                self.joins.append(probe)
 
-        vaping.io.joinall(self.joins)
+            vaping.io.joinall(self.joins)
+        except Exception as exc:
+            self.log.error(exc)
+
         return 0
 
     def start(self):
