@@ -55,6 +55,13 @@ pip install -U graphsrv
     pip install graphsrv==1.2.0
     ```
 
+Clone the github repository to have access to the example configuration files
+
+```sh
+git clone git@github.com:20c/vaping.git
+cd vaping
+```
+
 Then just start vaping with:
 
 ```sh
