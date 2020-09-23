@@ -1,5 +1,6 @@
 click>=5.1
-gevent>=1.1.2, <3
+greenlet==0.4.16
+gevent==1.5.0
 pid>=2.0.1, <4
 pluginmgr>=0.5.0, <0.7
 python-daemon>=2.1.1, <3

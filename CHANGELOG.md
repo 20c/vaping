@@ -11,6 +11,7 @@
 - startup issue in daemon mode (#85)
 - logging in daemon mode (#79)
 - some performance issues in daemon mode (#33)
+- greenlet.greenlet size changed error (#97)
 ### Removed
 - python2.7 support
 - python3.4 support
