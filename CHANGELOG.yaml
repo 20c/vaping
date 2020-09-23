@@ -73,21 +73,25 @@
   - fileprobe lines that can't be processed are now skipped
   - 'fix #62 timeseriesdb plugins crash when `update` is given `None` as a value'
   - 'fix #54 pytest > 3 for testing'
-Unreleased:
+1.3.0:
   added:
-    - python3.8 support
+  - python3.8 support
+  fixed:
+  - 'docker: added needed dependencies so gevent and other bits compile (thanks @seanknox)'
+  - unknown name/type config attribute in vodka config (#84)
+  - NoneType error in graphite plugin (#78)
+  - startup issue in daemon mode (#85)
+  - logging in daemon mode (#79)
+  - some performance issues in daemon mode (#33)
+  - greenlet.greenlet size changed error (#97)
+  removed:
+  - python2.7 support
+  - python3.4 support
+  - python3.5 support
+Unreleased:
+  added: []
   changed: []
   deprecated: []
-  fixed:
-    - 'docker: added needed dependencies so gevent and other bits compile (thanks @seanknox)'
-    - 'unknown name/type config attribute in vodka config (#84)'
-    - NoneType error in graphite plugin (#78)
-    - startup issue in daemon mode (#85)
-    - logging in daemon mode (#79)
-    - some performance issues in daemon mode (#33)
-    - greenlet.greenlet size changed error (#97)
-  removed:
-    - python2.7 support
-    - python3.4 support
-    - python3.5 support
+  fixed: []
+  removed: []
   security: []
