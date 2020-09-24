@@ -2,13 +2,30 @@ import collections
 import os
 import abc
 import copy
+import confu.schema
 import datetime
 import logging
 import munge
 
+
 from future.utils import with_metaclass
 from vaping.config import parse_interval
 import vaping.io
+
+class PluginConfigSchema(confu.schema.Schema):
+    """
+    Configuration Schema for [PluginBase](#pluginbase)
+
+    When creating new configuration schemas for extended plugins
+    extend this.
+    """
+
+    name = confu.schema.Str("name", default="", help="Plugin name")
+    type = confu.schema.Str("type", help="Plugin type")
+
+    # we also want to create an empty sub schema for `config` key
+    # this should be overwritten in the classes extending this plugin
+    config = confu.schema.Schema("config", help="plugin specific config")
 
 
 class PluginBase(vaping.io.Thread):
@@ -38,6 +55,9 @@ class PluginBase(vaping.io.Thread):
     """
 
     lazy_start = False
+
+    ConfigSchema = PluginConfigSchema
+    ConfigSchema.help = "Base plugin config schema"
 
     @property
     def groups(self):

@@ -1,10 +1,10 @@
 import collections
+import confu.schema
 import logging
 
 import vaping
 from vaping.io import subprocess
 from vaping.util import which
-
 
 class FPingBase(vaping.plugins.TimedProbe):
     """
@@ -138,6 +138,13 @@ class FPingBase(vaping.plugins.TimedProbe):
         return data
 
 
+class FPingConfig(confu.schema.Schema):
+    count = confu.schema.Int()
+    interval = confu.schema.Str()
+    output = confu.schema.List(
+        "output", confu.schema.Str()
+    )
+
 @vaping.plugin.register("fping")
 class FPing(FPingBase):
     """
@@ -151,6 +158,9 @@ class FPing(FPingBase):
     - period (`int=20`): time in milliseconds that fping waits
     between successive packets to an individual target
     """
+
+    class ConfigSchema(FPingBase.ConfigSchema):
+        config = FPingConfig("config")
 
     def init(self):
         self.hosts = []

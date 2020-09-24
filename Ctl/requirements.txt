@@ -1,4 +1,5 @@
 click>=5.1
+confu==1.5.0
 greenlet==0.4.16
 gevent==1.5.0
 pid>=2.0.1, <4
