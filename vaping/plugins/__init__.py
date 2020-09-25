@@ -23,10 +23,6 @@ class PluginConfigSchema(confu.schema.Schema):
     name = confu.schema.Str("name", default="", help="Plugin name")
     type = confu.schema.Str("type", help="Plugin type")
 
-    # we also want to create an empty sub schema for `config` key
-    # this should be overwritten in the classes extending this plugin
-    config = confu.schema.Schema("config", help="plugin specific config")
-
 
 class PluginBase(vaping.io.Thread):
     """

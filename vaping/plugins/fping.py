@@ -5,6 +5,7 @@ import logging
 import vaping
 from vaping.io import subprocess
 from vaping.util import which
+from vaping.plugins import PluginConfigSchema
 
 class FPingBase(vaping.plugins.TimedProbe):
     """
@@ -138,11 +139,11 @@ class FPingBase(vaping.plugins.TimedProbe):
         return data
 
 
-class FPingConfig(confu.schema.Schema):
+class FPingSchema(PluginConfigSchema):
     count = confu.schema.Int()
     interval = confu.schema.Str()
     output = confu.schema.List(
-        "output", confu.schema.Str()
+        item=confu.schema.Str()
     )
 
 @vaping.plugin.register("fping")
@@ -159,8 +160,7 @@ class FPing(FPingBase):
     between successive packets to an individual target
     """
 
-    class ConfigSchema(FPingBase.ConfigSchema):
-        config = FPingConfig("config")
+    ConfigSchema = FPingSchema
 
     def init(self):
         self.hosts = []

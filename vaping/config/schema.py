@@ -12,7 +12,7 @@ class HostSchema(confu.schema.Schema):
 class GroupSchema(confu.schema.Schema):
     name = confu.schema.Str()
     hosts = confu.schema.List(
-        "hosts", HostSchema(), help="list of hosts"
+        item=HostSchema(), help="list of hosts"
     )
 
 
@@ -23,10 +23,10 @@ class ProbesSchema(confu.schema.Schema):
     name = confu.schema.Str()
     type = confu.schema.Str()
     output = confu.schema.List(
-        "output", confu.schema.Str(), help="list of outputs"
+        item=confu.schema.Str(), help="list of outputs"
     )
     groups = confu.schema.List(
-        "groups", GroupSchema(), help="group schema"
+        item=GroupSchema(), help="group schema"
     )
 
 
@@ -53,16 +53,15 @@ class VapingSchema(confu.schema.Schema):
     """
 
     plugin_path = confu.schema.List(
-        "plugin_path",
-        confu.schema.Directory("plugin_path.item"),
+        item=confu.schema.Directory("plugin_path.item"),
         help="list of directories to search for plugins",
     )
 
     probes = confu.schema.List(
-        "probes", ProbesSchema(), help="list of probes"
+        item=ProbesSchema(), help="list of probes"
     )
 
     plugins = confu.schema.List(
-        "plugins", PluginProxySchema(), help="list of plugin config objects"
+        item=PluginProxySchema(), help="list of plugin config objects"
     )
 
