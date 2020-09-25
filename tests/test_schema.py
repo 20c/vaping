@@ -5,10 +5,10 @@ import confu.schema
 import pytest
 import yaml
 
-import vaping.schema
+import vaping.config
+from pprint import pprint
 
-
-def test_quickstart_schema(schema_dir):
+def test_validate_quickstart_schema(schema_dir):
     config_path = os.path.join(schema_dir, "quickstart.yml")
     with open(config_path, 'r') as stream:
         try:
@@ -18,10 +18,12 @@ def test_quickstart_schema(schema_dir):
             pytest.fail()
 
 
-    schema = vaping.schema.VapingSchema()
+    schema = vaping.config.VapingSchema()
 
     success, errors, warnings = confu.schema.validate(schema, data)
 
-    config = confu.config.Config(schema, data)
-    pprint(config.__dict__)
-    
+    # In case of failure
+    print([e for e in errors])
+    print([w for w in warnings])
+    assert success
+    assert len(warnings) == 0
