@@ -6,9 +6,10 @@ import sys
 
 import logging
 import logging.config
+import confu.config
 
 import vaping
-import vaping.config
+from vaping.config import VapingSchema
 import vaping.io
 from vaping import plugin
 
@@ -38,18 +39,7 @@ class Vaping:
         must either pass config as a dict or vaping.config.Config
         or config_dir as a path to where the config dir is located
         """
-        if config:
-            if isinstance(config, dict):
-                self.config = vaping.Config(data=config)
-            else:
-                if not config.meta:
-                    raise ValueError("config was not specified or empty")
-                self.config = config
-        elif config_dir:
-            self.config = vaping.Config(read=config_dir)
-        else:
-            raise ValueError("config was not specified or empty")
-
+        self.config = self.load_config(config, config_dir)
         self.joins = []
         self._logger = None
 
@@ -96,6 +86,20 @@ class Vaping:
                 )
 
         self.pidname = vcfg.get("pidfile", "vaping.pid")
+
+    def load_config(self, config, config_dir):
+        if config:
+            if isinstance(config, dict):
+                self.config = vaping.Config(data=config)
+                # self.config = confu.config.Config(VapingSchema, config)
+            else:
+                if not config.meta:
+                    raise ValueError("config was not specified or empty")
+                self.config = config
+        elif config_dir:
+            self.config = vaping.Config(read=config_dir)
+        else:
+            raise ValueError("config was not specified or empty")
 
     @property
     def pidfile(self):
