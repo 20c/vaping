@@ -140,11 +140,12 @@ class FPingBase(vaping.plugins.TimedProbe):
 
 
 class FPingSchema(PluginConfigSchema):
-    count = confu.schema.Int()
-    interval = confu.schema.Str()
+    count = confu.schema.Int(default=5)
+    interval = confu.schema.Str(default="1m")
     output = confu.schema.List(
         item=confu.schema.Str()
     )
+    period = confu.schema.Int(default=20)
 
 @vaping.plugin.register("fping")
 class FPing(FPingBase):
