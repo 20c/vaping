@@ -4,7 +4,9 @@ import confu.exceptions
 
 
 class HostSchema(confu.schema.Schema):
-    host = confu.schema.IpAddress()
+    # host = confu.schema.IpAddress()
+    # FPing just needs a string here
+    host = confu.schema.Str()
     name = confu.schema.Str()
     color = confu.schema.Str()
 
@@ -53,7 +55,7 @@ class VapingSchema(confu.schema.Schema):
     """
 
     plugin_path = confu.schema.List(
-        item=confu.schema.Directory("plugin_path.item"),
+        item=confu.schema.Directory(),
         help="list of directories to search for plugins",
     )
 
@@ -64,4 +66,9 @@ class VapingSchema(confu.schema.Schema):
     plugins = confu.schema.List(
         item=PluginProxySchema(), help="list of plugin config objects"
     )
+
+    # config_dir = confu.schema.Directory(default="~/.vaping")
+    config_dir = confu.schema.Directory(default="")
+    home_dir = confu.schema.Directory(default=None)
+    pidfile = confu.schema.Str("vaping.pid")
 

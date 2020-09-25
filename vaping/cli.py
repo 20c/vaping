@@ -41,9 +41,10 @@ def mk_daemon(ctx):
 
     `vaping.daemon.Vaping` instance
     """
+
     if not ctx.config.meta:
         raise ValueError("no config specified, please use specify a home directory")
-    return vaping.daemon.Vaping(ctx.config)
+    return vaping.daemon.Vaping(config_dir=ctx.home)
 
 
 @click.group()

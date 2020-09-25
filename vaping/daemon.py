@@ -13,6 +13,9 @@ from vaping.config import VapingSchema
 import vaping.io
 from vaping import plugin
 
+from munge import load_datafile
+
+from pprint import pprint
 
 class PluginContext:
     """
@@ -39,7 +42,8 @@ class Vaping:
         must either pass config as a dict or vaping.config.Config
         or config_dir as a path to where the config dir is located
         """
-        self.config = self.load_config(config, config_dir)
+
+        self.load_config(config, config_dir)
         self.joins = []
         self._logger = None
 
@@ -49,15 +53,19 @@ class Vaping:
 
         self.plugin_context = PluginContext(self.config)
 
+
+        # GET VAPING PART OF CONFIG
         vcfg = self.config.get("vaping", None)
         if not vcfg:
             vcfg = dict()
 
+        # GET HOME_DIR PART OF CONFIG
         # get either home_dir from config, or use config_dir
         self.home_dir = vcfg.get("home_dir", None)
 
         if not self.home_dir:
-            self.home_dir = self.config.meta["config_dir"]
+            # self.home_dir = self.config.meta["config_dir"]
+            self.home_dir = self.config["config_dir"]
 
         self.home_dir = os.path.abspath(self.home_dir)
 
@@ -88,18 +96,27 @@ class Vaping:
         self.pidname = vcfg.get("pidfile", "vaping.pid")
 
     def load_config(self, config, config_dir):
-        if config:
-            if isinstance(config, dict):
-                self.config = vaping.Config(data=config)
-                # self.config = confu.config.Config(VapingSchema, config)
-            else:
-                if not config.meta:
-                    raise ValueError("config was not specified or empty")
-                self.config = config
+        # Check if type dict, and not empty
+        if isinstance(config, dict) and bool(config):
+            self.config = confu.config.Config(VapingSchema(), config)
+
+        elif isinstance(config, confu.config.Config):
+            self.config = config
+
         elif config_dir:
-            self.config = vaping.Config(read=config_dir)
+            self._load_config_dir(config_dir)
+
         else:
             raise ValueError("config was not specified or empty")
+
+    def _load_config_dir(self, config_dir):
+        try:
+            data = load_datafile("config.yml", config_dir)
+        except OSError as exc:
+            raise IOError("config dir not found")
+        
+        self.config = confu.config.Config(VapingSchema(), data)
+
 
     @property
     def pidfile(self):

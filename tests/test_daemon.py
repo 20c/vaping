@@ -5,6 +5,9 @@ import vaping
 import vaping.daemon
 import vaping.config
 
+import confu.config
+
+from pprint import pprint
 
 def test_plugin_context():
     data = {"1": "two"}
@@ -37,33 +40,30 @@ def test_empty_config_object():
     assert "config was not specified" in str(excinfo.value)
 
 
-def test_config_object(this_dir):
-    config_dir = os.path.join(this_dir, "data", "config", "fping")
-    vaping.daemon.Vaping(config=vaping.Config(read=config_dir))
-
-
 def test_config_dir_not_found():
     with pytest.raises(IOError) as excinfo:
         vaping.daemon.Vaping(config_dir="does/not/exist")
     assert "config dir not found" in str(excinfo.value)
 
 
-def test_load_config_files(data_config_daemon):
-    codec = munge.get_codec("yaml")()
-    data = codec.loads(data_config_daemon.yml)
-    data["vaping"] = dict(home_dir=os.path.realpath(data_config_daemon.path))
-    daemon = vaping.daemon.Vaping(config=data)
-    # print(data_config_daemon.dumps(daemon.config.data))
-    data_config_daemon.expected["vaping"]["home_dir"] = os.path.realpath(
-        data_config_daemon.expected["vaping"]["home_dir"]
-    )
-    assert data_config_daemon.expected == daemon.config.data
-
-
-def test_start_stop(this_dir):
+def test_load_config_dir(this_dir):
     config_dir = os.path.join(this_dir, "data", "config", "fping")
-    vaping.daemon.Vaping(config=vaping.Config(read=config_dir))
+    daemon = vaping.daemon.Vaping(config_dir=config_dir)
+    config = daemon.config
+    assert type(config) == confu.config.Config
 
 
-#    daemon._main()
-#    daemon.stop()
+def test_load_config(this_dir):
+    import yaml
+
+    config_path = os.path.join(this_dir, "data", "config", "fping", "config.yml")
+    with open(config_path, 'r') as stream:
+        try:
+            data = yaml.safe_load(stream)
+        except yaml.YAMLError as exc:
+            print(exc)
+            pytest.fail()
+
+    daemon = vaping.daemon.Vaping(config=data)
+    config = daemon.config
+    assert type(config) == confu.config.Config
