@@ -51,10 +51,17 @@ class PluginProxySchema(confu.schema.ProxySchema):
     def schema(self, config):
         import vaping
         
-        return vaping.plugin.get_plugin_class(config["type"]).ConfigSchema()
+        try:
+            return vaping.plugin.get_plugin_class(config["type"]).ConfigSchema()
+        except KeyError as exc:
+            raise ValueError(f"All plugins need `type` field set in config.")
 
     def validate(self, config, path=None, errors=None, warnings=None):
-        path[-1] = config["name"]
+        try:
+            path[-1] = config["name"]
+        except KeyError as exc:
+            raise ValueError(f"All plugins need `name` field set in config.")
+
         return self.schema(config).validate(
             config, path=path, errors=errors, warnings=warnings
         )
