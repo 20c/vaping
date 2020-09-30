@@ -3,6 +3,16 @@ import confu.generator
 import confu.exceptions
 
 
+class MixedDict(confu.schema.Dict):
+    """
+    Extended confu.schema.Dict object that prevents
+    validation of its interior objects.
+    Use for dictionaries that do not need validation or 
+    will get validated other ways, like in Vodka plugin or logging.
+    """
+    def validate(self, config, path=None, errors=None, warnings=None):
+        return config
+
 class HostSchema(confu.schema.Schema):
     # host = confu.schema.IpAddress()
     # FPing just needs a string here
@@ -70,5 +80,6 @@ class VapingSchema(confu.schema.Schema):
     # config_dir = confu.schema.Directory(default="~/.vaping")
     config_dir = confu.schema.Directory(default="")
     home_dir = confu.schema.Directory(default=None)
-    pidfile = confu.schema.Str("vaping.pid")
+    pidfile = confu.schema.Str(default="vaping.pid")
+    logging = MixedDict()
 
