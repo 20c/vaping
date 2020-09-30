@@ -20,7 +20,7 @@ class PluginConfigSchema(confu.schema.Schema):
     extend this.
     """
 
-    name = confu.schema.Str("name", default="", help="Plugin name")
+    name = confu.schema.Str("name", help="Plugin name")
     type = confu.schema.Str("type", help="Plugin type")
 
 
