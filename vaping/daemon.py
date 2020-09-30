@@ -44,10 +44,7 @@ class Vaping:
         """
 
         self.load_config(config, config_dir)
-        from pprint import pprint
-        pprint(self.config.data)
         self.validate_config_data(self.config.data)
-
 
         self.joins = []
         self._logger = None
