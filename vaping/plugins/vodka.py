@@ -61,14 +61,6 @@ class VodkaSchema(PluginConfigSchema):
     apps = confu.schema.Dict(item=vaping.config.MixedDict())
     plugins = confu.schema.List(item=vaping.config.MixedDict())
 
-# class DataSchema(confu.schema.Schema):
-#     pass
-
-# class AppsSchema(confu.schema.Schema):
-#     pass
-
-# class Plugins(confu.schema.Schema):
-#     pass
 
 @vaping.plugin.register("vodka")
 class VodkaPlugin(vaping.plugins.EmitBase):
