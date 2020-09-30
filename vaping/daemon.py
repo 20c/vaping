@@ -96,23 +96,22 @@ class Vaping:
 
         self.pidname = vcfg.get("pidfile", "vaping.pid")
 
-    def load_config(self, config, config_dir):
+    def load_config(self, config=None, config_dir=None):
+        if config_dir and not config:
+            config = self._extract_config_from_dir(config_dir) 
+        self._load_config(config)
+
+    def _load_config(self, config):
         if isinstance(config, confu.config.Config):
             self.config = config
             
         # Check if type dict, and not empty
         elif isinstance(config, dict) and bool(config):
             self.config = confu.config.Config(VapingSchema(), config)
-
-        elif config_dir:
-            config_data = self._load_config_dir(config_dir)
-            self.config = confu.config.Config(VapingSchema(), config_data)
-
         else:
             raise ValueError("config was not specified or empty")
 
-
-    def _load_config_dir(self, config_dir):
+    def _extract_config_from_dir(self, config_dir):
         try:
             data = load_datafile("config.yml", config_dir)
         except OSError as exc:

@@ -20,12 +20,12 @@ def test_plugin_context():
     assert data != ctx.config.data
 
 
-def test_empty_config_dir(this_dir):
+def test_empty_config_file(this_dir):
     config_dir = os.path.join(this_dir, "data", "config", "empty")
 
     with pytest.raises(ValueError) as excinfo:
         vaping.daemon.Vaping(config_dir=config_dir)
-    assert "no plugins specified" in str(excinfo.value)
+    assert "config was not specified or empty" in str(excinfo.value)
 
 
 def test_empty_config_dict():
