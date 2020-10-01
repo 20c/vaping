@@ -2,6 +2,7 @@ import os
 
 import vaping.plugins.fping_mtr
 from vaping import plugin
+import vaping.daemon
 
 
 expect_verbose = {
@@ -49,6 +50,7 @@ def test_run_probe(config_dir):
 
 def test_parse_traceroute(data_mtr_traceroute):
     mtr = vaping.plugin.get_plugin_class("fping_mtr")({}, None)
+    print(mtr)
     print(data_mtr_traceroute.input)
     print(data_mtr_traceroute.expected)
     print("=======")

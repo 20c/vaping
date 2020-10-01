@@ -152,5 +152,5 @@ def test_time_parser(line, result, raises):
         if not result:
             assert _result == result
         else:
-            dt = datetime.datetime.fromtimestamp(_result["ts"])
+            dt = datetime.datetime.fromtimestamp(_result["ts"], tz=datetime.timezone.utc)
             assert dt.strftime("%Y.%m.%d %H:%M:%S") == result
