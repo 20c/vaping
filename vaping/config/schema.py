@@ -88,5 +88,4 @@ class VapingSchema(confu.schema.Schema):
     config_dir = confu.schema.Directory(default="")
     home_dir = confu.schema.Directory(default=None)
     pidfile = confu.schema.Str(default="vaping.pid")
-    logging = MixedDict()
 
