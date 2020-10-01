@@ -46,17 +46,14 @@ def test_config_dir_not_found():
     assert "config dir not found" in str(excinfo.value)
 
 
-def test_load_config_dir(this_dir):
-    config_dir = os.path.join(this_dir, "data", "config", "fping")
-    daemon = vaping.daemon.Vaping(config_dir=config_dir)
-    config = daemon.config
-    assert type(config) == confu.config.Config
-
-
-def test_load_config(this_dir):
+@pytest.mark.parametrize(
+    "dir_name",
+    ["fping", "fping_mtr", "vodka"]
+)
+def test_load_config(this_dir, dir_name):
     import yaml
 
-    config_path = os.path.join(this_dir, "data", "config", "fping", "config.yml")
+    config_path = os.path.join(this_dir, "data", "config", dir_name, "config.yml")
     with open(config_path, 'r') as stream:
         try:
             data = yaml.safe_load(stream)
@@ -65,5 +62,16 @@ def test_load_config(this_dir):
             pytest.fail()
 
     daemon = vaping.daemon.Vaping(config=data)
+    config = daemon.config
+    assert type(config) == confu.config.Config
+
+
+@pytest.mark.parametrize(
+    "dir_name",
+    ["fping", "fping_mtr", "vodka"]
+)
+def test_load_config_dir(this_dir, dir_name):
+    config_dir = os.path.join(this_dir, "data", "config", dir_name)
+    daemon = vaping.daemon.Vaping(config_dir=config_dir)
     config = daemon.config
     assert type(config) == confu.config.Config
