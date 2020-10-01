@@ -7,13 +7,14 @@ import sys
 import logging
 import logging.config
 import confu.config
+from confu.exceptions import ValidationWarning
 
 import vaping
 from vaping.config import VapingSchema
 import vaping.io
 from vaping import plugin
 
-from munge import load_datafile
+from munge import load_datafile, find_datafile
 
 from pprint import pprint
 
@@ -43,16 +44,16 @@ class Vaping:
         or config_dir as a path to where the config dir is located
         """
 
-        self.load_config(config, config_dir)
-        self.validate_config_data(self.config.data)
-
         self.joins = []
         self._logger = None
 
+        self.load_config(config, config_dir)
+        self.validate_config_data(self.config.data)
+
         # configure vaping logging
         if "logging" in self.config:
-            logging.config.dictConfig(self.config.get("logging"))
-
+            logging.config.dictConfig(self.config.get("logging"))            
+        
         self.plugin_context = PluginContext(self.config)
 
         # GET VAPING PART OF CONFIG
@@ -113,14 +114,25 @@ class Vaping:
 
     def _extract_config_from_dir(self, config_dir):
         try:
-            data = load_datafile("config.yml", config_dir)
+            data = load_datafile("config", config_dir)
         except OSError as exc:
             raise IOError("config dir not found")
         return data
-        
+    
 
     def validate_config_data(self, config_data):
-        VapingSchema().validate(config_data)
+        try:
+            VapingSchema().validate(config_data)
+        except ValidationWarning as exc:
+            """
+            We do not verify logging with the schema
+            so we can skip this error.
+            (it will occur when a logging config IS provided)
+            """
+            if "logging" in str(exc):
+                return
+            else:
+                self.log.warning(exc.pretty)
 
     @property
     def pidfile(self):
