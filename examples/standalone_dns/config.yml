@@ -1,7 +1,6 @@
 
 probes:
   - name: latency
-    wutup: nothing
     type: std_fping
     output:
       - vodka
