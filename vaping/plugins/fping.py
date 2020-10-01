@@ -45,14 +45,15 @@ class FPingBase(vaping.plugins.TimedProbe):
     def __init__(self, config, ctx):
         super().__init__(config, ctx)
 
+        print(self.config)
         if not which(self.config["command"]):
             self.log.critical(
                 "missing fping, install it or set `command` in the fping config"
             )
             raise RuntimeError("fping command not found - install the fping package")
 
-        self.count = int(self.config.get("count", 0))
-        self.period = int(self.config.get("period", 0))
+        self.count = self.config.get("count")
+        self.period = self.config.get("period")
 
     def hosts_args(self):
         """

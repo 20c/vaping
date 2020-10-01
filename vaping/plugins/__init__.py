@@ -145,12 +145,17 @@ class PluginBase(vaping.io.Thread):
         - ctx: vaping context
         """
 
+        # FIXME: figure out what from this we want to keep
         if hasattr(self, "default_config"):
             self.config = munge.util.recursive_update(
                 copy.deepcopy(self.default_config), copy.deepcopy(config)
             )
         else:
             self.config = config
+
+        if hasattr(self, "ConfigSchema"):
+            confu.schema.apply_defaults(self.ConfigSchema(), config)
+
         # set for pluginmgr
         self.pluginmgr_config = self.config
         self.vaping = ctx
@@ -243,11 +248,15 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
             self.send_emission()
 
 
+class TimedProbeSchema(PluginConfigSchema):
+    interval = confu.schema.Str()
+
 class TimedProbe(ProbeBase):
     """
     Probe class that calls probe every config defined interval
     """
 
+    ConfigSchema = TimedProbeSchema
     def __init__(self, config, ctx, emit=None):
         super().__init__(config, ctx, emit)
 
