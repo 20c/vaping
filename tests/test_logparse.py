@@ -6,6 +6,11 @@ import datetime
 
 from vaping import plugin
 
+config_default = {
+    "type": "logparse",
+    "name": "logparse_default_test",
+}
+
 config = {
     "type": "logparse",
     "name": "logparse_test",
@@ -49,6 +54,16 @@ config_time_parser = {
         "format": "%Y.%m.%d %H:%M:%S",
     },
 }
+
+
+def test_config_defaults():
+    inst = plugin.get_instance(config_default, None)
+    config = inst.config
+    
+    assert config["fields"] == {}
+    assert config["exclude"] == []
+    assert config["include"] == []
+    assert config["aggregate"] == {}
 
 
 @pytest.mark.parametrize(

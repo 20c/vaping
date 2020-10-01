@@ -5,6 +5,33 @@ import datetime
 import vaping
 import vaping.config
 
+from vaping.plugins import PluginConfigSchema
+import confu.schema
+
+
+class FieldSchema(confu.schema.Schema):
+    parser = confu.schema.Str()
+    type = confu.schema.Str()
+    aggregate = confu.schema.Str()
+    eval = confu.schema.Str()
+    
+class TimeParserSchema(confu.schema.Schema):
+    find = confu.schema.Str()
+    format = confu.schema.Str()
+
+class AggregateSchema(confu.schema.Schema):
+    count = confu.schema.Int()
+
+class LogParseSchema(PluginConfigSchema):
+    """
+    Define a schema for FPing and also define defaults.
+    """
+    fields = confu.schema.Dict(item=FieldSchema(), default={})
+    time_parser = TimeParserSchema()
+    exclude = confu.schema.List(item=confu.schema.Str(), default=[])
+    include = confu.schema.List(item=confu.schema.Str(), default=[])
+    aggregate = AggregateSchema(default={})
+
 
 @vaping.plugin.register("logparse")
 class LogParse(vaping.plugins.FileProbe):
@@ -56,7 +83,9 @@ class LogParse(vaping.plugins.FileProbe):
     - time_parser (`dict`)
     """
 
-    default_config = {"fields": {}, "exclude": [], "include": [], "aggregate": {}}
+    # default_config = {"fields": {}, "exclude": [], "include": [], "aggregate": {}}
+
+    ConfigSchema = LogParseSchema
 
     def init(self):
         self.stack = []
@@ -349,7 +378,9 @@ class LogParse(vaping.plugins.FileProbe):
         if not time_string:
             raise ValueError(f"Could not find time string {find} in line {line}")
 
+
         dt = datetime.datetime.strptime(time_string.group(0), fmt)
+
         if dt.year == 1900:
             dt = dt.replace(year=datetime.datetime.now().year)
         return (dt - datetime.datetime(1970, 1, 1)).total_seconds()

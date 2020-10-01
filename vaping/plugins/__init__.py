@@ -290,6 +290,10 @@ class TimedProbe(ProbeBase):
                 sleeptime = datetime.timedelta(seconds=self.interval) - elapsed
                 vaping.io.sleep(sleeptime.total_seconds())
 
+class FileProbeSchema(PluginConfigSchema):
+    path = confu.schema.Str()
+    backlog = confu.schema.Int(default=10)
+    max_lines = confu.schema.Int(default=1000)
 
 class FileProbe(ProbeBase):
     """
@@ -308,6 +312,8 @@ class FileProbe(ProbeBase):
     - max_lines (`int`): maximum number of liens to read during probe
     - fh (`filehandler`): file handler for opened file (only available if `path` is set)
     """
+
+    ConfigSchema = FileProbeSchema
 
     def __init__(self, config, ctx, emit=None):
         super().__init__(config, ctx, emit)
