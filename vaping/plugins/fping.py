@@ -12,13 +12,15 @@ class FPingSchema(TimedProbeSchema):
     """
     Define a schema for FPing and also define defaults.
     """
-    count = confu.schema.Int(default=5)
-    interval = confu.schema.Str(default="1m")
+    count = confu.schema.Int(default=5, help="Number of pings to send")
+    interval = confu.schema.Str(default="1m", help="Time between pings")
     output = confu.schema.List(
-        item=confu.schema.Str()
+        item=confu.schema.Str(),
+        help="Determine what plugin displays output"
     )
-    period = confu.schema.Int(default=20)
-    command = confu.schema.Str(default="fping")
+    period = confu.schema.Int(default=20, 
+        help="Time in milliseconds that fping waits between successive packets to an individual target")
+    command = confu.schema.Str(default="fping", help="Command to run")
 
 class FPingBase(vaping.plugins.TimedProbe):
     """
@@ -45,7 +47,6 @@ class FPingBase(vaping.plugins.TimedProbe):
     def __init__(self, config, ctx):
         super().__init__(config, ctx)
 
-        print(self.config)
         if not which(self.config["command"]):
             self.log.critical(
                 "missing fping, install it or set `command` in the fping config"

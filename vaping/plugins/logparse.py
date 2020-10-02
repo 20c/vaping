@@ -10,27 +10,45 @@ import confu.schema
 
 
 class FieldSchema(confu.schema.Schema):
-    parser = confu.schema.Str()
-    type = confu.schema.Str()
-    aggregate = confu.schema.Str()
-    eval = confu.schema.Str()
+    parser = confu.schema.Str(
+        help="Regex pattern to parse field value, needs to one group in it"
+    )
+    type = confu.schema.Str(help="Value type (int, float etc.)")
+    aggregate = confu.schema.Str(
+        help="How to aggregate the field if aggregation is turned on (sum, avg, eval)"
+    )
+    eval = confu.schema.Str(
+        help="Evaluate to create the value, other fields' values will be available in the string formatting"
+    )
     
 class TimeParserSchema(confu.schema.Schema):
-    find = confu.schema.Str()
-    format = confu.schema.Str()
+    find = confu.schema.Str(
+        help="Regex string to find timestamps.")
+    format = confu.schema.Str(
+        help="Datetime format to output timestamps.")
 
 class AggregateSchema(confu.schema.Schema):
-    count = confu.schema.Int()
+    count = confu.schema.Int(help="Aggregate n lines")
 
 class LogParseSchema(PluginConfigSchema):
     """
     Define a schema for FPing and also define defaults.
     """
-    fields = confu.schema.Dict(item=FieldSchema(), default={})
-    time_parser = TimeParserSchema()
-    exclude = confu.schema.List(item=confu.schema.Str(), default=[])
-    include = confu.schema.List(item=confu.schema.Str(), default=[])
-    aggregate = AggregateSchema(default={})
+    fields = confu.schema.Dict(item=FieldSchema(), default={}, help="Field definition")
+    time_parser = TimeParserSchema(
+        help="If specified will be passed to strptime to generate a timestamp from the logline"
+    )
+    exclude = confu.schema.List(
+        item=confu.schema.Str(),
+        default=[],
+        help="list of regex patterns that will cause lines to be excluded on match"
+    )
+    include = confu.schema.List(
+        item=confu.schema.Str(), 
+        default=[],
+        help="list of regex patterns that will cause lines to be included on match"
+    )
+    aggregate = AggregateSchema(default={}, help="aggregation config")
 
 
 @vaping.plugin.register("logparse")
@@ -70,6 +88,7 @@ class LogParse(vaping.plugins.FileProbe):
     - exclude (`list`): list of regex patterns that will cause
       lines to be excluded on match
     - include (`list`): list of regex patterns that will cause
+      lines to be included on match
     - aggregate (`dict`): aggregation config
         -`count` aggregate n lines
 

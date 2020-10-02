@@ -18,7 +18,7 @@ def munge_filename(filename):
 
 
 class GraphiteSchema(TimeSeriesDBSchema):
-    proto = confu.schema.Str(default="http")
+    proto = confu.schema.Str(default="http", help="")
     graphite_host = confu.schema.Str(default="127.0.0.1")
     prefix = confu.schema.Str(default="vaping")
 
@@ -41,8 +41,10 @@ class GraphitePlugin(vaping.plugins.TimeSeriesDB):
             raise RuntimeError("graphyte not found")
 
         # get configs
+
+        # FIXME: Add help
         self.proto = self.config.get("proto")
-        self.graphite_host = self.config.get("graphite_host")
+        self.graphite_host = self.config.get("graphite_host", help="IP address for graphite host.")
         self.prefix = self.config.get("prefix")
 
     def start(self):

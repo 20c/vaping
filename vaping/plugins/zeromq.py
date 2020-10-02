@@ -9,7 +9,7 @@ import confu.schema
 
 class ZeroMQSchema(vaping.plugins.PluginConfigSchema):
     bind = confu.schema.Str()
-    sock = confu.schema.Str()
+    connect = confu.schema.Str()
 
 
 @vaping.plugin.register("zeromq")
