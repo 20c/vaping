@@ -440,6 +440,10 @@ class EmitBase(with_metaclass(abc.ABCMeta, PluginBase)):
     def emit(self, message):
         """ accept message to emit """
 
+class TimeSeriesDBSchema(PluginConfigSchema):
+    filename = confu.schema.Str(help="database file name template")
+    field = confu.schema.Str(help="field name to read the value from")
+
 
 class TimeSeriesDB(EmitBase):
     """
@@ -448,14 +452,15 @@ class TimeSeriesDB(EmitBase):
     # Config
 
     - filename (`str`): database file name template
-    - field (`str`): fieeld name to read the value from
+    - field (`str`): field name to read the value from
 
     # Instanced Attributes
 
     - filename (`str`): database file name template
     - field (`str`): fieeld name to read the value from
     """
-
+    ConfigSchema = TimeSeriesDBSchema
+    
     def __init__(self, config, ctx):
         super().__init__(config, ctx)
 
