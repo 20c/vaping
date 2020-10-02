@@ -5,10 +5,10 @@ import logging
 import vaping
 from vaping.io import subprocess
 from vaping.util import which
-from vaping.plugins import PluginConfigSchema
+from vaping.plugins import PluginConfigSchema, TimedProbeSchema
 
 
-class FPingSchema(PluginConfigSchema):
+class FPingSchema(TimedProbeSchema):
     """
     Define a schema for FPing and also define defaults.
     """
