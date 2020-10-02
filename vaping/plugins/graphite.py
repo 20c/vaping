@@ -18,8 +18,8 @@ def munge_filename(filename):
 
 
 class GraphiteSchema(TimeSeriesDBSchema):
-    proto = confu.schema.Str(default="http", help="")
-    graphite_host = confu.schema.Str(default="127.0.0.1")
+    proto = confu.schema.Str(default="http")
+    graphite_host = confu.schema.Str(default="127.0.0.1", help="IP address for graphite host.")
     prefix = confu.schema.Str(default="vaping")
 
 
@@ -44,7 +44,7 @@ class GraphitePlugin(vaping.plugins.TimeSeriesDB):
 
         # FIXME: Add help
         self.proto = self.config.get("proto")
-        self.graphite_host = self.config.get("graphite_host", help="IP address for graphite host.")
+        self.graphite_host = self.config.get("graphite_host")
         self.prefix = self.config.get("prefix")
 
     def start(self):
