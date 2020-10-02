@@ -1,10 +1,7 @@
 import pytest
 import time
 import sys
-
-# FIXME: take this condition out once whisper supports py3
-if sys.version_info <= (2, 9):
-    import vaping.plugins.whisper
+import vaping.plugins.whisper
 
 from vaping import plugin
 
@@ -17,10 +14,24 @@ config = {
 
 FILENAME_TEMPLATE = "{id}-{field}.wsp"
 
-# FIXME: make sure to test py3 once whipser supports it
-@pytest.mark.skipif(
-    sys.version_info > (2, 9), reason="whisper does not support py3 at this point"
-)
+def test_whisper_config():
+    config["filename"] = "{id}-{field}.wsp"
+    inst = plugin.get_instance(config, None)
+    whisper_config = inst.config
+
+    # Check that whisper config takes values from
+    # provided config
+    for k,v in config.items():
+        assert whisper_config[k] == v
+
+    # Check that certain attributes are 
+    # available on plugin instance
+    inst.retention = config["retention"]
+    inst.x_files_factor = config["x_files_factor"]
+    inst.aggregation_method = config["aggregation_method"]
+    inst.sparse = config["sparse"]
+
+
 def test_whisper(tmpdir):
     """
     test whisper-db creation and update from emit
@@ -64,3 +75,5 @@ def test_whisper(tmpdir):
 
     value_assert(values_1, 123)
     value_assert(values_2, 456)
+
+
