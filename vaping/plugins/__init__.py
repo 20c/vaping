@@ -1,3 +1,4 @@
+import asyncio
 import collections
 import os
 import abc
@@ -145,7 +146,8 @@ class PluginBase(vaping.io.Thread):
         super().__init__()
         self.init()
 
-    def _run(self):
+    async def _run(self):
+        print("RUN", self)
         self.on_start()
 
 
@@ -174,8 +176,9 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
         self._emit_queue = vaping.io.Queue()
         super().__init__(config, ctx)
 
-    def _run(self):
+    async def _run(self):
         super()._run()
+        self.on_start()
         self.run_level = 1
         while self.run_level:
             self.send_emission()
@@ -184,6 +187,8 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
                 self.queue_emission(msg)
             else:
                 self.log.debug("probe returned no data")
+
+            await vaping.io.sleep(0.1)
 
     def queue_emission(self, msg):
         """
@@ -199,7 +204,7 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
             if not hasattr(_emitter, "emit"):
                 continue
 
-            def emit(emitter=_emitter):
+            async def emit(emitter=_emitter):
                 self.log.debug(f"emit to {emitter.name}")
                 emitter.emit(msg)
 
@@ -240,7 +245,7 @@ class TimedProbe(ProbeBase):
         self.interval = parse_interval(self.pluginmgr_config["interval"])
         self.run_level = 0
 
-    def _run(self):
+    async def _run(self):
         self.run_level = 1
         while self.run_level:
 
@@ -263,7 +268,7 @@ class TimedProbe(ProbeBase):
                 self.log.warning("probe time exceeded interval")
             else:
                 sleeptime = datetime.timedelta(seconds=self.interval) - elapsed
-                vaping.io.sleep(sleeptime.total_seconds())
+                await vaping.io.sleep(sleeptime.total_seconds())
 
 
 class FileProbe(ProbeBase):
@@ -304,14 +309,14 @@ class FileProbe(ProbeBase):
                     else:
                         raise
 
-    def _run(self):
+    async def _run(self):
         self.run_level = 1
         while self.run_level:
             self.send_emission()
             for msg in self.probe():
                 self.queue_emission(msg)
 
-            vaping.io.sleep(0.1)
+            await vaping.io.sleep(0.1)
 
     def validate_file_handler(self):
         """
