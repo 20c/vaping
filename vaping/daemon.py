@@ -177,7 +177,7 @@ class Vaping:
                 probe.start()
                 self.joins.append(probe)
 
-            vaping.io.joinall(self.joins)
+            vaping.io.join_plugins(self.joins)
         except Exception as exc:
             self.log.error(exc)
 

@@ -1,18 +1,11 @@
 """
 vaping io functionality
-
-currently relies on gevent and imports these functions/classes
-
-- `Queue`
-- `JoinableQueue`
-- `Empty`
-- `Thread` (`gevent.Greenlet`)
-- `joinall`
-- `sleep`
 """
 
 import os
 import sys
+import asyncio
+import time
 
 # namespace imports
 if os.name == "posix" and sys.version_info < (3, 5, 0):
@@ -20,16 +13,23 @@ if os.name == "posix" and sys.version_info < (3, 5, 0):
 else:
     import subprocess
 
-# FIXME
-# from gevent import subprocess
-from gevent.queue import Queue, JoinableQueue, Empty  # noqa
-from gevent import Greenlet as Thread  # noqa
-from gevent import joinall, sleep, monkey  # noqa
 
-monkey.patch_thread()
-monkey.patch_subprocess()
-monkey.patch_select()
+async def sleep(seconds):
+    await asyncio.sleep(seconds)
 
-# FIXME: patching time breaks startup, figure
-# out why as it makes sense for it to be patched
-# monkey.patch_time()
+def join_plugins(plugins):
+    tasks = []
+    async def run_plugins():
+        for plugin in plugins:
+            tasks.append(plugin._run())
+        await asyncio.gather(*tasks)
+    asyncio.run(run_plugins())
+
+class Queue(asyncio.Queue):
+    pass
+
+class Thread(object):
+
+    def start(self):
+        self.started = True
+        return
