@@ -22,7 +22,6 @@ def join_plugins(plugins):
     async def run_plugins():
         for plugin in plugins:
             tasks.append(plugin._run())
-        print("running plugins", tasks, plugins)
         await asyncio.gather(*tasks)
     asyncio.run(run_plugins())
 

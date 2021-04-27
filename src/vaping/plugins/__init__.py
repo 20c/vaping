@@ -148,7 +148,6 @@ class PluginBase(vaping.io.Thread):
         self.init()
 
     async def _run(self):
-        print("RUN", self)
         self.on_start()
 
 
