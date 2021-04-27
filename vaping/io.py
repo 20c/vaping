@@ -32,5 +32,5 @@ class Queue(asyncio.Queue):
 class Thread(object):
 
     def start(self):
-        print("start", self)
+        self.started = True
         return

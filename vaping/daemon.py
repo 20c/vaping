@@ -178,10 +178,6 @@ class Vaping:
                 self.joins.append(probe)
 
             vaping.io.join_plugins(self.joins)
-            import time
-            while True:
-                time.sleep(0.1)
-                continue
         except Exception as exc:
             self.log.error(exc)
 

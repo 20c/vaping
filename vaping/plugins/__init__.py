@@ -142,6 +142,7 @@ class PluginBase(vaping.io.Thread):
         self.name = self.config.get("name")
         self._logger = None
         self.lazy_start = False
+        self.started = False
 
         super().__init__()
         self.init()
@@ -184,13 +185,13 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
             self.send_emission()
             msg = self.probe()
             if msg:
-                self.queue_emission(msg)
+                await self.queue_emission(msg)
             else:
                 self.log.debug("probe returned no data")
 
             await vaping.io.sleep(0.1)
 
-    def queue_emission(self, msg):
+    async def queue_emission(self, msg):
         """
         queue an emission of a message for all output plugins
 
@@ -213,23 +214,23 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
                     _emitter.name, self._emit_queue.qsize()
                 )
             )
-            self._emit_queue.put(emit)
+            await self._emit_queue.put(emit)
 
-    def send_emission(self):
+    async def send_emission(self):
         """
         emit and remove the first emission in the queue
         """
         if self._emit_queue.empty():
             return
-        emit = self._emit_queue.get()
-        emit()
+        emit = self._emit_queue.get_nowait()
+        await emit()
 
-    def emit_all(self):
+    async def emit_all(self):
         """
         emit and remove all emissions in the queue
         """
         while not self._emit_queue.empty():
-            self.send_emission()
+            await self.send_emission()
 
 
 class TimedProbe(ProbeBase):
@@ -253,12 +254,12 @@ class TimedProbe(ProbeBase):
 
             # since the TimedProbe will sleep between cycles
             # we need to emit all queued emissions each cycle
-            self.emit_all()
+            await self.emit_all()
 
             msg = self.probe()
 
             if msg:
-                self.queue_emission(msg)
+                await self.queue_emission(msg)
             else:
                 self.log.debug("probe returned no data")
 
@@ -314,7 +315,7 @@ class FileProbe(ProbeBase):
         while self.run_level:
             self.send_emission()
             for msg in self.probe():
-                self.queue_emission(msg)
+                await self.queue_emission(msg)
 
             await vaping.io.sleep(0.1)
 
