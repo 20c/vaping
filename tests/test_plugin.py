@@ -11,8 +11,17 @@ config = {
             "str0": "reeb",
             "interval": "5s",
         },
-        {"name": "emit0", "type": "emit0", "var0": 42, "str0": "beer",},
-        {"name": "fancy_copy", "type": "fancy_probe", "var0": 12345,},
+        {
+            "name": "emit0",
+            "type": "emit0",
+            "var0": 42,
+            "str0": "beer",
+        },
+        {
+            "name": "fancy_copy",
+            "type": "fancy_probe",
+            "var0": 12345,
+        },
         {"name": "emit_store1", "type": "emit_store"},
         {"name": "emit_store2", "type": "emit_store"},
         {
