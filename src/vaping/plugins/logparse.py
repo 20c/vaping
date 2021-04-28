@@ -1,6 +1,5 @@
-import logging
-import re
 import datetime
+import re
 
 import vaping
 import vaping.config

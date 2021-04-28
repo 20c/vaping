@@ -3,7 +3,6 @@ import logging
 import vaping
 import vaping.plugins.fping
 from vaping.io import subprocess
-from vaping.util import which
 
 
 @vaping.plugin.register("fping_mtr")
@@ -94,11 +93,11 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
         """
 
         command = "traceroute"
-        first_ttl = 1
-        max_ttl = 24
-        timeout = 0.3
-        protocol = "udp"
-        port = 33434
+        # first_ttl = 1
+        # max_ttl = 24
+        # timeout = 0.3
+        # protocol = "udp"
+        # port = 33434
 
         # -f first_ttl
         # -m max_ttl
@@ -137,6 +136,10 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
         }
 
         msg["data"] = [
-            dict(hops=self.hosts, host=self.mtr_host, data=data,),
+            dict(
+                hops=self.hosts,
+                host=self.mtr_host,
+                data=data,
+            ),
         ]
         return msg

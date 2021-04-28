@@ -1,4 +1,3 @@
-import collections
 import logging
 
 import vaping

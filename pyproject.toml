@@ -25,7 +25,9 @@ classifiers = [
     'Topic :: System :: Networking :: Monitoring',
 ]
 
-
+packages = [
+    { include = "vaping", from = "src" },
+]
 
 [tool.poetry.scripts]
 vaping = "vaping.cli:cli"

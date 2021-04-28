@@ -1,15 +1,15 @@
-import asyncio
-import collections
-import os
 import abc
+import collections
 import copy
 import datetime
 import logging
-import munge
+import os
 
+import munge
 from future.utils import with_metaclass
-from vaping.config import parse_interval
+
 import vaping.io
+from vaping.config import parse_interval
 
 
 class PluginBase(vaping.io.Thread):
