@@ -1,4 +1,5 @@
 import os
+import asyncio
 import vaping.plugins.vodka
 from vaping import plugin
 from vaping.plugins.vodka import probe_to_graphsrv
@@ -12,6 +13,9 @@ def test_init(this_dir):
 
 
 def test_probe_to_graphsrv():
+
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
 
     # vodka setup with single group plugin
 
