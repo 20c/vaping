@@ -1,32 +1,40 @@
 ARG dep_packages="fping"
 
-FROM python:3.7-alpine as base
+FROM python:3.9-alpine as base
 
 ARG virtual_env=/venv
 
 ENV VIRTUAL_ENV="$virtual_env"
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+ENV POETRY_VERSION=1.1.4
 
 
 # image that builds vaping and deps
 FROM base as builder
 
-RUN apk --update --no-cache add gcc g++ make file libc-dev libffi-dev py-gevent $dep_packages
+RUN apk --update --no-cache add gcc g++ make file libc-dev libffi-dev curl openssl-dev make $dep_packages
 
-# create venv
+# Install Rust to install Poetry
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+# Use Pip to install Poetry
+RUN pip install "poetry==$POETRY_VERSION"
+
+# Create a VENV
 RUN python3 -m venv "$VIRTUAL_ENV"
-RUN pip install -U pip pipenv
 
-# requirements for examples/standalone_dns/
-RUN pip install \
-	graphsrv \
-	vodka
+WORKDIR /build
 
-WORKDIR /src/vaping
-ADD . .
+# individual files here instead of COPY . . for caching
+COPY pyproject.toml poetry.lock ./
 
-RUN pip install .
+# Need to upgrade pip and wheel within Poetry for all its installs
+RUN poetry run pip install --upgrade pip
+RUN poetry run pip install --upgrade wheel
+RUN poetry install --no-root
 
+COPY Ctl/VERSION Ctl/
 
 # final running image
 FROM base
