@@ -42,6 +42,14 @@ jobs:
           # flake8 .
           black . --check
           isort .
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v1
+        with:
+          languages: python
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v1
+
 
   test:
     needs: linting
@@ -90,3 +98,4 @@ jobs:
         with:
           file: ./coverage.xml
           fail_ci_if_error: true
+
