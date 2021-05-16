@@ -28,19 +28,17 @@ RUN python3 -m venv "$VIRTUAL_ENV"
 
 WORKDIR /src/vaping
 
-# individual files here instead of COPY . . for caching
+COPY Ctl/VERSION Ctl/
 COPY pyproject.toml poetry.lock ./
 COPY examples examples
 COPY src src
-# COPY examples/ ./
 RUN ls -alR
 
 # Need to upgrade pip and wheel within Poetry for all its installs
-RUN poetry run pip install --upgrade pip
-RUN poetry run pip install --upgrade wheel
+RUN poetry run pip install --upgrade pip wheel
+# XXX RUN poetry run pip install --upgrade wheel
 RUN poetry install
 
-COPY Ctl/VERSION Ctl/
 
 # final running image
 FROM base
