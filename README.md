@@ -13,7 +13,7 @@ vaping is a healthy alternative to smokeping!
 
 ## Introduction
 
-Vaping was started after years of frustation from dealing with perl and
+Vaping was started after years of frustration from dealing with perl and
 environment management for smokeping. It's a simple python daemon which uses
 green threads to poll for input and send output through plugins.
 
