@@ -14,9 +14,8 @@ from vaping.config import VapingSchema
 import vaping.io
 from vaping import plugin
 
-from munge import load_datafile, find_datafile
+from munge import load_datafile
 
-from pprint import pprint
 
 class PluginContext:
     """
@@ -115,10 +114,9 @@ class Vaping:
     def _extract_config_from_dir(self, config_dir):
         try:
             data = load_datafile("config", config_dir)
-        except OSError as exc:
+        except OSError:
             raise IOError("config dir not found")
         return data
-
 
     def validate_config_data(self, config_data):
         try:

@@ -14,6 +14,6 @@ def test_init():
         vaping.plugins.zeromq.ZeroMQ(config, None)
 
     zeromq = vaping.plugins.zeromq.ZeroMQ({"bind": "tcp://*:5555"}, None)
-    
+
     # Assert config values are loaded
     assert zeromq.config["bind"] == "tcp://*:5555"

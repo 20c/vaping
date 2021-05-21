@@ -19,20 +19,22 @@ class FieldSchema(confu.schema.Schema):
     eval = confu.schema.Str(
         help="Evaluate to create the value, other fields' values will be available in the string formatting"
     )
-    
+
+
 class TimeParserSchema(confu.schema.Schema):
-    find = confu.schema.Str(
-        help="Regex string to find timestamps.")
-    format = confu.schema.Str(
-        help="Datetime format to output timestamps.")
+    find = confu.schema.Str(help="Regex string to find timestamps.")
+    format = confu.schema.Str(help="Datetime format to output timestamps.")
+
 
 class AggregateSchema(confu.schema.Schema):
     count = confu.schema.Int(help="Aggregate n lines")
+
 
 class LogParseSchema(PluginConfigSchema):
     """
     Define a schema for FPing and also define defaults.
     """
+
     fields = confu.schema.Dict(item=FieldSchema(), default={}, help="Field definition")
     time_parser = TimeParserSchema(
         help="If specified will be passed to strptime to generate a timestamp from the logline"
@@ -40,12 +42,12 @@ class LogParseSchema(PluginConfigSchema):
     exclude = confu.schema.List(
         item=confu.schema.Str(),
         default=[],
-        help="list of regex patterns that will cause lines to be excluded on match"
+        help="list of regex patterns that will cause lines to be excluded on match",
     )
     include = confu.schema.List(
-        item=confu.schema.Str(), 
+        item=confu.schema.Str(),
         default=[],
-        help="list of regex patterns that will cause lines to be included on match"
+        help="list of regex patterns that will cause lines to be included on match",
     )
     aggregate = AggregateSchema(default={}, help="aggregation config")
 
@@ -395,7 +397,6 @@ class LogParse(vaping.plugins.FileProbe):
         time_string = re.search(find, line)
         if not time_string:
             raise ValueError(f"Could not find time string {find} in line {line}")
-
 
         dt = datetime.datetime.strptime(time_string.group(0), fmt)
 

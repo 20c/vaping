@@ -14,6 +14,7 @@ config = {
 
 FILENAME_TEMPLATE = "{id}-{field}.wsp"
 
+
 def test_whisper_config():
     config["filename"] = "{id}-{field}.wsp"
     inst = plugin.get_instance(config, None)
@@ -21,10 +22,10 @@ def test_whisper_config():
 
     # Check that whisper config takes values from
     # provided config
-    for k,v in config.items():
+    for k, v in config.items():
         assert whisper_config[k] == v
 
-    # Check that certain attributes are 
+    # Check that certain attributes are
     # available on plugin instance
     inst.retention = config["retention"]
     inst.x_files_factor = config["x_files_factor"]
@@ -75,5 +76,3 @@ def test_whisper(tmpdir):
 
     value_assert(values_1, 123)
     value_assert(values_2, 456)
-
-

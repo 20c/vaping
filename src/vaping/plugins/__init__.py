@@ -12,6 +12,7 @@ from future.utils import with_metaclass
 import vaping.io
 from vaping.config import parse_interval
 
+
 class PluginConfigSchema(confu.schema.Schema):
     """
     Configuration Schema for [PluginBase](#pluginbase)
@@ -255,12 +256,14 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
 class TimedProbeSchema(PluginConfigSchema):
     interval = confu.schema.Str()
 
+
 class TimedProbe(ProbeBase):
     """
     Probe class that calls probe every config defined interval
     """
 
     ConfigSchema = TimedProbeSchema
+
     def __init__(self, config, ctx, emit=None):
         super().__init__(config, ctx, emit)
 
@@ -294,10 +297,12 @@ class TimedProbe(ProbeBase):
                 sleeptime = datetime.timedelta(seconds=self.interval) - elapsed
                 await vaping.io.sleep(sleeptime.total_seconds())
 
+
 class FileProbeSchema(PluginConfigSchema):
     path = confu.schema.Str()
     backlog = confu.schema.Int(default=10)
     max_lines = confu.schema.Int(default=1000)
+
 
 class FileProbe(ProbeBase):
     """
@@ -444,6 +449,7 @@ class EmitBase(with_metaclass(abc.ABCMeta, PluginBase)):
     def emit(self, message):
         """ accept message to emit """
 
+
 class TimeSeriesDBSchema(PluginConfigSchema):
     filename = confu.schema.Str(help="database file name template")
     field = confu.schema.Str(help="field name to read the value from")
@@ -463,6 +469,7 @@ class TimeSeriesDB(EmitBase):
     - filename (`str`): database file name template
     - field (`str`): fieeld name to read the value from
     """
+
     ConfigSchema = TimeSeriesDBSchema
 
     def __init__(self, config, ctx):

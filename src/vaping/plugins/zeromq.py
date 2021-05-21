@@ -7,6 +7,7 @@ import vaping
 import vaping.plugins
 import confu.schema
 
+
 class ZeroMQSchema(vaping.plugins.PluginConfigSchema):
     bind = confu.schema.Str()
     connect = confu.schema.Str()

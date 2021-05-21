@@ -14,7 +14,7 @@ def test_valid_schema():
     graphite = vaping.plugin.get_plugin_class("graphite")(config, None)
 
     # Assert config is loaded into rrd config
-    for k,v in config.items():
+    for k, v in config.items():
         assert graphite.config[k] == v
 
     # Assert certain values are available as attributes of rrd plugin

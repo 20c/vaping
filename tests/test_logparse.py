@@ -59,7 +59,7 @@ config_time_parser = {
 def test_config_defaults():
     inst = plugin.get_instance(config_default, None)
     config = inst.config
-    
+
     assert config["fields"] == {}
     assert config["exclude"] == []
     assert config["include"] == []
@@ -167,5 +167,7 @@ def test_time_parser(line, result, raises):
         if not result:
             assert _result == result
         else:
-            dt = datetime.datetime.fromtimestamp(_result["ts"], tz=datetime.timezone.utc)
+            dt = datetime.datetime.fromtimestamp(
+                _result["ts"], tz=datetime.timezone.utc
+            )
             assert dt.strftime("%Y.%m.%d %H:%M:%S") == result

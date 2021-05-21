@@ -2,7 +2,7 @@ import re
 
 import munge
 
-from vaping.config.schema import *
+from vaping.config.schema import *  # noqa
 
 
 def parse_interval(val):

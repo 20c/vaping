@@ -14,12 +14,11 @@ class RRDToolSchema(TimeSeriesDBSchema):
     """
     Define a schema for FPing and also define defaults.
     """
+
     step = confu.schema.Int(required=True, help="Passed to rrd tool --step option.")
-    data_sources = confu.schema.List(
-        item=confu.schema.Str(),
-        default=[],
-        help="")
+    data_sources = confu.schema.List(item=confu.schema.Str(), default=[], help="")
     archives = confu.schema.List(item=confu.schema.Str(), default=[])
+
 
 @vaping.plugin.register("rrd")
 class RRDToolPlugin(vaping.plugins.TimeSeriesDB):
@@ -28,6 +27,7 @@ class RRDToolPlugin(vaping.plugins.TimeSeriesDB):
     RRDTool plugin that allows vaping to persist data
     in a rrdtool database
     """
+
     ConfigSchema = RRDToolSchema
 
     def __init__(self, config, ctx):

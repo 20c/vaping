@@ -58,6 +58,7 @@ class VodkaSchema(PluginConfigSchema):
     """
     Define a schema for FPing and also define defaults.
     """
+
     data = confu.schema.List(item=vaping.config.MixedDict())
     apps = confu.schema.Dict(item=vaping.config.MixedDict())
     plugins = confu.schema.List(item=vaping.config.MixedDict())

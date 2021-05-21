@@ -14,10 +14,12 @@ class WhisperSchema(TimeSeriesDBSchema):
     """
     Define a schema for FPing and also define defaults.
     """
+
     retention = confu.schema.List(item=confu.schema.Str(), default=["3s:1d"])
     x_files_factor = confu.schema.Float(default=0.5)
     aggregation_method = confu.schema.Str(default="average")
     sparse = confu.schema.Bool(default=False)
+
 
 @vaping.plugin.register("whisper")
 class WhisperPlugin(vaping.plugins.TimeSeriesDB):
@@ -39,7 +41,7 @@ class WhisperPlugin(vaping.plugins.TimeSeriesDB):
         self.x_files_factor = self.config.get("x_files_factor")
         self.aggregation_method = self.config.get("aggregation_method")
         self.sparse = self.config.get("sparse")
-        
+
     def start(self):
         # build archives based on retention setting
         # NOTE: if retention is changed in config on an existing database

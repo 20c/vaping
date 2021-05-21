@@ -9,6 +9,7 @@ import confu.config
 
 from pprint import pprint
 
+
 def test_plugin_context():
     data = {"1": "two"}
     cfg = vaping.Config(data=data)
@@ -46,15 +47,12 @@ def test_config_dir_not_found():
     assert "config dir not found" in str(excinfo.value)
 
 
-@pytest.mark.parametrize(
-    "dir_name",
-    ["fping", "fping_mtr", "vodka"]
-)
+@pytest.mark.parametrize("dir_name", ["fping", "fping_mtr", "vodka"])
 def test_load_config(this_dir, dir_name):
     import yaml
 
     config_path = os.path.join(this_dir, "data", "config", dir_name, "config.yml")
-    with open(config_path, 'r') as stream:
+    with open(config_path, "r") as stream:
         try:
             data = yaml.safe_load(stream)
         except yaml.YAMLError as exc:
@@ -66,10 +64,7 @@ def test_load_config(this_dir, dir_name):
     assert type(config) == confu.config.Config
 
 
-@pytest.mark.parametrize(
-    "dir_name",
-    ["fping", "fping_mtr", "vodka"]
-)
+@pytest.mark.parametrize("dir_name", ["fping", "fping_mtr", "vodka"])
 def test_load_config_dir(this_dir, dir_name):
     config_dir = os.path.join(this_dir, "data", "config", dir_name)
     daemon = vaping.daemon.Vaping(config_dir=config_dir)

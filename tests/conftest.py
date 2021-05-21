@@ -26,6 +26,7 @@ def this_dir():
 def config_dir():
     return os.path.join(_this_dir(), "data", "config")
 
+
 @pytest.fixture
 def schema_dir():
     return os.path.join(_this_dir(), "data", "schema")

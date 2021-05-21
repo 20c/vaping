@@ -20,7 +20,9 @@ def munge_filename(filename):
 
 class GraphiteSchema(TimeSeriesDBSchema):
     proto = confu.schema.Str(default="http")
-    graphite_host = confu.schema.Str(default="127.0.0.1", help="IP address for graphite host.")
+    graphite_host = confu.schema.Str(
+        default="127.0.0.1", help="IP address for graphite host."
+    )
     prefix = confu.schema.Str(default="vaping")
 
 
