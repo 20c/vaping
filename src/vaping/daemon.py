@@ -1,13 +1,13 @@
-import daemon
-import pid as pidfile
+import logging
+import logging.config
 import os
 import signal
 import sys
 
-import logging
-import logging.config
 import confu.config
 from confu.exceptions import ValidationWarning
+import daemon
+import pid as pidfile
 
 import vaping
 from vaping.config import VapingSchema
@@ -52,8 +52,8 @@ class Vaping:
 
         # configure vaping logging
         if "logging" in self.config:
-            logging.config.dictConfig(self.config.get("logging"))            
-        
+            logging.config.dictConfig(self.config.get("logging"))
+
         self.plugin_context = PluginContext(self.config)
 
         # GET VAPING PART OF CONFIG
@@ -99,13 +99,13 @@ class Vaping:
 
     def load_config(self, config=None, config_dir=None):
         if config_dir and not config:
-            config = self._extract_config_from_dir(config_dir) 
+            config = self._extract_config_from_dir(config_dir)
         self._load_config(config)
 
     def _load_config(self, config):
         if isinstance(config, confu.config.Config):
             self.config = config
-            
+
         # Check if type dict, and not empty
         elif isinstance(config, dict) and bool(config):
             self.config = confu.config.Config(VapingSchema(), config)
@@ -118,7 +118,7 @@ class Vaping:
         except OSError as exc:
             raise IOError("config dir not found")
         return data
-    
+
 
     def validate_config_data(self, config_data):
         try:
@@ -139,7 +139,6 @@ class Vaping:
         if not hasattr(self, "_pidfile"):
             self._pidfile = pidfile.PidFile(pidname=self.pidname, piddir=self.home_dir)
         return self._pidfile
-
 
     @property
     def log(self):
@@ -165,7 +164,6 @@ class Vaping:
 
         kwargs = {
             "working_directory": self.home_dir,
-
             # we preserve stdin and any file logging handlers
             # we setup - for some reason stdin is required
             # to be kept to fix startup issues (#85).
@@ -214,7 +212,7 @@ class Vaping:
                 probe.start()
                 self.joins.append(probe)
 
-            vaping.io.joinall(self.joins)
+            vaping.io.join_plugins(self.joins)
         except Exception as exc:
             self.log.error(exc)
 

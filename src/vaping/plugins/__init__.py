@@ -1,16 +1,16 @@
-import collections
-import os
 import abc
+import collections
 import copy
 import confu.schema
 import datetime
 import logging
+import os
+
 import munge
-
-
 from future.utils import with_metaclass
-from vaping.config import parse_interval
+
 import vaping.io
+from vaping.config import parse_interval
 
 class PluginConfigSchema(confu.schema.Schema):
     """
@@ -162,11 +162,12 @@ class PluginBase(vaping.io.Thread):
         self.name = self.config.get("name")
         self._logger = None
         self.lazy_start = False
+        self.started = False
 
         super().__init__()
         self.init()
 
-    def _run(self):
+    async def _run(self):
         self.on_start()
 
 
@@ -195,18 +196,21 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
         self._emit_queue = vaping.io.Queue()
         super().__init__(config, ctx)
 
-    def _run(self):
+    async def _run(self):
         super()._run()
+        self.on_start()
         self.run_level = 1
         while self.run_level:
             self.send_emission()
             msg = self.probe()
             if msg:
-                self.queue_emission(msg)
+                await self.queue_emission(msg)
             else:
                 self.log.debug("probe returned no data")
 
-    def queue_emission(self, msg):
+            await vaping.io.sleep(0.1)
+
+    async def queue_emission(self, msg):
         """
         queue an emission of a message for all output plugins
 
@@ -220,7 +224,7 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
             if not hasattr(_emitter, "emit"):
                 continue
 
-            def emit(emitter=_emitter):
+            async def emit(emitter=_emitter):
                 self.log.debug(f"emit to {emitter.name}")
                 emitter.emit(msg)
 
@@ -229,23 +233,23 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
                     _emitter.name, self._emit_queue.qsize()
                 )
             )
-            self._emit_queue.put(emit)
+            await self._emit_queue.put(emit)
 
-    def send_emission(self):
+    async def send_emission(self):
         """
         emit and remove the first emission in the queue
         """
         if self._emit_queue.empty():
             return
-        emit = self._emit_queue.get()
-        emit()
+        emit = self._emit_queue.get_nowait()
+        await emit()
 
-    def emit_all(self):
+    async def emit_all(self):
         """
         emit and remove all emissions in the queue
         """
         while not self._emit_queue.empty():
-            self.send_emission()
+            await self.send_emission()
 
 
 class TimedProbeSchema(PluginConfigSchema):
@@ -265,7 +269,7 @@ class TimedProbe(ProbeBase):
         self.interval = parse_interval(self.pluginmgr_config["interval"])
         self.run_level = 0
 
-    def _run(self):
+    async def _run(self):
         self.run_level = 1
         while self.run_level:
 
@@ -273,12 +277,12 @@ class TimedProbe(ProbeBase):
 
             # since the TimedProbe will sleep between cycles
             # we need to emit all queued emissions each cycle
-            self.emit_all()
+            await self.emit_all()
 
             msg = self.probe()
 
             if msg:
-                self.queue_emission(msg)
+                await self.queue_emission(msg)
             else:
                 self.log.debug("probe returned no data")
 
@@ -288,7 +292,7 @@ class TimedProbe(ProbeBase):
                 self.log.warning("probe time exceeded interval")
             else:
                 sleeptime = datetime.timedelta(seconds=self.interval) - elapsed
-                vaping.io.sleep(sleeptime.total_seconds())
+                await vaping.io.sleep(sleeptime.total_seconds())
 
 class FileProbeSchema(PluginConfigSchema):
     path = confu.schema.Str()
@@ -335,14 +339,14 @@ class FileProbe(ProbeBase):
                     else:
                         raise
 
-    def _run(self):
+    async def _run(self):
         self.run_level = 1
         while self.run_level:
             self.send_emission()
             for msg in self.probe():
-                self.queue_emission(msg)
+                await self.queue_emission(msg)
 
-            vaping.io.sleep(0.1)
+            await vaping.io.sleep(0.1)
 
     def validate_file_handler(self):
         """
@@ -460,7 +464,7 @@ class TimeSeriesDB(EmitBase):
     - field (`str`): fieeld name to read the value from
     """
     ConfigSchema = TimeSeriesDBSchema
-    
+
     def __init__(self, config, ctx):
         super().__init__(config, ctx)
 

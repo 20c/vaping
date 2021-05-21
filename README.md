@@ -1,11 +1,12 @@
 
 # Vaping
 
-[![PyPI](https://img.shields.io/pypi/v/vaping.svg?maxAge=3600)](https://pypi.python.org/pypi/vaping)
-[![PyPI](https://img.shields.io/pypi/pyversions/vaping.svg?maxAge=3600)](https://pypi.python.org/pypi/vaping)
-[![Travis CI](https://img.shields.io/travis/20c/vaping.svg?maxAge=3600)](https://travis-ci.org/20c/vaping)
-[![Codecov](https://img.shields.io/codecov/c/github/20c/vaping/master.svg?maxAge=3600)](https://codecov.io/github/20c/vaping)
-[![Requires.io](https://img.shields.io/requires/github/20c/vaping.svg?maxAge=3600)](https://requires.io/github/20c/vaping/requirements)
+[![PyPI](https://img.shields.io/pypi/v/vaping.svg?maxAge=60)](https://pypi.python.org/pypi/vaping)
+[![PyPI](https://img.shields.io/pypi/pyversions/vaping.svg?maxAge=600)](https://pypi.python.org/pypi/vaping)
+[![Tests](https://github.com/20c/vaping/workflows/tests/badge.svg)](https://github.com/20c/vaping)
+[![Codecov](https://img.shields.io/codecov/c/github/20c/vaping/master.svg?maxAge=60)](https://codecov.io/github/20c/vaping)
+
+
 
 vaping is a healthy alternative to smokeping!
 
@@ -17,7 +18,7 @@ Vaping was started after years of frustation from dealing with perl and
 environment management for smokeping. It's a simple python daemon which uses
 green threads to poll for input and send output through plugins.
 
-It has a standalone mode to directly serve realtime graphs, or can use ZeroMQ
+It has a standalone mode to direvapingy serve realtime graphs, or can use ZeroMQ
 to distribute.
 
 
@@ -92,7 +93,7 @@ The current change log is available at <https://github.com/20c/vaping/blob/maste
 
 ## License
 
-Copyright 2016-2019 20C, LLC
+Copyright 2016-2021 20C, LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this softare except in compliance with the License.

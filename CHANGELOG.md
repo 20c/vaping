@@ -2,6 +2,10 @@
 
 
 ## Unreleased
+### Added
+- python3.9 support (#103)
+### Changed
+- switch to asyncio (#101)
 
 
 ## 1.3.0

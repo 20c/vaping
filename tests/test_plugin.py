@@ -1,4 +1,6 @@
 import pytest
+import asyncio
+import vaping.io
 from vaping import plugin
 from vaping import plugins
 
@@ -11,8 +13,17 @@ config = {
             "str0": "reeb",
             "interval": "5s",
         },
-        {"name": "emit0", "type": "emit0", "var0": 42, "str0": "beer",},
-        {"name": "fancy_copy", "type": "fancy_probe", "var0": 12345,},
+        {
+            "name": "emit0",
+            "type": "emit0",
+            "var0": 42,
+            "str0": "beer",
+        },
+        {
+            "name": "fancy_copy",
+            "type": "fancy_probe",
+            "var0": 12345,
+        },
         {"name": "emit_store1", "type": "emit_store"},
         {"name": "emit_store2", "type": "emit_store"},
         {
@@ -139,23 +150,29 @@ def test_plugin_instance():
 
 
 def test_emission_queuing():
+
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
     plugin.instantiate(config["plugin"], None)
     queue_tester = plugin.get_instance("queue_tester")
     emit_store1 = plugin.get_output("emit_store1", None)
     emit_store2 = plugin.get_output("emit_store2", None)
+
+    # plugins = [queue_tester, emit_store1, emit_store2]
 
     # daemon handles this, do it manually here since
     # we are not starting the daemon
     queue_tester._emit = [emit_store1, emit_store2]
 
     message = queue_tester.probe()
-    queue_tester.queue_emission(message)
+    asyncio.run(queue_tester.queue_emission(message))
 
-    queue_tester.send_emission()
+    asyncio.run(queue_tester.send_emission())
     assert emit_store1.store[0] == message
     assert emit_store2.store == []
 
-    queue_tester.send_emission()
+    asyncio.run(queue_tester.send_emission())
     assert emit_store1.store[0] == message
     assert len(emit_store1.store) == 1
     assert emit_store2.store[0] == message
@@ -163,8 +180,10 @@ def test_emission_queuing():
     assert queue_tester._emit_queue.qsize() == 0
 
     message = queue_tester.probe()
-    queue_tester.queue_emission(message)
-    queue_tester.emit_all()
+    asyncio.run(queue_tester.queue_emission(message))
+    asyncio.run(queue_tester.emit_all())
     assert len(emit_store1.store) == 2
     assert len(emit_store2.store) == 2
     assert queue_tester._emit_queue.qsize() == 0
+
+    loop.close()

@@ -18,7 +18,7 @@ class FPingSchema(TimedProbeSchema):
         item=confu.schema.Str(),
         help="Determine what plugin displays output"
     )
-    period = confu.schema.Int(default=20, 
+    period = confu.schema.Int(default=20,
         help="Time in milliseconds that fping waits between successive packets to an individual target")
     command = confu.schema.Str(default="fping", help="Command to run")
 

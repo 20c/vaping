@@ -89,8 +89,10 @@
   - python3.4 support
   - python3.5 support
 Unreleased:
-  added: []
-  changed: []
+  added:
+  - python3.9 support (#103)
+  changed:
+  - switch to asyncio (#101)
   deprecated: []
   fixed: []
   removed: []

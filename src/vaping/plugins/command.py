@@ -1,7 +1,7 @@
-import collections
 import datetime
-import munge
 import shlex
+
+import munge
 
 import vaping
 from vaping.io import subprocess

@@ -1,6 +1,7 @@
 # import to namespace
-from vaping.config import Config
 from pluginmgr.config import ConfigPluginManager
+
+from vaping.config import Config  # noqa
 
 
 def check_method(obj, method, node):
