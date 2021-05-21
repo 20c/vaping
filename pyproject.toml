@@ -41,6 +41,7 @@ python-daemon= "<3"
 munge = "<1"
 whichcraft = "<0.5"
 subprocess32 = "<4"
+confu = ">=1.7.1,<2"
 
 [tool.poetry.dev-dependencies]
 # docs

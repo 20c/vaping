@@ -2,6 +2,8 @@ import re
 
 import munge
 
+from vaping.config.schema import *
+
 
 def parse_interval(val):
     """
