@@ -7,7 +7,6 @@
 [![Codecov](https://img.shields.io/codecov/c/github/20c/vaping/master.svg?maxAge=60)](https://codecov.io/github/20c/vaping)
 
 
-
 vaping is a healthy alternative to smokeping!
 
 ![Vaping](https://raw.githubusercontent.com/20c/vaping/master/docs/img/vaping.png)
