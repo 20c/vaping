@@ -1,5 +1,12 @@
-ARG build_packages="gcc g++ make file libc-dev libffi-dev curl openssl-dev make rust cargo rrdtool-dev"
-ARG runtime_packages="fping librrd"
+ARG build_packages=" \
+    gcc g++ make file libc-dev libffi-dev curl openssl-dev make rust cargo rrdtool-dev \
+    "
+ARG runtime_packages="fping librrd \
+    zeromq \
+    "
+# vaping extras to be installed
+ARG vaping_extras=all
+
 ARG poetry_pin=">=1,<=2"
 
 FROM python:3.9-alpine as base
@@ -15,12 +22,13 @@ FROM base as builder
 
 ARG build_packages
 ARG runtime_packages
+ARG vaping_extras
 
 RUN apk --update --no-cache add $build_packages $runtime_packages
 
-# XXX ENV PATH="/root/.cargo/bin:${PATH}"
-
-# Use Pip to install Poetry
+# install poetry outside of the venv
+RUN pip install --upgrade pip wheel
+# alpine package is currently only in edge
 RUN pip install "poetry$poetry_pin"
 
 # Create a VENV
@@ -32,13 +40,13 @@ COPY Ctl/VERSION Ctl/
 COPY pyproject.toml poetry.lock ./
 COPY examples examples
 COPY src src
-RUN ls -alR
+COPY tests tests
 
 # Need to upgrade pip and wheel within Poetry for all its installs
 RUN poetry run pip install --upgrade pip wheel
-# XXX RUN poetry run pip install --upgrade wheel
-RUN poetry install
+RUN poetry install --no-dev -E $vaping_extras
 
+# TODO testing stage in container for package deps, etc
 
 # final running image
 FROM base
@@ -48,7 +56,6 @@ ARG vaping_home=/home/vaping/examples/standalone_dns/
 ARG vaping_uid=1000
 
 ENV VAPING_HOME=$vaping_home
-#ENV VAPING_UID=$vaping_uid
 
 RUN apk --update --no-cache add $runtime_packages \
       && rm -rf /var/cache/apk/*
