@@ -805,7 +805,7 @@ testing = ["flaky (>=3.4.0)", "freezegun (>=0.3.11)", "psutil (>=5.6.1)", "pytes
 
 [[package]]
 name = "tqdm"
-version = "4.60.0"
+version = "4.61.0"
 description = "Fast, Extensible Progress Meter"
 category = "dev"
 optional = false
@@ -847,7 +847,7 @@ brotli = ["brotlipy (>=0.6.0)"]
 
 [[package]]
 name = "virtualenv"
-version = "20.4.6"
+version = "20.4.7"
 description = "Virtual Python Environment builder"
 category = "dev"
 optional = false
@@ -894,14 +894,6 @@ dataclasses = {version = "*", markers = "python_version < \"3.7\""}
 watchdog = ["watchdog"]
 
 [[package]]
-name = "whichcraft"
-version = "0.5.2"
-description = "This package provides cross-platform cross-python shutil.which functionality."
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "whisper"
 version = "1.1.8"
 description = "Fixed size round-robin style database"
@@ -935,7 +927,7 @@ zeromq = ["pyzmq"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6"
-content-hash = "d03f5c3664e8311dc843d9b3b4c5e3401fb9ba8be8f1bbe9173c62864ff65255"
+content-hash = "92ca0cab881f47f79df415fe21f995128815a5f950f6c8df1dd4e19bf7605c0f"
 
 [metadata.files]
 appdirs = [
@@ -1441,8 +1433,8 @@ tox = [
     {file = "tox-3.23.1.tar.gz", hash = "sha256:307a81ddb82bd463971a273f33e9533a24ed22185f27db8ce3386bff27d324e3"},
 ]
 tqdm = [
-    {file = "tqdm-4.60.0-py2.py3-none-any.whl", hash = "sha256:daec693491c52e9498632dfbe9ccfc4882a557f5fa08982db1b4d3adbe0887c3"},
-    {file = "tqdm-4.60.0.tar.gz", hash = "sha256:ebdebdb95e3477ceea267decfc0784859aa3df3e27e22d23b83e9b272bf157ae"},
+    {file = "tqdm-4.61.0-py2.py3-none-any.whl", hash = "sha256:736524215c690621b06fc89d0310a49822d75e599fcd0feb7cc742b98d692493"},
+    {file = "tqdm-4.61.0.tar.gz", hash = "sha256:cd5791b5d7c3f2f1819efc81d36eb719a38e0906a7380365c556779f585ea042"},
 ]
 typed-ast = [
     {file = "typed_ast-1.4.3-cp35-cp35m-manylinux1_i686.whl", hash = "sha256:2068531575a125b87a41802130fa7e29f26c09a2833fea68d9a40cf33902eba6"},
@@ -1486,8 +1478,8 @@ urllib3 = [
     {file = "urllib3-1.26.4.tar.gz", hash = "sha256:e7b021f7241115872f92f43c6508082facffbd1c048e3c6e2bb9c2a157e28937"},
 ]
 virtualenv = [
-    {file = "virtualenv-20.4.6-py2.py3-none-any.whl", hash = "sha256:307a555cf21e1550885c82120eccaf5acedf42978fd362d32ba8410f9593f543"},
-    {file = "virtualenv-20.4.6.tar.gz", hash = "sha256:72cf267afc04bf9c86ec932329b7e94db6a0331ae9847576daaa7ca3c86b29a4"},
+    {file = "virtualenv-20.4.7-py2.py3-none-any.whl", hash = "sha256:2b0126166ea7c9c3661f5b8e06773d28f83322de7a3ff7d06f0aed18c9de6a76"},
+    {file = "virtualenv-20.4.7.tar.gz", hash = "sha256:14fdf849f80dbb29a4eb6caa9875d476ee2a5cf76a5f5415fa2f1606010ab467"},
 ]
 vodka = [
     {file = "vodka-3.0.0-py3-none-any.whl", hash = "sha256:246b40bf249460bd7c73c510bc5906f312ba3baf3e68dfcc2be47112a162c2bd"},
@@ -1496,10 +1488,6 @@ vodka = [
 werkzeug = [
     {file = "Werkzeug-2.0.1-py3-none-any.whl", hash = "sha256:6c1ec500dcdba0baa27600f6a22f6333d8b662d22027ff9f6202e3367413caa8"},
     {file = "Werkzeug-2.0.1.tar.gz", hash = "sha256:1de1db30d010ff1af14a009224ec49ab2329ad2cde454c8a708130642d579c42"},
-]
-whichcraft = [
-    {file = "whichcraft-0.5.2-py2.py3-none-any.whl", hash = "sha256:7533870f751901a0ce43c93cc9850186e9eba7fe58c924dfb435968ba9c9fa4e"},
-    {file = "whichcraft-0.5.2.tar.gz", hash = "sha256:fecddd531f237ffc5db8b215409afb18fa30300699064cca4817521b4fc81815"},
 ]
 whisper = [
     {file = "whisper-1.1.8.tar.gz", hash = "sha256:345f35d0dccaf181e0aa4353e6c13f40f5cceda10a3c7021dafab29f004f62ae"},

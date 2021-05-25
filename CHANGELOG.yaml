@@ -91,9 +91,12 @@
 Unreleased:
   added:
   - python3.9 support (#103)
+  - poetry
   changed:
   - switch to asyncio (#101)
+  - updated container builds
   deprecated: []
   fixed: []
-  removed: []
+  removed:
+  - whichcraft, cleaned up other py2 cruft
   security: []

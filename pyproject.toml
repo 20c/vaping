@@ -39,7 +39,6 @@ pid = "^3"
 pluginmgr = "^1"
 python-daemon= "^2"
 munge = "^1"
-whichcraft = "^0.5"
 
 # plugins
 
