@@ -1,14 +1,27 @@
 """
 vaping io functionality
 """
+
+
 import asyncio
 import os
 
+
 import subprocess  # noqa
+
+import vaping.asyncio_backport as asyncio_backport
 
 
 async def sleep(seconds):
     await asyncio.sleep(seconds)
+
+
+if hasattr(asyncio, "run"):
+    # py37+
+    asyncio_run = asyncio.run
+else:
+    # py36
+    asyncio_run = asyncio_backport.run
 
 
 def join_plugins(plugins):
@@ -19,7 +32,7 @@ def join_plugins(plugins):
             tasks.append(plugin._run())
         await asyncio.gather(*tasks)
 
-    asyncio.run(run_plugins())
+    asyncio_run(run_plugins())
 
 
 class Queue(asyncio.Queue):
