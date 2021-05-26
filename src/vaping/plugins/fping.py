@@ -1,8 +1,27 @@
+import confu.schema
 import logging
 
 import vaping
 from vaping.io import subprocess
 from shutil import which
+from vaping.plugins import TimedProbeSchema
+
+
+class FPingSchema(TimedProbeSchema):
+    """
+    Define a schema for FPing and also define defaults.
+    """
+
+    count = confu.schema.Int(default=5, help="Number of pings to send")
+    interval = confu.schema.Str(default="1m", help="Time between pings")
+    output = confu.schema.List(
+        item=confu.schema.Str(), help="Determine what plugin displays output"
+    )
+    period = confu.schema.Int(
+        default=20,
+        help="Time in milliseconds that fping waits between successive packets to an individual target",
+    )
+    command = confu.schema.Str(default="fping", help="Command to run")
 
 
 class FPingBase(vaping.plugins.TimedProbe):
@@ -25,7 +44,7 @@ class FPingBase(vaping.plugins.TimedProbe):
     - period (`int`): time in milliseconds that fping waits between successive packets
     """
 
-    default_config = {"command": "fping", "interval": "1m", "count": 5, "period": 20}
+    ConfigSchema = FPingSchema
 
     def __init__(self, config, ctx):
         super().__init__(config, ctx)
@@ -36,8 +55,8 @@ class FPingBase(vaping.plugins.TimedProbe):
             )
             raise RuntimeError("fping command not found - install the fping package")
 
-        self.count = int(self.config.get("count", 0))
-        self.period = int(self.config.get("period", 0))
+        self.count = self.config.get("count")
+        self.period = self.config.get("period")
 
     def hosts_args(self):
         """

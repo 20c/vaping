@@ -1,6 +1,7 @@
 import pytest
 import time
 
+
 from vaping import plugin
 
 config = {
@@ -11,6 +12,24 @@ config = {
 }
 
 FILENAME_TEMPLATE = "{id}-{field}.wsp"
+
+
+def test_whisper_config():
+    config["filename"] = "{id}-{field}.wsp"
+    inst = plugin.get_instance(config, None)
+    whisper_config = inst.config
+
+    # Check that whisper config takes values from
+    # provided config
+    for k, v in config.items():
+        assert whisper_config[k] == v
+
+    # Check that certain attributes are
+    # available on plugin instance
+    inst.retention = config["retention"]
+    inst.x_files_factor = config["x_files_factor"]
+    inst.aggregation_method = config["aggregation_method"]
+    inst.sparse = config["sparse"]
 
 
 def test_whisper(tmpdir):

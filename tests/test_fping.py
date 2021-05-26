@@ -1,7 +1,7 @@
 import os
 import vaping.plugins.fping
 from vaping import plugin
-
+import vaping.daemon
 
 expect_verbose = {
     "fe80:b:a:d::1 : 36.42 36.26 36.51 36.24 36.67 36.25 36.19 36.27": {

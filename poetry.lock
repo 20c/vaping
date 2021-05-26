@@ -115,6 +115,14 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
+name = "confu"
+version = "1.7.1"
+description = "Configuration file validation and generation"
+category = "main"
+optional = false
+python-versions = ">=3.6,<4.0"
+
+[[package]]
 name = "coverage"
 version = "5.5"
 description = "Code coverage measurement for Python"
@@ -927,7 +935,7 @@ zeromq = ["pyzmq"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6"
-content-hash = "92ca0cab881f47f79df415fe21f995128815a5f950f6c8df1dd4e19bf7605c0f"
+content-hash = "f0a69f607ce05e898a668ef99e1747eebf9c78db537f56cfda73d9f1e14fdf73"
 
 [metadata.files]
 appdirs = [
@@ -969,6 +977,9 @@ codecov = [
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
+]
+confu = [
+    {file = "confu-1.7.1.tar.gz", hash = "sha256:b2302fac738ee23143fe1768053a1c63216928fa54d1bba2326282d1c0fe6de9"},
 ]
 coverage = [
     {file = "coverage-5.5-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:b6d534e4b2ab35c9f93f46229363e17f63c53ad01330df9f2d6bd1187e5eaacf"},

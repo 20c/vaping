@@ -3,7 +3,6 @@ vaping io functionality
 """
 import asyncio
 import os
-
 import subprocess  # noqa
 
 

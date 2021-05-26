@@ -5,6 +5,12 @@ except ImportError:
 
 import vaping
 import vaping.plugins
+import confu.schema
+
+
+class ZeroMQSchema(vaping.plugins.PluginConfigSchema):
+    bind = confu.schema.Str()
+    connect = confu.schema.Str()
 
 
 @vaping.plugin.register("zeromq")
@@ -17,6 +23,8 @@ class ZeroMQ(vaping.plugins.EmitBase):
     - ctx (`zmq Context`)
     - sock (`zmq socket`)
     """
+
+    ConfigSchema = ZeroMQSchema
 
     def __init__(self, config, ctx):
         super().__init__(config, ctx)

@@ -6,6 +6,19 @@ try:
 except ImportError:
     rrdtool = None
 
+from vaping.plugins import TimeSeriesDBSchema
+import confu.schema
+
+
+class RRDToolSchema(TimeSeriesDBSchema):
+    """
+    Define a schema for FPing and also define defaults.
+    """
+
+    step = confu.schema.Int(required=True, help="Passed to rrd tool --step option.")
+    data_sources = confu.schema.List(item=confu.schema.Str(), default=[], help="")
+    archives = confu.schema.List(item=confu.schema.Str(), default=[])
+
 
 @vaping.plugin.register("rrd")
 class RRDToolPlugin(vaping.plugins.TimeSeriesDB):
@@ -15,6 +28,8 @@ class RRDToolPlugin(vaping.plugins.TimeSeriesDB):
     in a rrdtool database
     """
 
+    ConfigSchema = RRDToolSchema
+
     def __init__(self, config, ctx):
         if not rrdtool:
             raise ImportError("rrdtool not found")
@@ -22,18 +37,9 @@ class RRDToolPlugin(vaping.plugins.TimeSeriesDB):
 
     def init(self):
         # rrdtool specific config
-        self.data_sources = self.config.get("data_sources", [])
-        if not isinstance(self.data_sources, list):
-            raise TypeError("data_sources config needs to be of type: list")
-
-        self.archives = self.config.get("archives", [])
-        if not isinstance(self.archives, list):
-            raise TypeError("archives config needs to be of type: list")
-
-        try:
-            self.step = int(self.config.get("step"))
-        except TypeError:
-            raise TypeError("step config needs to be of type: int")
+        self.data_sources = self.config.get("data_sources")
+        self.archives = self.config.get("archives")
+        self.step = self.config.get("step")
 
     def create(self, filename):
         rrdtool.create(
