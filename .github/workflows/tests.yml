@@ -85,8 +85,7 @@ jobs:
         run: timeout 10s poetry run pip --version || rm -rf .venv
       # install dependencies if cache does not exist
       - name: Check cache and install dependencies
-        run: poetry install
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install -Eall
       - name: Run tests
         run: |
           source .venv/bin/activate

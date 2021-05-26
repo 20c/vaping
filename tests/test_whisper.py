@@ -1,7 +1,6 @@
 import pytest
 import time
-import sys
-import vaping.plugins.whisper
+
 
 from vaping import plugin
 

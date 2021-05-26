@@ -3,13 +3,7 @@ vaping io functionality
 """
 import asyncio
 import os
-import sys
-
-# namespace imports
-if os.name == "posix" and sys.version_info < (3, 5, 0):
-    import subprocess32 as subprocess  # noqa
-else:
-    import subprocess  # noqa
+import subprocess  # noqa
 
 
 async def sleep(seconds):
