@@ -86,7 +86,6 @@ jobs:
       # install dependencies if cache does not exist
       - name: Check cache and install dependencies
         run: poetry install -Eall
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       - name: Run tests
         run: |
           source .venv/bin/activate
