@@ -1,6 +1,7 @@
 import abc
 import collections
 import copy
+import confu.schema
 import datetime
 import logging
 import os
@@ -10,6 +11,18 @@ from future.utils import with_metaclass
 
 import vaping.io
 from vaping.config import parse_interval
+
+
+class PluginConfigSchema(confu.schema.Schema):
+    """
+    Configuration Schema for [PluginBase](#pluginbase)
+
+    When creating new configuration schemas for extended plugins
+    extend this.
+    """
+
+    name = confu.schema.Str("name", help="Plugin name")
+    type = confu.schema.Str("type", help="Plugin type")
 
 
 class PluginBase(vaping.io.Thread):
@@ -39,6 +52,9 @@ class PluginBase(vaping.io.Thread):
     """
 
     lazy_start = False
+
+    ConfigSchema = PluginConfigSchema
+    ConfigSchema.help = "Base plugin config schema"
 
     @property
     def groups(self):
@@ -130,12 +146,17 @@ class PluginBase(vaping.io.Thread):
         - ctx: vaping context
         """
 
+        # FIXME: figure out what from this we want to keep
         if hasattr(self, "default_config"):
             self.config = munge.util.recursive_update(
                 copy.deepcopy(self.default_config), copy.deepcopy(config)
             )
         else:
             self.config = config
+
+        if hasattr(self, "ConfigSchema"):
+            confu.schema.apply_defaults(self.ConfigSchema(), config)
+
         # set for pluginmgr
         self.pluginmgr_config = self.config
         self.vaping = ctx
@@ -232,10 +253,16 @@ class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
             await self.send_emission()
 
 
+class TimedProbeSchema(PluginConfigSchema):
+    interval = confu.schema.Str()
+
+
 class TimedProbe(ProbeBase):
     """
     Probe class that calls probe every config defined interval
     """
+
+    ConfigSchema = TimedProbeSchema
 
     def __init__(self, config, ctx, emit=None):
         super().__init__(config, ctx, emit)
@@ -271,6 +298,12 @@ class TimedProbe(ProbeBase):
                 await vaping.io.sleep(sleeptime.total_seconds())
 
 
+class FileProbeSchema(PluginConfigSchema):
+    path = confu.schema.Str()
+    backlog = confu.schema.Int(default=10)
+    max_lines = confu.schema.Int(default=1000)
+
+
 class FileProbe(ProbeBase):
     """
     Probes a file and emits everytime a new line is read
@@ -288,6 +321,8 @@ class FileProbe(ProbeBase):
     - max_lines (`int`): maximum number of liens to read during probe
     - fh (`filehandler`): file handler for opened file (only available if `path` is set)
     """
+
+    ConfigSchema = FileProbeSchema
 
     def __init__(self, config, ctx, emit=None):
         super().__init__(config, ctx, emit)
@@ -415,6 +450,11 @@ class EmitBase(with_metaclass(abc.ABCMeta, PluginBase)):
         """ accept message to emit """
 
 
+class TimeSeriesDBSchema(PluginConfigSchema):
+    filename = confu.schema.Str(help="database file name template")
+    field = confu.schema.Str(help="field name to read the value from")
+
+
 class TimeSeriesDB(EmitBase):
     """
     Base interface for timeseries db storage plugins
@@ -422,13 +462,15 @@ class TimeSeriesDB(EmitBase):
     # Config
 
     - filename (`str`): database file name template
-    - field (`str`): fieeld name to read the value from
+    - field (`str`): field name to read the value from
 
     # Instanced Attributes
 
     - filename (`str`): database file name template
     - field (`str`): fieeld name to read the value from
     """
+
+    ConfigSchema = TimeSeriesDBSchema
 
     def __init__(self, config, ctx):
         super().__init__(config, ctx)

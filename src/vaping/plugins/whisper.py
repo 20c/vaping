@@ -6,6 +6,20 @@ try:
 except ImportError:
     whisper = None
 
+from vaping.plugins import TimeSeriesDBSchema
+import confu.schema
+
+
+class WhisperSchema(TimeSeriesDBSchema):
+    """
+    Define a schema for FPing and also define defaults.
+    """
+
+    retention = confu.schema.List(item=confu.schema.Str(), default=["3s:1d"])
+    x_files_factor = confu.schema.Float(default=0.5)
+    aggregation_method = confu.schema.Str(default="average")
+    sparse = confu.schema.Bool(default=False)
+
 
 @vaping.plugin.register("whisper")
 class WhisperPlugin(vaping.plugins.TimeSeriesDB):
@@ -15,16 +29,18 @@ class WhisperPlugin(vaping.plugins.TimeSeriesDB):
     in a whisper database
     """
 
+    ConfigSchema = WhisperSchema
+
     def __init__(self, config, ctx):
         if not whisper:
             raise ImportError("whisper not found")
         super().__init__(config, ctx)
 
         # whisper specific config
-        self.retention = self.config.get("retention", ["3s:1d"])
-        self.x_files_factor = float(self.config.get("x_files_factor", 0.5))
-        self.aggregation_method = self.config.get("aggregation_method", "average")
-        self.sparse = bool(self.config.get("sparse", False))
+        self.retention = self.config.get("retention")
+        self.x_files_factor = self.config.get("x_files_factor")
+        self.aggregation_method = self.config.get("aggregation_method")
+        self.sparse = self.config.get("sparse")
 
     def start(self):
         # build archives based on retention setting

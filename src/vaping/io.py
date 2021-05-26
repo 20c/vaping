@@ -5,8 +5,6 @@ vaping io functionality
 
 import asyncio
 import os
-
-
 import subprocess  # noqa
 
 import vaping.asyncio_backport as asyncio_backport

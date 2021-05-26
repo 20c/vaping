@@ -8,11 +8,22 @@ try:
 except ImportError:
     graphyte = None
 
+from vaping.plugins import TimeSeriesDBSchema
+import confu.schema
+
 
 def munge_filename(filename):
     filename = filename.replace(".", "_")
     filename = filename.replace("-", ".")
     return filename
+
+
+class GraphiteSchema(TimeSeriesDBSchema):
+    proto = confu.schema.Str(default="http")
+    graphite_host = confu.schema.Str(
+        default="127.0.0.1", help="IP address for graphite host."
+    )
+    prefix = confu.schema.Str(default="vaping")
 
 
 @vaping.plugin.register("graphite")
@@ -33,9 +44,11 @@ class GraphitePlugin(vaping.plugins.TimeSeriesDB):
             raise RuntimeError("graphyte not found")
 
         # get configs
-        self.proto = self.config.get("proto", "http")
-        self.graphite_host = self.config.get("graphite_host", "127.0.0.1")
-        self.prefix = self.config.get("prefix", "vaping")
+
+        # FIXME: Add help
+        self.proto = self.config.get("proto")
+        self.graphite_host = self.config.get("graphite_host")
+        self.prefix = self.config.get("prefix")
 
     def start(self):
         graphyte.init(str(self.graphite_host), prefix=str(self.prefix))

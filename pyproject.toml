@@ -39,6 +39,7 @@ pid = "^3"
 pluginmgr = "^1"
 python-daemon= "^2"
 munge = "^1"
+confu = ">=1.7.1,<2"
 
 # plugins
 

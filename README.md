@@ -18,7 +18,7 @@ Vaping was started after years of frustration from dealing with perl and
 environment management for smokeping. It's a simple python daemon which uses
 green threads to poll for input and send output through plugins.
 
-It has a standalone mode to directly serve realtime graphs, or can use ZeroMQ
+It has a standalone mode to direvapingy serve realtime graphs, or can use ZeroMQ
 to distribute.
 
 

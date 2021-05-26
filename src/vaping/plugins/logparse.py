@@ -4,6 +4,53 @@ import re
 import vaping
 import vaping.config
 
+from vaping.plugins import PluginConfigSchema
+import confu.schema
+
+
+class FieldSchema(confu.schema.Schema):
+    parser = confu.schema.Str(
+        help="Regex pattern to parse field value, needs to one group in it"
+    )
+    type = confu.schema.Str(help="Value type (int, float etc.)")
+    aggregate = confu.schema.Str(
+        help="How to aggregate the field if aggregation is turned on (sum, avg, eval)"
+    )
+    eval = confu.schema.Str(
+        help="Evaluate to create the value, other fields' values will be available in the string formatting"
+    )
+
+
+class TimeParserSchema(confu.schema.Schema):
+    find = confu.schema.Str(help="Regex string to find timestamps.")
+    format = confu.schema.Str(help="Datetime format to output timestamps.")
+
+
+class AggregateSchema(confu.schema.Schema):
+    count = confu.schema.Int(help="Aggregate n lines")
+
+
+class LogParseSchema(PluginConfigSchema):
+    """
+    Define a schema for FPing and also define defaults.
+    """
+
+    fields = confu.schema.Dict(item=FieldSchema(), default={}, help="Field definition")
+    time_parser = TimeParserSchema(
+        help="If specified will be passed to strptime to generate a timestamp from the logline"
+    )
+    exclude = confu.schema.List(
+        item=confu.schema.Str(),
+        default=[],
+        help="list of regex patterns that will cause lines to be excluded on match",
+    )
+    include = confu.schema.List(
+        item=confu.schema.Str(),
+        default=[],
+        help="list of regex patterns that will cause lines to be included on match",
+    )
+    aggregate = AggregateSchema(default={}, help="aggregation config")
+
 
 @vaping.plugin.register("logparse")
 class LogParse(vaping.plugins.FileProbe):
@@ -42,6 +89,7 @@ class LogParse(vaping.plugins.FileProbe):
     - exclude (`list`): list of regex patterns that will cause
       lines to be excluded on match
     - include (`list`): list of regex patterns that will cause
+      lines to be included on match
     - aggregate (`dict`): aggregation config
         -`count` aggregate n lines
 
@@ -55,7 +103,9 @@ class LogParse(vaping.plugins.FileProbe):
     - time_parser (`dict`)
     """
 
-    default_config = {"fields": {}, "exclude": [], "include": [], "aggregate": {}}
+    # default_config = {"fields": {}, "exclude": [], "include": [], "aggregate": {}}
+
+    ConfigSchema = LogParseSchema
 
     def init(self):
         self.stack = []
@@ -349,6 +399,7 @@ class LogParse(vaping.plugins.FileProbe):
             raise ValueError(f"Could not find time string {find} in line {line}")
 
         dt = datetime.datetime.strptime(time_string.group(0), fmt)
+
         if dt.year == 1900:
             dt = dt.replace(year=datetime.datetime.now().year)
         return (dt - datetime.datetime(1970, 1, 1)).total_seconds()

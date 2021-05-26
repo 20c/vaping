@@ -27,6 +27,11 @@ def config_dir():
     return os.path.join(_this_dir(), "data", "config")
 
 
+@pytest.fixture
+def schema_dir():
+    return os.path.join(_this_dir(), "data", "schema")
+
+
 def pytest_generate_tests(metafunc):
     for fixture in metafunc.fixturenames:
         if fixture.startswith("data_"):

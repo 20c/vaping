@@ -3,6 +3,8 @@ import copy
 import vaping
 import vaping.config
 import vaping.io
+from vaping.plugins import PluginConfigSchema
+import confu.schema
 
 try:
     import vodka
@@ -52,6 +54,16 @@ def probe_to_graphsrv(probe):
         graphsrv.group.add(probe.name, group_name, r, **group_config)
 
 
+class VodkaSchema(PluginConfigSchema):
+    """
+    Define a schema for FPing and also define defaults.
+    """
+
+    data = confu.schema.List(item=vaping.config.MixedDict())
+    apps = confu.schema.Dict(item=vaping.config.MixedDict())
+    plugins = confu.schema.List(item=vaping.config.MixedDict())
+
+
 @vaping.plugin.register("vodka")
 class VodkaPlugin(vaping.plugins.EmitBase):
 
@@ -65,6 +77,9 @@ class VodkaPlugin(vaping.plugins.EmitBase):
     #
     # TODO: might need to revisit later
     lazy_start = True
+
+    # Define config schema
+    ConfigSchema = VodkaSchema
 
     def init(self):
         self._is_started = False
