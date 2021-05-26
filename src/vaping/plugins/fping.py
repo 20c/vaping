@@ -1,9 +1,8 @@
-import collections
 import logging
 
 import vaping
 from vaping.io import subprocess
-from vaping.util import which
+from shutil import which
 
 
 class FPingBase(vaping.plugins.TimedProbe):

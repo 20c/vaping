@@ -1,11 +1,11 @@
-import daemon
-import pid as pidfile
+import logging
+import logging.config
 import os
 import signal
 import sys
 
-import logging
-import logging.config
+import daemon
+import pid as pidfile
 
 import vaping
 import vaping.config
@@ -103,7 +103,6 @@ class Vaping:
             self._pidfile = pidfile.PidFile(pidname=self.pidname, piddir=self.home_dir)
         return self._pidfile
 
-
     @property
     def log(self):
         """
@@ -128,7 +127,6 @@ class Vaping:
 
         kwargs = {
             "working_directory": self.home_dir,
-
             # we preserve stdin and any file logging handlers
             # we setup - for some reason stdin is required
             # to be kept to fix startup issues (#85).

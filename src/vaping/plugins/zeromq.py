@@ -1,5 +1,5 @@
 try:
-    import zmq.green as zmq
+    import zmq.asyncio as zmq
 except ImportError:
     zmq = None
 

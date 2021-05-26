@@ -1,5 +1,0 @@
-include LICENSE
-include README.md
-recursive-include vaping *.py
-recursive-include Ctl *.txt
-include Ctl/VERSION

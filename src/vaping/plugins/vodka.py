@@ -1,7 +1,8 @@
+import copy
+
 import vaping
 import vaping.config
 import vaping.io
-import copy
 
 try:
     import vodka

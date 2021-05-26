@@ -1,6 +1,7 @@
+import requests
+
 import vaping
 import vaping.config
-import requests
 
 try:
     import graphyte

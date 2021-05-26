@@ -1,10 +1,5 @@
 import pytest
 import time
-import sys
-
-# FIXME: take this condition out once whisper supports py3
-if sys.version_info <= (2, 9):
-    import vaping.plugins.whisper
 
 from vaping import plugin
 
@@ -17,10 +12,7 @@ config = {
 
 FILENAME_TEMPLATE = "{id}-{field}.wsp"
 
-# FIXME: make sure to test py3 once whipser supports it
-@pytest.mark.skipif(
-    sys.version_info > (2, 9), reason="whisper does not support py3 at this point"
-)
+
 def test_whisper(tmpdir):
     """
     test whisper-db creation and update from emit
