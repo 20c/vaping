@@ -1,11 +1,11 @@
 import datetime
 import re
 
+import confu.schema
+
 import vaping
 import vaping.config
-
 from vaping.plugins import PluginConfigSchema
-import confu.schema
 
 
 class FieldSchema(confu.schema.Schema):

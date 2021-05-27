@@ -1,4 +1,5 @@
 import os
+from pprint import pprint
 
 import confu.config
 import confu.schema
@@ -6,12 +7,11 @@ import pytest
 import yaml
 
 import vaping.config
-from pprint import pprint
 
 
 def test_validate_quickstart_schema(schema_dir):
     config_path = os.path.join(schema_dir, "quickstart.yml")
-    with open(config_path, "r") as stream:
+    with open(config_path) as stream:
         try:
             data = yaml.safe_load(stream)
         except yaml.YAMLError as exc:

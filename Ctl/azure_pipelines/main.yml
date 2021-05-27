@@ -1,4 +1,3 @@
-
 name: $(BuildDefinitionName)+$(Date:yyyyMMdd)$(Rev:.rr)
 resources:
   repositories:

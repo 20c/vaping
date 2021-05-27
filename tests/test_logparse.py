@@ -1,8 +1,9 @@
-import pytest
-import time
-import sys
-import math
 import datetime
+import math
+import sys
+import time
+
+import pytest
 
 from vaping import plugin
 

@@ -5,16 +5,15 @@ import signal
 import sys
 
 import confu.config
-from confu.exceptions import ValidationWarning
 import daemon
 import pid as pidfile
+from confu.exceptions import ValidationWarning
+from munge import load_datafile
 
 import vaping
-from vaping.config import VapingSchema
 import vaping.io
 from vaping import plugin
-
-from munge import load_datafile
+from vaping.config import VapingSchema
 
 
 class PluginContext:
@@ -115,7 +114,7 @@ class Vaping:
         try:
             data = load_datafile("config", config_dir)
         except OSError:
-            raise IOError("config dir not found")
+            raise OSError("config dir not found")
         return data
 
     def validate_config_data(self, config_data):

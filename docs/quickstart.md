@@ -1,4 +1,3 @@
-
 ## Install vaping
 
 First, you will always need to install vaping with:

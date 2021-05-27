@@ -1,4 +1,3 @@
-
 ## Introduction
 
 Vaping will look for its config directory in order of:

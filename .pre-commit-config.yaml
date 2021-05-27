@@ -1,0 +1,24 @@
+fail_fast: true
+repos:
+  - repo: local
+    hooks:
+      - id: system
+        name: isort
+        entry: poetry run isort .
+        language: system
+        pass_filenames: false
+  - repo: local
+    hooks:
+    -   id: pyupgrade
+        name: pyupgrade
+        entry: poetry run ls # XXX pyupgrade --py36-plus
+        language: python
+        types: [python]
+        pass_filenames: true
+  - repo: local
+    hooks:
+      - id: system
+        name: Black
+        entry: poetry run black .
+        language: system
+        pass_filenames: false

@@ -1,9 +1,11 @@
-import os
 import asyncio
+import os
+
+import graphsrv.group
+
 import vaping.plugins.vodka
 from vaping import plugin
 from vaping.plugins.vodka import probe_to_graphsrv
-import graphsrv.group
 
 
 def test_init(this_dir):

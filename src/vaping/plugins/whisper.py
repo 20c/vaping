@@ -6,8 +6,9 @@ try:
 except ImportError:
     whisper = None
 
-from vaping.plugins import TimeSeriesDBSchema
 import confu.schema
+
+from vaping.plugins import TimeSeriesDBSchema
 
 
 class WhisperSchema(TimeSeriesDBSchema):
