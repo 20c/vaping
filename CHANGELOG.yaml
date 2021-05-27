@@ -92,6 +92,7 @@ Unreleased:
   added:
   - python3.9 support (#103)
   - poetry
+  - config validation through confu (#99)
   changed:
   - switch to asyncio (#101)
   - updated container builds
