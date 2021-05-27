@@ -8,8 +8,9 @@ try:
 except ImportError:
     graphyte = None
 
-from vaping.plugins import TimeSeriesDBSchema
 import confu.schema
+
+from vaping.plugins import TimeSeriesDBSchema
 
 
 def munge_filename(filename):

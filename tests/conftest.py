@@ -1,7 +1,7 @@
 import os
+
 import pytest
 import pytest_filedata
-
 
 pytest_filedata.setup(os.path.dirname(__file__))
 

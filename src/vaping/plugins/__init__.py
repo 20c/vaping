@@ -1,11 +1,11 @@
 import abc
 import collections
 import copy
-import confu.schema
 import datetime
 import logging
 import os
 
+import confu.schema
 import munge
 from future.utils import with_metaclass
 

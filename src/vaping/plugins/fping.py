@@ -1,9 +1,10 @@
-import confu.schema
 import logging
+from shutil import which
+
+import confu.schema
 
 import vaping
 from vaping.io import subprocess
-from shutil import which
 from vaping.plugins import TimedProbeSchema
 
 

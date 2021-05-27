@@ -1,6 +1,6 @@
-import pytest
 import time
 
+import pytest
 
 from vaping import plugin
 

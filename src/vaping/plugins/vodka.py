@@ -1,10 +1,11 @@
 import copy
 
+import confu.schema
+
 import vaping
 import vaping.config
 import vaping.io
 from vaping.plugins import PluginConfigSchema
-import confu.schema
 
 try:
     import vodka
