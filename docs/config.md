@@ -1,7 +1,7 @@
 
 ## Introduction
 
-Vaping will look for it's config directory in order of:
+Vaping will look for its config directory in order of:
 
 - command line option `--home`
 - environment variable `$VAPING_HOME`
