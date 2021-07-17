@@ -32,7 +32,7 @@ vaping = "vaping.cli:cli"
 
 
 [tool.poetry.dependencies]
-python = "^3.6.1"
+python = "^3.6.2"
 pid = "^3"
 pluginmgr = "^1"
 python-daemon= "^2"
