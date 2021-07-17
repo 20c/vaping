@@ -2,10 +2,18 @@
 
 
 ## Unreleased
+
+
+## 1.4.0
 ### Added
 - python3.9 support (#103)
+- poetry
+- config validation through confu (#99)
 ### Changed
 - switch to asyncio (#101)
+- updated container builds
+### Removed
+- whichcraft, cleaned up other py2 cruft
 
 
 ## 1.3.0

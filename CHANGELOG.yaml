@@ -1,3 +1,11 @@
+Unreleased:
+  added: []
+  fixed: []
+  changed: []
+  deprecated: []
+  removed: []
+  security: []
+
 0.3.0:
   added:
   - py3 support
@@ -88,7 +96,7 @@
   - python2.7 support
   - python3.4 support
   - python3.5 support
-Unreleased:
+1.4.0:
   added:
   - python3.9 support (#103)
   - poetry
@@ -96,8 +104,5 @@ Unreleased:
   changed:
   - switch to asyncio (#101)
   - updated container builds
-  deprecated: []
-  fixed: []
   removed:
   - whichcraft, cleaned up other py2 cruft
-  security: []
