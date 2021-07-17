@@ -3,6 +3,10 @@ ctl:
     - name: changelog
       type: changelog
 
+  plugins:
+    - name: version
+      type: version
+
   permissions:
     - namespace: ctl
       permission: crud
