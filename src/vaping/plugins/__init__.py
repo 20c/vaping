@@ -418,11 +418,11 @@ class FileProbe(ProbeBase):
         return messages
 
     def process_line(self, line, data):
-        """ override this - parse your line in here """
+        """override this - parse your line in here"""
         return data
 
     def process_probe(self, data):
-        """ override this - assign your data values here """
+        """override this - assign your data values here"""
         return data
 
     def process_messages(self, messages):
@@ -446,7 +446,7 @@ class EmitBase(PluginBase, metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def emit(self, message):
-        """ accept message to emit """
+        """accept message to emit"""
 
 
 class TimeSeriesDBSchema(PluginConfigSchema):

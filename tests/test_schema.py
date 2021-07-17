@@ -1,5 +1,4 @@
 import os
-from pprint import pprint
 
 import confu.config
 import confu.schema

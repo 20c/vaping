@@ -34,7 +34,7 @@ class PluginContext:
 
 
 class Vaping:
-    """ Vaping daemon class """
+    """Vaping daemon class"""
 
     def __init__(self, config=None, config_dir=None):
         """
@@ -216,11 +216,11 @@ class Vaping:
         return 0
 
     def start(self):
-        """ start daemon """
+        """start daemon"""
         self._exec()
 
     def stop(self):
-        """ stop daemon """
+        """stop daemon"""
         try:
             with self.pidfile:
                 self.log.error("failed to stop, missing pid file or not running")
@@ -236,7 +236,7 @@ class Vaping:
             os.kill(pid, signal.SIGTERM)
 
     def run(self):
-        """ run daemon """
+        """run daemon"""
         # FIXME - not detaching doesn't work, just run directly for now
         # self._exec(detach=False)
         try:

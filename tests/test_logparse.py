@@ -1,7 +1,5 @@
 import datetime
 import math
-import sys
-import time
 
 import pytest
 
