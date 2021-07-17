@@ -59,11 +59,6 @@ whisper = { version = ">=0.9.15, <2", optional = true }
 pyzmq = { version = ">=15.3.0, <19", optional = true }
 
 [tool.poetry.dev-dependencies]
-# docs
-markdown-include = "^0.6.0"
-mkdocs = "^1.1.2"
-pymdgen = "^1"
-
 # tests
 codecov = "^2.1.10"
 coverage = "^5.3"
@@ -80,6 +75,17 @@ flake8 = "^3.8.4"
 pre-commit = "^2.13"
 pyupgrade = "^2.19.4"
 mypy = "^0.812"
+
+# ctl
+ctl = "^1"
+jinja2 = "^2.11.2"
+tmpl = "^1"
+twine = "^3.3.0"
+
+# docs
+markdown-include = "^0.6.0"
+mkdocs = "^1.1.2"
+pymdgen = "^1"
 
 [tool.poetry.extras]
 graphite = ["graphyte", "requests"]
