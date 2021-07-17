@@ -1,9 +1,8 @@
 import os
 
+import vaping.daemon
 import vaping.plugins.fping_mtr
 from vaping import plugin
-import vaping.daemon
-
 
 expect_verbose = {
     "10.130.133.1 : 273.89 298.10 322.58": {

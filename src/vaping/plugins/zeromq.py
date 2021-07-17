@@ -3,9 +3,10 @@ try:
 except ImportError:
     zmq = None
 
+import confu.schema
+
 import vaping
 import vaping.plugins
-import confu.schema
 
 
 class ZeroMQSchema(vaping.plugins.PluginConfigSchema):

@@ -1,4 +1,3 @@
-
 probes:
   - name: geth
     type: logparse

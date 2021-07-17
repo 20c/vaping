@@ -1,6 +1,7 @@
-from click.testing import CliRunner
-from vaping import cli
 import pytest
+from click.testing import CliRunner
+
+from vaping import cli
 
 
 def test_start_no_home():

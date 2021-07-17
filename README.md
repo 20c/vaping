@@ -4,11 +4,13 @@
 [![PyPI](https://img.shields.io/pypi/v/vaping.svg?maxAge=60)](https://pypi.python.org/pypi/vaping)
 [![PyPI](https://img.shields.io/pypi/pyversions/vaping.svg?maxAge=600)](https://pypi.python.org/pypi/vaping)
 [![Tests](https://github.com/20c/vaping/workflows/tests/badge.svg)](https://github.com/20c/vaping)
-![LGTM Grade](https://img.shields.io/lgtm/grade/python/github/20c/vaping)
+[![LGTM Grade](https://img.shields.io/lgtm/grade/python/github/20c/vaping)](https://lgtm.com/projects/g/20c/vaping/alerts/)
 [![Codecov](https://img.shields.io/codecov/c/github/20c/vaping/master.svg)](https://codecov.io/github/20c/vaping)
 
 
-vaping is a healthy alternative to smokeping! (This statement has not been evaluated by the Food and Drug Administration)
+vaping is a healthy alternative to smokeping!*
+
+* (This statement has not been evaluated by the Food and Drug Administration)
 
 ![Vaping](https://raw.githubusercontent.com/20c/vaping/master/docs/img/vaping.png)
 
@@ -16,9 +18,9 @@ vaping is a healthy alternative to smokeping! (This statement has not been evalu
 
 Vaping was started after years of frustration from dealing with perl and
 environment management for smokeping. It's a simple python daemon which uses
-green threads to poll for input and send output through plugins.
+asyncio to poll for input and send output through plugins.
 
-It has a standalone mode to direvapingy serve realtime graphs, or can use ZeroMQ
+It has a standalone mode to directly serve realtime graphs, or can use ZeroMQ
 to distribute.
 
 
@@ -96,7 +98,7 @@ The current change log is available at <https://github.com/20c/vaping/blob/maste
 Copyright 2016-2021 20C, LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this softare except in compliance with the License.
+you may not use this software except in compliance with the License.
 You may obtain a copy of the License at
 
    http://www.apache.org/licenses/LICENSE-2.0

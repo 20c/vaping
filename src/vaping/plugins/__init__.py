@@ -1,13 +1,12 @@
 import abc
 import collections
 import copy
-import confu.schema
 import datetime
 import logging
 import os
 
+import confu.schema
 import munge
-from future.utils import with_metaclass
 
 import vaping.io
 from vaping.config import parse_interval
@@ -172,7 +171,7 @@ class PluginBase(vaping.io.Thread):
         self.on_start()
 
 
-class ProbeBase(with_metaclass(abc.ABCMeta, PluginBase)):
+class ProbeBase(PluginBase, metaclass=abc.ABCMeta):
     """
     Base class for probe plugin, used for getting data
 
@@ -419,11 +418,11 @@ class FileProbe(ProbeBase):
         return messages
 
     def process_line(self, line, data):
-        """ override this - parse your line in here """
+        """override this - parse your line in here"""
         return data
 
     def process_probe(self, data):
-        """ override this - assign your data values here """
+        """override this - assign your data values here"""
         return data
 
     def process_messages(self, messages):
@@ -435,7 +434,7 @@ class FileProbe(ProbeBase):
         return messages
 
 
-class EmitBase(with_metaclass(abc.ABCMeta, PluginBase)):
+class EmitBase(PluginBase, metaclass=abc.ABCMeta):
     """
     Base class for emit plugins, used for sending data
 
@@ -447,7 +446,7 @@ class EmitBase(with_metaclass(abc.ABCMeta, PluginBase)):
 
     @abc.abstractmethod
     def emit(self, message):
-        """ accept message to emit """
+        """accept message to emit"""
 
 
 class TimeSeriesDBSchema(PluginConfigSchema):

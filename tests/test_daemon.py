@@ -1,13 +1,11 @@
 import os
-import pytest
-import munge
-import vaping
-import vaping.daemon
-import vaping.config
 
 import confu.config
+import pytest
 
-from pprint import pprint
+import vaping
+import vaping.config
+import vaping.daemon
 
 
 def test_plugin_context():
@@ -52,7 +50,7 @@ def test_load_config(this_dir, dir_name):
     import yaml
 
     config_path = os.path.join(this_dir, "data", "config", dir_name, "config.yml")
-    with open(config_path, "r") as stream:
+    with open(config_path) as stream:
         try:
             data = yaml.safe_load(stream)
         except yaml.YAMLError as exc:

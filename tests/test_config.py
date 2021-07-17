@@ -1,9 +1,10 @@
 import os
+
 import pytest
 
 import vaping
-from vaping.config import parse_interval
 from vaping import plugin
+from vaping.config import parse_interval
 
 
 def test_parse_interval():

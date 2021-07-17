@@ -1,8 +1,8 @@
-import pytest
 import asyncio
-import vaping.io
-from vaping import plugin
-from vaping import plugins
+
+import pytest
+
+from vaping import plugin, plugins
 
 config = {
     "plugin": [

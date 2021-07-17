@@ -18,7 +18,6 @@ import asyncio
 import weakref
 from typing import Any, Awaitable, Coroutine, TypeVar, Union
 
-
 try:
     from asyncio import get_running_loop  # noqa Python >=3.7
 except ImportError:  # pragma: no cover
@@ -106,7 +105,7 @@ def run(
         raise RuntimeError("asyncio.run() cannot be called from a running event loop")
 
     if not asyncio.iscoroutine(main):
-        raise ValueError("a coroutine was expected, got {!r}".format(main))
+        raise ValueError(f"a coroutine was expected, got {main!r}")
 
     loop = asyncio.new_event_loop()
     tasks = _patch_loop(loop)
