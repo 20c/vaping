@@ -1,8 +1,6 @@
 import os
-from pprint import pprint
 
 import confu.config
-import munge
 import pytest
 
 import vaping

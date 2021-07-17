@@ -201,7 +201,7 @@ There are two directories in there, one called `vodka` and one called `vaping`
 `vodka` is the config that is used by the vodka web service (so this would be your web server)
 `vaping` is the config that is used by a vaping process that runs and fping and send the data to `vodka`
 
-While for the standalone variation vaping can run vodka as a plugin, in this case both are meant to 
+While for the standalone variation vaping can run vodka as a plugin, in this case both are meant to
 be run in separate processes and can be on separate hosts.
 
 Going by the example to start the web server on one host (using gunicorn to run it):
