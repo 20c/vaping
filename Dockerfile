@@ -37,7 +37,7 @@ RUN python3 -m venv "$VIRTUAL_ENV"
 WORKDIR /src/vaping
 
 COPY Ctl/VERSION Ctl/
-COPY pyproject.toml poetry.lock ./
+COPY pyproject.toml poetry.lock README.md ./
 COPY examples examples
 COPY src src
 COPY tests tests
