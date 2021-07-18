@@ -1,13 +1,10 @@
 Unreleased:
-  added:
-  - container build tests
-  fixed:
-  - container build
+  added: []
+  fixed: []
   changed: []
   deprecated: []
   removed: []
   security: []
-
 0.3.0:
   added:
   - py3 support
@@ -108,3 +105,8 @@ Unreleased:
   - updated container builds
   removed:
   - whichcraft, cleaned up other py2 cruft
+1.4.1:
+  added:
+  - container build tests
+  fixed:
+  - container build

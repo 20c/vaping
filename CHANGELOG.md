@@ -4,6 +4,13 @@
 ## Unreleased
 
 
+## 1.4.1
+### Added
+- container build tests
+### Fixed
+- container build
+
+
 ## 1.4.0
 ### Added
 - python3.9 support (#103)
