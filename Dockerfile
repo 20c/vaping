@@ -39,10 +39,7 @@ WORKDIR /src/vaping
 
 COPY Ctl/VERSION Ctl/
 COPY pyproject.toml poetry.lock README.md ./
-COPY examples examples
 COPY src src
-# XXX
-COPY tests tests
 
 # Need to upgrade pip and wheel within Poetry for all its installs
 RUN poetry run pip install --upgrade pip wheel
@@ -76,9 +73,7 @@ ARG vaping_extras
 
 WORKDIR /src/vaping
 
-#COPY Ctl/VERSION Ctl/
 COPY pyproject.toml poetry.lock README.md ./
-#COPY examples examples
 COPY src src
 COPY tests tests
 
