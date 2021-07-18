@@ -98,3 +98,12 @@ jobs:
           file: ./coverage.xml
           fail_ci_if_error: true
 
+
+  test_container:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: run tests against tester
+        run: ./Ctl/ci/run.sh vaping pytest -vv tests/
