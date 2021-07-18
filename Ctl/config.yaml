@@ -2,8 +2,6 @@ ctl:
   plugins:
     - name: changelog
       type: changelog
-
-  plugins:
     - name: version
       type: version
 
