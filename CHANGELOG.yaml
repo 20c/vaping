@@ -1,6 +1,8 @@
 Unreleased:
-  added: []
-  fixed: []
+  added:
+  - container build tests
+  fixed:
+  - container build
   changed: []
   deprecated: []
   removed: []
