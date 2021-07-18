@@ -52,10 +52,7 @@ RUN poetry install --no-dev -E $vaping_extras
 FROM base as final
 
 ARG runtime_packages
-ARG vaping_home=/home/vaping/examples/standalone_dns/
 ARG vaping_uid=1000
-
-ENV VAPING_HOME=$vaping_home
 
 RUN apk --update --no-cache add $runtime_packages \
       && rm -rf /var/cache/apk/*
@@ -86,9 +83,14 @@ RUN poetry install -E $vaping_extras
 
 # execute from final image
 FROM final
+
+ARG vaping_home=/home/vaping/examples/standalone_dns/
+
+ENV VAPING_HOME=$vaping_home
+
 USER vaping
 WORKDIR /home/vaping
-COPY --from=builder /src/vaping/examples examples/
+COPY examples examples
 
 EXPOSE 7021
 
