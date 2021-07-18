@@ -1,0 +1,7 @@
+version: "3"
+services:
+  vaping:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+      target: tester
