@@ -1,6 +1,7 @@
 Unreleased:
   added: []
-  fixed: []
+  fixed:
+  - missing config deps (#123)
   changed: []
   deprecated: []
   removed: []

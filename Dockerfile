@@ -43,7 +43,10 @@ COPY src src
 
 # Need to upgrade pip and wheel within Poetry for all its installs
 RUN poetry run pip install --upgrade pip wheel
-RUN poetry install --no-dev -E $vaping_extras
+# poetry installs a pth for root
+RUN poetry install --no-dev --no-root
+RUN poetry build -f wheel
+RUN pip install "$(ls dist/vaping-*.whl)[all]"
 
 # TODO testing stage in container for package deps, etc
 
@@ -79,6 +82,7 @@ RUN env
 RUN apk --update add $build_packages
 RUN pip install "poetry$poetry_pin"
 RUN poetry install -E $vaping_extras
+
 
 
 # execute from final image
