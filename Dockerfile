@@ -81,8 +81,7 @@ RUN env
 # install dev
 RUN apk --update add $build_packages
 RUN pip install "poetry$poetry_pin"
-RUN poetry install -E $vaping_extras
-
+RUN poetry install --no-root
 
 
 # execute from final image
