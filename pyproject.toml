@@ -36,7 +36,7 @@ python = "^3.6.2"
 pid = "^3"
 pluginmgr = "^1"
 python-daemon= "^2"
-munge = "^1"
+munge = {extras = ["tomlkit", "yaml"], version = "^1.2.0"}
 confu = "^1.7.1"
 
 # plugins
