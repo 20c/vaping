@@ -1,8 +1,6 @@
 Unreleased:
   added: []
-  fixed:
-  - missing config deps (#123)
-  - install the actual package in the container image (#122)
+  fixed: []
   changed: []
   deprecated: []
   removed: []
@@ -112,3 +110,7 @@ Unreleased:
   - container build tests
   fixed:
   - container build
+1.4.2:
+  fixed:
+  - missing config deps (#123)
+  - install the actual package in the container image (#122)

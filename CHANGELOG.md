@@ -4,6 +4,12 @@
 ## Unreleased
 
 
+## 1.4.2
+### Fixed
+- missing config deps (#123)
+- install the actual package in the container image (#122)
+
+
 ## 1.4.1
 ### Added
 - container build tests
