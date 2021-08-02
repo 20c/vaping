@@ -1,12 +1,3 @@
-Unreleased:
-  added: []
-  fixed:
-  - 'zmq.asyncio has no attribute `PUB` (#128)'
-  - 'zmq plugin configuration collision between bind and connect (#126)'
-  changed: []
-  deprecated: []
-  removed: []
-  security: []
 0.3.0:
   added:
   - py3 support
@@ -116,3 +107,14 @@ Unreleased:
   fixed:
   - missing config deps (#123)
   - install the actual package in the container image (#122)
+1.4.3:
+  fixed:
+  - zmq.asyncio has no attribute `PUB` (#128)
+  - zmq plugin configuration collision between bind and connect (#126)
+Unreleased:
+  added: []
+  changed: []
+  deprecated: []
+  fixed: []
+  removed: []
+  security: []

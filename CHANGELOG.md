@@ -2,6 +2,9 @@
 
 
 ## Unreleased
+
+
+## 1.4.3
 ### Fixed
 - zmq.asyncio has no attribute `PUB` (#128)
 - zmq plugin configuration collision between bind and connect (#126)
