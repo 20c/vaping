@@ -1,4 +1,5 @@
 try:
+    from zmq import PUB
     import zmq.asyncio as zmq
 except ImportError:
     zmq = None
@@ -10,8 +11,8 @@ import vaping.plugins
 
 
 class ZeroMQSchema(vaping.plugins.PluginConfigSchema):
-    bind = confu.schema.Str()
-    connect = confu.schema.Str()
+    bind = confu.schema.Str(default="")
+    connect = confu.schema.Str(default="")
 
 
 @vaping.plugin.register("zeromq")
@@ -41,22 +42,20 @@ class ZeroMQ(vaping.plugins.EmitBase):
         self.ctx = zmq.Context()
 
         # sanity check config
-        if "bind" in self.config:
-            if "connect" in self.config:
+        if self.config.get("bind"):
+            if self.config.get("connect"):
                 msg = "bind and connect are mutually exclusive"
                 self.log.critical(msg)
                 raise ValueError(msg)
-
-        elif "connect" not in self.config:
-            msg = "missing bind or connect"
+        elif not self.config.get("connect"):
             self.log.critical(msg)
             raise ValueError(msg)
 
     def on_start(self):
-        self.sock = self.ctx.socket(zmq.PUB)
-        if "bind" in self.config:
+        self.sock = self.ctx.socket(PUB)
+        if self.config.get("bind"):
             self.sock.bind(self.config["bind"])
-        elif "connect" in self.config:
+        elif self.config.get("connect"):
             self.sock.connect(self.config["connect"])
 
     def on_stop(self):
