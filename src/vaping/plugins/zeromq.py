@@ -48,6 +48,7 @@ class ZeroMQ(vaping.plugins.EmitBase):
                 self.log.critical(msg)
                 raise ValueError(msg)
         elif not self.config.get("connect"):
+            msg = "missing bind or connect"
             self.log.critical(msg)
             raise ValueError(msg)
 
