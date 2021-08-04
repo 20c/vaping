@@ -81,6 +81,8 @@ plugins:
       - 12h:2y # 12 hours per datapoint, 2 years of retention
 ```
 
+Full example: `examples/whisper/config.yml`
+
 ## Probes
 
 The `probes` section is a list defining input sections. It must define at least `type` which may refer directly to a plugin type, or to a config defined type.
