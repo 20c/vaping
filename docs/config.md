@@ -16,12 +16,10 @@ vaping:
   pidfile: vaping.pid
   plugin_path: []
 
-
 probes:
 
 plugins:
 ```
-
 
 ## Plugins
 
@@ -46,15 +44,41 @@ sends 5 pings to each host every minute, with 20 milliseconds between each one.
 
 ### whisper
 
+Config options for whisper plugin:
+
 - `retention` is a list of `$time_per_data_point:$length_to_store`
+- `filename` is the path/name of the file you'd like to write the data to
+- `field` is the values you want to retrieve from. i.e. avg, max, min
+
+Variables:
+
+- `source` - the probe the data will be received from
+- `host` - the IP/FQDN of the host being monitored
+- `field` - the field being written to whisper
 
 For example:
 
 ```yml
-60:1440      # 60 seconds per datapoint, 1440 datapoints = 1 day of retention
-15m:8        # 15 minutes per datapoint, 8 datapoints = 2 hours of retention
-1h:7d        # 1 hour per datapoint, 7 days of retention
-12h:2y       # 12 hours per datapoint, 2 years of retention
+plugins:
+  - name: whisper_avg
+    type: whisper
+
+    # will create one file per host
+    # for example: latency-8.8.8.8-avg
+    filename: '{source}-{host}-{field}.wsp'
+
+    # specified which field to retrieve the value from
+    field: avg
+
+    # whisper configuration
+    aggregation_method: average
+    sparse: false
+    x_files_factor: 0.5
+    retention:
+      - 60:1440 # 60 seconds per datapoint, 1440 datapoints = 1 day of retention
+      - 15m:8 # 15 minutes per datapoint, 8 datapoints = 2 hours of retention
+      - 1h:7d # 1 hour per datapoint, 7 days of retention
+      - 12h:2y # 12 hours per datapoint, 2 years of retention
 ```
 
 ## Probes
@@ -62,6 +86,19 @@ For example:
 The `probes` section is a list defining input sections. It must define at least `type` which may refer directly to a plugin type, or to a config defined type.
 
 Probes may not use the same name as any plugin.
+
+The `probes` section also contains `output`, which is a list of plugins for sending results to another service like zeromq or whisper database.
+
+Example:
+
+```yml
+probes:
+  - name: latency
+    type: std_fping
+    output:
+      - whisper_avg
+      - zmq_vodka
+```
 
 ## Custom Layouts
 
