@@ -7,7 +7,7 @@ pip install vaping
 ```
 
 !!! Tip "Error due to outdated setuptools"
-You may get an error when trying to install:
+    You may get an error when trying to install:
 
     error in vaping setup command: 'install_requires' must be a string or list of strings containing valid project/version requirement specifiers; Expected ',' or end-of-list in whichcraft==0.4.0 ; python_version<'3.3' at  ; python_version<'3.3'
 
@@ -44,7 +44,7 @@ pip install -U graphsrv
 ```
 
 !!! Tip "You can still use old graphsrv"
-We have recently added a major upgrade to graphsrv by switching to a d3.js based frontend.
+    We have recently added a major upgrade to graphsrv by switching to a d3.js based frontend.
 
     While this upgrade should be seamless on your end, if you still want to use the old graphsrv for now you can do so by pinning the version to 1.2.0
 
@@ -122,7 +122,7 @@ vaping start --home=examples/distributed_dns/vaping/ --debug
 ```
 
 !!! Tip "Standalone vs Distributed Configs"
-The example config files between standalone and distribtuted setups are not compatible. Running a distributed setup requires running vaping instance(s) and the web server like Gunicorn or UWSGI to present the web elements.
+    The example config files between standalone and distribtuted setups are not compatible. Running a distributed setup requires running vaping instance(s) and the web server like Gunicorn or UWSGI to present the web elements.
 
 ### Gunicorn
 
@@ -185,8 +185,8 @@ And you should be able to point your browser to the address nginx is listening
 on to view it.
 
 !!! Tip "Note"
-If you're running selinux, you'll need to allow nginx to connect to it
-with `setsebool -P httpd_can_network_connect 1`.
+    If you're running selinux, you'll need to allow nginx to connect to it
+    with `setsebool -P httpd_can_network_connect 1`.
 
 Config files:
 
