@@ -102,6 +102,55 @@ probes:
       - zmq_vodka
 ```
 
-## Custom Layouts
+## Custom Layouts - Graphsrv
 
-It is possible for you to add / edit your layouts, for more information see graphsrv's documentation on the subject at https://graphsrv.readthedocs.io/en/latest/custom/#layout
+It is possible for you to add / edit your layouts. You can use this to add additional rows/columns to the display grid
+
+### Basic Layout example:
+Create a `layout.yml` file.
+```
+layouts:
+  ## INDEX #####################################################################
+
+  index:
+    type: index
+    grid: 3x3
+    graph:
+      config: multitarget
+      fit: "yes"
+      targets: all
+
+  ## DETAIL ####################################################################
+
+  detail:
+    type: custom
+    layout:
+      # row 1
+      - cols:
+          # col 1, render a graph
+          - graph:
+              config: multitarget
+
+              # fit to column
+              fit: "yes"
+
+              # render all targets to this graph
+              targets: all
+
+              # custom graph id
+              id: multitarget-1
+            width: 12
+        height: 100
+```
+
+Add mapping to the `apps.graphsrv` section pointing to the layout file.
+```
+apps:
+  graphsrv:
+    enabled: true
+    layout_config_file: ./layout.yml
+```
+
+
+
+for more information see graphsrv's documentation on the subject at https://graphsrv.readthedocs.io/en/latest/custom/#layout
