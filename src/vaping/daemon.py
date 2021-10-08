@@ -211,7 +211,9 @@ class Vaping:
 
             vaping.io.join_plugins(self.joins)
         except Exception as exc:
+            # XXX option to log trace
             self.log.error(exc)
+            raise
 
         return 0
 
