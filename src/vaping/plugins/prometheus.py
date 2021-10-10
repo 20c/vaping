@@ -1,5 +1,3 @@
-from builtins import str
-
 from prometheus_client import Counter, Gauge, Summary, start_http_server
 
 import vaping
