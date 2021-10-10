@@ -139,14 +139,14 @@ def test_plugin_instance():
 
     with pytest.raises(TypeError):
         plugin.get_probe("emit0", None)
-    assert None != plugin.get_probe("probe1", None)
+    assert plugin.get_probe("probe1", None) is not None
     assert not hasattr(plugin.get_probe("probe1", None), "emit")
 
     with pytest.raises(TypeError):
         plugin.get_output("emit_abc", None)
     with pytest.raises(TypeError):
         plugin.get_output("probe1", None)
-    assert None != plugin.get_output("emit0", None)
+    assert plugin.get_output("emit0", None) is not None
 
 
 def test_emission_queuing():
