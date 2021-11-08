@@ -2,6 +2,8 @@
 
 
 ## Unreleased
+### Fixed
+- mtr graph ignores * lines for now (#135)
 
 
 ## 1.4.3

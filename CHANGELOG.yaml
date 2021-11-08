@@ -115,6 +115,7 @@ Unreleased:
   added: []
   changed: []
   deprecated: []
-  fixed: []
+  fixed:
+  - mtr graph ignores * lines for now (#135)
   removed: []
   security: []
