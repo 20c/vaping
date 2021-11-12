@@ -40,14 +40,10 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
         host (`str`)
         """
         try:
-            host = line.split()[1]
-            if host != "*":
-                try:
-                    return host.decode("ascii")
-                except AttributeError:
-                    # No `decode` on `str` in py3
-                    # assume already decoded str
-                    return host
+            host = line.split()[1].decode("utf8")
+            # TODO: do something else if host == "*"?
+            if host.strip("*\n"):
+                return host
 
         except Exception as e:
             logging.error(f"failed to get data {e}")
@@ -72,11 +68,6 @@ class FPingMTR(vaping.plugins.fping.FPingBase):
             self.lines_read += 1
             # skip first line
             if self.lines_read == 1:
-                continue
-
-            # skip *
-            # TODO: do something else here?
-            if line[0] == "*":
                 continue
 
             host = self.parse_traceroute_line(line)
