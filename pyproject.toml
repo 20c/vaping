@@ -84,7 +84,7 @@ twine = "^3.3.0"
 
 # docs
 markdown-include = "^0.6.0"
-mkdocs = "^1.1.2"
+mkdocs = "^1.2.3"
 pymdgen = "^1"
 
 [tool.poetry.extras]
