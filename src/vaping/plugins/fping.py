@@ -147,10 +147,7 @@ class FPingBase(vaping.plugins.TimedProbe):
         data = list()
 
         # get both stdout and stderr
-        proc = self.popen(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-
-        # TODO poll, timeout, maybe from parent process for better control?
-        with proc.stdout:
+        with self.popen(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT) as proc:
             for line in iter(proc.stdout.readline, b""):
                 data.append(self.parse_verbose(line.decode("utf-8")))
 
