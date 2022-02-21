@@ -117,5 +117,6 @@ Unreleased:
   deprecated: []
   fixed:
   - mtr graph ignores * lines for now (#135, #145)
+  - defunct/zombie processes for fping (#133, thanks to mattlan)
   removed: []
   security: []

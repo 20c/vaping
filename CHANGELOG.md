@@ -3,7 +3,8 @@
 
 ## Unreleased
 ### Fixed
-- mtr graph ignores * lines for now (#135)
+- mtr graph ignores * lines for now (#135,
+- defunct/zombie processes for fping (#133, thanks to mattlan)
 
 
 ## 1.4.3
