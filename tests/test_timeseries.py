@@ -52,6 +52,6 @@ def test_update_and_create():
             ],
         }
     )
-    assert inst.created == True
+    assert inst.created is True
     assert inst.updated["row-1-test"] == (t, 123)
     assert inst.updated["row-2-test"] == (t, 456)
