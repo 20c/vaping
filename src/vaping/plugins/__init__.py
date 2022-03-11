@@ -577,7 +577,10 @@ class TimeSeriesDB(EmitBase):
             for row in message.get("data"):
 
                 if row is None:
-                    self.log.debug("Ignoring empty row from %s/%s" % (message.get("source"), message.get("type")))
+                    self.log.debug(
+                        "Ignoring empty row from %s/%s"
+                        % (message.get("source"), message.get("type"))
+                    )
                     continue
 
                 # format filename from data
