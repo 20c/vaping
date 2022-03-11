@@ -27,8 +27,13 @@ class Prometheus(vaping.plugins.EmitBase):
 
     def emit(self, data):
         raw_data = data.get("data")
+
         self.log.debug("data: " + str(raw_data))
         for host_data in raw_data:
+
+            if host_data is None:
+                continue
+
             host_name = host_data.get("host")
             if "min" in host_data:
                 min_latency.labels(host_name).observe(host_data.get("min"))
