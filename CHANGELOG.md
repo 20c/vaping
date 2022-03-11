@@ -2,6 +2,14 @@
 
 
 ## Unreleased
+### Fixed
+- mtr graph ignores * lines for now (#135)
+
+
+## 1.4.3
+### Fixed
+- zmq.asyncio has no attribute `PUB` (#128)
+- zmq plugin configuration collision between bind and connect (#126)
 
 
 ## 1.4.2

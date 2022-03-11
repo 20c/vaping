@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "vaping"
-version = "1.4.2"
+version = "1.4.3"
 description = "vaping is a healthy alternative to smokeping!"
 readme = "README.md"
 repository = "https://github.com/20c/vaping"
@@ -85,7 +85,7 @@ twine = "^3.3.0"
 
 # docs
 markdown-include = "^0.6.0"
-mkdocs = "^1.1.2"
+mkdocs = "^1.2.3"
 pymdgen = "^1"
 
 [tool.poetry.extras]

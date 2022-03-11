@@ -6,7 +6,6 @@ First, you will always need to install vaping with:
 pip install vaping
 ```
 
-
 !!! Tip "Error due to outdated setuptools"
     You may get an error when trying to install:
 
@@ -34,7 +33,6 @@ To install for Debian Or Ubuntu:
 ```sh
 sudo apt-get install fping
 ```
-
 
 ## Example Standalone Latency
 
@@ -84,10 +82,10 @@ Below is the config file, common things to change include:
 Config file:
 
 `examples/standalone_dns/config.yml`:
+
 ```yml
 {!examples/standalone_dns/config.yml!}
 ```
-
 
 ## Example Distributed Latency
 
@@ -117,12 +115,14 @@ The main difference is the collector is running in a separate process than the
 web server, which allows you to graph things from multiple locations, as well
 as using another webserver, such as nginx to serve client requests.
 
-
 To try it out, start vaping with:
 
 ```sh
 vaping start --home=examples/distributed_dns/vaping/ --debug
 ```
+
+!!! Tip "Standalone vs Distributed Configs"
+    The example config files between standalone and distribtuted setups are not compatible. Running a distributed setup requires running vaping instance(s) and the web server like Gunicorn or UWSGI to present the web elements.
 
 ### Gunicorn
 
@@ -160,9 +160,17 @@ In `examples/distributed_dns/vodka/config.yml` change plugins['http'].server
 to 'uwsgi' and then configure nginx with an upstream to connect to it.
 
 `nginx.conf`:
+
 ```
 upstream vaping {
     server 127.0.0.1:7021;
+}
+
+server {
+        location / {
+          uwsgi_pass vaping;
+          include uwsgi_params;
+        }
 }
 ```
 
@@ -183,11 +191,13 @@ on to view it.
 Config files:
 
 `examples/distributed_dns/vaping/config.yml`:
+
 ```yml
 {!examples/distributed_dns/vaping/config.yml!}
 ```
 
 `examples/distributed_dns/vodka/config.yml`:
+
 ```yml
 {!examples/distributed_dns/vodka/config.yml!}
 ```
@@ -221,7 +231,7 @@ vaping start --home=examples/distributed_dns/vaping/ --debug
 
 ### Vodka (web server)
 
-In the vodka config each zeromq connection is instantiated by the `zeromq_probe` plugin, so it needs one of those for each vaping sending data.  Please be aware of https://github.com/20c/vodka/issues/11 since it's a bit counterintuitive at this point in time.
+In the vodka config each zeromq connection is instantiated by the `zeromq_probe` plugin, so it needs one of those for each vaping sending data. Please be aware of https://github.com/20c/vodka/issues/11 since it's a bit counterintuitive at this point in time.
 
 ```
 plugins:
