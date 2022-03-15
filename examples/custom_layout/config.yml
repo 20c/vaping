@@ -1,0 +1,109 @@
+probes:
+  - name: latency
+    type: std_fping
+    output:
+      - vodka
+
+    groups:
+      - name: public_dns
+        hosts:
+          - host: 8.8.8.8
+            name: Google
+            color: red
+          - host: 4.2.2.1
+            name: Level(3)
+            color: blue
+          - host: 208.67.222.222
+            name: OpenDNS
+            color: orange
+          - host: 1.1.1.1
+            name: Cloudflare
+            color: purple
+
+plugins:
+  - name: std_fping
+    type: fping
+    count: 10
+    interval: 3s
+    output:
+      - vodka
+
+  - name: vodka
+    type: vodka
+
+    data:
+      - type: fping
+        handlers:
+          - type: index
+            index: host
+          - type: store
+            container: list
+            limit: 500
+
+    apps:
+      graphsrv:
+        enabled: true
+        layout_config_file: custom_layout/layouts.yaml
+        graphs:
+          multitarget:
+            id_field: host
+            type: multitarget
+            plot_y: avg
+            format_y: ms
+
+          smokestack:
+            id_field: host
+            type: smokestack
+            plot_y: avg
+
+    plugins:
+
+      - name: http
+        type: flask
+        bind: 0.0.0.0:7021
+        debug: true
+        static_url_path: /static
+        server: self
+        async: thread
+        routes:
+          /targets : graphsrv->targets
+          /graph_data :
+            methods:
+              - POST
+              - GET
+            target: graphsrv->graph_data
+          /graph : graphsrv->graph_view
+          /overview_read_file : graphsrv->overview_read_file
+          /: graphsrv->overview_view
+
+
+logging:
+  version: 1
+  formatters:
+    simple:
+      format: '%(asctime)s - %(name)s - %(levelname)s: %(message)s'
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: DEBUG
+      formatter: simple
+      stream: ext://sys.stdout
+
+    #file:
+    #  class: logging.FileHandler
+    #  level: DEBUG
+    #  formatter: simple
+    #  filename: /home/dev/sandbox/vaping/vaping.log
+
+  loggers:
+    vaping:
+      level: DEBUG
+      handlers:
+        - console
+        #- file
+    vodka:
+      level: DEBUG
+      handlers:
+        - console
+        #- file
+

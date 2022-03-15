@@ -1,0 +1,86 @@
+
+layouts:
+
+  ## INDEX #####################################################################
+
+  index:
+    type: index
+    grid: 3x3
+    graph:
+      config: multitarget
+      fit: 'yes'
+      targets: all
+
+  ## DETAIL ####################################################################
+
+  detail:
+    type: custom
+    layout:
+
+    # row 1 (multi-target graph that will plot a line graph for all targets)
+    - cols:
+      # col 1, render a graph
+      - graph:
+
+          config: multitarget
+
+          # fit to column
+          fit: 'yes'
+
+          # render all targets to this graph
+          targets: all
+
+          # custom graph id
+          id: multitarget-1
+
+        # 100% width (12/12 columns)
+        width: 12
+
+      # adjust the height of the multitarget graph to 50% (down from 75%)
+      # to make room for the additional row of smokestack graphs
+      height: 50
+
+    # row 2 (2 smokestack graphs side by side)
+    - cols:
+      - graph:
+          fit: 'yes'
+          config: smokestack
+          targets: all
+          id: smokestack-1
+
+        # 50% width (6/12 columns)
+        width: 6
+
+      - graph:
+          fit: 'yes'
+          config: smokestack
+          targets: all
+          id: smokestack-2
+
+        # 50% width (6/12 columns)
+        width: 6
+
+      # 25% height for the first row of smokestack graphs
+      height: 25
+
+    # row 3 (2 smokestack graphs side by side)
+    - cols:
+      - graph:
+          fit: 'yes'
+          config: smokestack
+          targets: all
+          id: smokestack-1
+
+        # 50% width (6/12 columns)
+        width: 6
+      - graph:
+          fit: 'yes'
+          config: smokestack
+          targets: all
+          id: smokestack-2
+
+       # 50% width (6/12 columns)
+        width: 6
+
+      # 25% heigh for the second row of smokestack graphs
+      height: 25
