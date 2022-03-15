@@ -2,6 +2,8 @@
 
 
 ## Unreleased
+### Added
+- prometheus export plugin
 ### Fixed
 - mtr graph ignores * lines for now (#135)
 
