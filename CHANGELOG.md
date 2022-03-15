@@ -6,7 +6,10 @@
 - prometheus export plugin
 ### Fixed
 - mtr graph ignores * lines for now (#135,
+- fping sometimes emits None messages (#138)
 - defunct/zombie processes for fping (#133, thanks to mattlan)
+### Removed
+- python3.6 support
 
 
 ## 1.4.3

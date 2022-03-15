@@ -118,6 +118,8 @@ Unreleased:
   deprecated: []
   fixed:
   - mtr graph ignores * lines for now (#135, #145)
+  - fping sometimes emits None messages (#138)
   - defunct/zombie processes for fping (#133, thanks to mattlan)
-  removed: []
+  removed:
+  - python3.6 support
   security: []
