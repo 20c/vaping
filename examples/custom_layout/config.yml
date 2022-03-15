@@ -43,7 +43,8 @@ plugins:
     apps:
       graphsrv:
         enabled: true
-        layout_config_file: custom_layout/layouts.yaml
+        # point to custom layout config
+        layout_config_file: examples/custom_layout/layouts.yaml
         graphs:
           multitarget:
             id_field: host
