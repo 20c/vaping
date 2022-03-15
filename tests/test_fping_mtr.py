@@ -57,7 +57,9 @@ def test_parse_traceroute(data_mtr_traceroute):
     print(data_mtr_traceroute.input)
     print(data_mtr_traceroute.expected)
     print("=======")
-    hosts = mtr.parse_traceroute([line.encode("utf8") for line in data_mtr_traceroute.input.splitlines()])
+    hosts = mtr.parse_traceroute(
+        [line.encode("utf8") for line in data_mtr_traceroute.input.splitlines()]
+    )
     print(f"HOSTS: {hosts}")
     # FIXME need to refactor to properly test if host and hosts not in host
     assert_parsed(data_mtr_traceroute, hosts)
