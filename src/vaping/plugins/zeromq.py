@@ -1,6 +1,6 @@
 try:
-    from zmq import PUB
     import zmq.asyncio as zmq
+    from zmq import PUB
 except ImportError:
     zmq = None
 
