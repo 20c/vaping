@@ -112,7 +112,8 @@
   - zmq.asyncio has no attribute `PUB` (#128)
   - zmq plugin configuration collision between bind and connect (#126)
 Unreleased:
-  added: []
+  added:
+  - prometheus export plugin
   changed: []
   deprecated: []
   fixed:

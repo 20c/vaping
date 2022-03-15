@@ -22,9 +22,7 @@ classifiers = [
     'Topic :: System :: Networking :: Monitoring',
 ]
 
-packages = [
-    { include = "vaping", from = "src" },
-]
+packages = [{ include = "vaping", from = "src" }]
 
 [tool.poetry.scripts]
 vaping = "vaping.cli:cli"
@@ -34,8 +32,8 @@ vaping = "vaping.cli:cli"
 python = "^3.7"
 pid = "^3"
 pluginmgr = "^1"
-python-daemon= "^2"
-munge = {extras = ["tomlkit", "yaml"], version = "^1.2.0"}
+python-daemon = "^2"
+munge = { extras = ["tomlkit", "yaml"], version = "^1.2.0" }
 confu = "^1.7.1"
 
 # plugins
@@ -46,6 +44,9 @@ graphyte = { version = "^1.4", optional = true }
 
 # rrdtool
 rrdtool = { version = ">=0.1.14, <1", optional = true }
+
+# prometheus
+prometheus_client = { version = "^0.11.0", optional = true }
 
 # standalone
 graphsrv = { version = "^2", optional = true }
@@ -89,6 +90,7 @@ pymdgen = "^1"
 [tool.poetry.extras]
 graphite = ["graphyte", "requests"]
 rrdtool = ["rrdtool"]
+prometheus = ["prometheus_client"]
 standalone = ["graphsrv", "vodka"]
 whisper = ["whisper"]
 zeromq = ["pyzmq"]
@@ -97,6 +99,7 @@ zeromq = ["pyzmq"]
 all = [
     "graphsrv",
     "graphyte",
+    "prometheus_client",
     "pyzmq",
     "rrdtool",
     "requests",

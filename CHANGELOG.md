@@ -2,6 +2,8 @@
 
 
 ## Unreleased
+### Added
+- prometheus export plugin
 ### Fixed
 - mtr graph ignores * lines for now (#135,
 - defunct/zombie processes for fping (#133, thanks to mattlan)

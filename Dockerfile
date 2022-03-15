@@ -1,6 +1,18 @@
-ARG build_packages=" \
-    gcc g++ make file libc-dev libffi-dev curl openssl-dev make rust cargo rrdtool-dev \
+ARG build_packages="\
+    gcc \
+    g++ \
+    make \
+    file \
+    libc-dev \
+    libffi-dev \
+    curl \
+    openssl-dev \
+    make \
+    rust \
+    cargo \
+    rrdtool-dev \
     "
+
 ARG runtime_packages="fping librrd \
     zeromq \
     "
