@@ -29,7 +29,7 @@ def test_include():
     )
 
     # need to find where this gets put in the registry
-    before = REGISTRY.get_sample_value("number_of_packets_sent")
+    REGISTRY.get_sample_value("number_of_packets_sent")
     prom.emit(emit_data)
     """
     after =  REGISTRY.get_sample_value('number_of_packets_sent')

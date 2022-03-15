@@ -6,7 +6,7 @@ In the example below we change the detail layout to show 4 smokestack graphs ins
 
 !!! Tip "Working directory matters for this example"
     If you want to try the example below please execute the command from the vaping root
-    directory. The example provides a relative path to the layout file and will not 
+    directory. The example provides a relative path to the layout file and will not
     find it otherwise.
 
 ```sh
