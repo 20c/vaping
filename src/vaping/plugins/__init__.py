@@ -578,8 +578,9 @@ class TimeSeriesDB(EmitBase):
 
                 if row is None:
                     self.log.debug(
-                        "Ignoring empty row from %s/%s"
-                        % (message.get("source"), message.get("type"))
+                        "Ignoring empty row from {}/{}".format(
+                            message.get("source"), message.get("type")
+                        )
                     )
                     continue
 

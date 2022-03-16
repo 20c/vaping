@@ -8,6 +8,7 @@ nav:
   - Home: index.md
   - Quick Start Examples: quickstart.md
   - Advanced Examples: examples.md
+  - Customize Layout: layout.md
   - Configuration: config.md
   - Development: dev.md
   - API:
