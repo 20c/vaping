@@ -105,7 +105,7 @@ ENV VAPING_HOME=$vaping_home
 
 USER vaping
 WORKDIR /home/vaping
-COPY examples examples
+COPY --chown=vaping:vaping examples examples
 
 EXPOSE 7021
 
