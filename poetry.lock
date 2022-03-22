@@ -629,11 +629,11 @@ testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
 name = "pluginmgr"
-version = "1.0.1"
+version = "1.1.0"
 description = "lightweight python plugin system supporting config inheritance"
 category = "main"
 optional = false
-python-versions = ">=3.6,<4.0"
+python-versions = ">=3.7,<4.0"
 
 [package.dependencies]
 munge = ">=1.0.0,<2.0.0"
@@ -1598,8 +1598,8 @@ pluggy = [
     {file = "pluggy-1.0.0.tar.gz", hash = "sha256:4224373bacce55f955a878bf9cfa763c1e360858e330072059e10bad68531159"},
 ]
 pluginmgr = [
-    {file = "pluginmgr-1.0.1-py3-none-any.whl", hash = "sha256:1f24786c2cac55e17f3496bd915b8c336792ecc9edb2b61ea5f73ce3a8a1eec9"},
-    {file = "pluginmgr-1.0.1.tar.gz", hash = "sha256:151c8afe8df535f2e02255433cd3340000b3428018692f0581ff53d6f74c3630"},
+    {file = "pluginmgr-1.1.0-py3-none-any.whl", hash = "sha256:1737de45f3055a3a16b544f1177dd4e2c018c2fcac913e1d2603769513d60ece"},
+    {file = "pluginmgr-1.1.0.tar.gz", hash = "sha256:473eae4056a3d8f33036287d19ea09ca3f82ba50330f8d187cdd279839e8e2d7"},
 ]
 pre-commit = [
     {file = "pre_commit-2.17.0-py2.py3-none-any.whl", hash = "sha256:725fa7459782d7bec5ead072810e47351de01709be838c2ce1726b9591dad616"},
