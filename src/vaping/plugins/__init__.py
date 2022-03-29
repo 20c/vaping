@@ -1,5 +1,5 @@
 import abc
-import collections
+import collections.abc
 import copy
 import datetime
 import logging
@@ -69,7 +69,7 @@ class PluginBase(vaping.io.Thread):
         # supported until vaping 2.0
 
         for k, v in list(self.config.items()):
-            if isinstance(v, collections.Mapping):
+            if isinstance(v, collections.abc.Mapping):
                 group_config[k] = v
 
         # explicit groups object (#44 implementation)
