@@ -8,49 +8,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip
-          restore-keys: ${{ runner.os }}-pip
       - name: Install requirements
         run: sudo apt-get install rrdtool librrd-dev
-
-
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
-        with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-          installer-parallel: true
-
-          # virtualenvs-path: ~/.venv
-      - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v2
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
-      # install dependencies if cache does not exist
-      - name: Check cache and install dependencies
-        run: poetry install --no-interaction --no-root
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      - name: Install virtualenv from poetry
+        uses: 20c/workflows/poetry@v1
       # poetry run pre-commit run --all-files
       - name: Run linters
         run: |
             poetry run isort src/
             poetry run black --check src/
             poetry run pre-commit run --all-files
-
-
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v1
         with:
           languages: python
-
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v1
 
