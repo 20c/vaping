@@ -40,9 +40,10 @@ jobs:
       - name: Install requirements
         run: sudo apt-get install rrdtool librrd-dev fping traceroute
       - name: Install virtualenv from poetry
-        uses: 20c/workflows/poetry@v1
+        uses: grizz/workflows/poetry@v1
         with:
           python-version: ${{ matrix.python-version }}
+          install-options: -Eall
       - name: Run tests
         run: |
           poetry run pytest -vv --cov-report=term-missing --cov=${{ github.event.repository.name }} --cov-report=xml tests/
