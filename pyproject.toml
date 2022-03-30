@@ -70,7 +70,7 @@ tox = "^3.20.1"
 
 # linting
 # bandit = "^1.6.2"
-black = { version = ">=20", allow-prereleases = true }
+black = ">=20"
 isort = "^5.7.0"
 flake8 = "^3.8.4"
 pre-commit = "^2.13"
