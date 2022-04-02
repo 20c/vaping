@@ -100,15 +100,18 @@ RUN poetry install --no-root
 # execute from final image
 FROM final
 
-ARG vaping_home=/home/vaping/examples/standalone_dns/
+ARG vaping_home=/vaping
 
 ENV VAPING_HOME=$vaping_home
 
+WORKDIR /vaping
+RUN chown vaping:vaping /vaping
+
 USER vaping
-WORKDIR /home/vaping
 COPY --chown=vaping:vaping examples examples
+COPY --chown=vaping:vaping examples/standalone_dns/config.yml .
 
 EXPOSE 7021
 
 # The process just silently exits without --debug in docker.
-CMD ["vaping", "--verbose", "--debug", "start"]
+CMD ["vaping", "start", "--no-fork"]

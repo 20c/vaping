@@ -46,7 +46,7 @@ jobs:
             type=pep440,pattern={{version}}
             type=sha
 
-      - name: Build and push Docker image
+      - name: Build and push container image
         uses: docker/build-push-action@v2
         with:
           context: .
