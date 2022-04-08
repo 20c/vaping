@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "vaping"
-version = "1.5.0"
+version = "1.5.0.1"
 description = "vaping is a healthy alternative to smokeping!"
 readme = "README.md"
 repository = "https://github.com/20c/vaping"
