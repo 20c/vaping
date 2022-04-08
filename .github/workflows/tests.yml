@@ -8,49 +8,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip
-          restore-keys: ${{ runner.os }}-pip
       - name: Install requirements
         run: sudo apt-get install rrdtool librrd-dev
-
-
-      - name: Install Poetry
-        uses: snok/install-poetry@v1.1.1
-        with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-          installer-parallel: true
-
-          # virtualenvs-path: ~/.venv
-      - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v2
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
-      # install dependencies if cache does not exist
-      - name: Check cache and install dependencies
-        run: poetry install --no-interaction --no-root
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      - name: Install virtualenv from poetry
+        uses: 20c/workflows/poetry@v1
       # poetry run pre-commit run --all-files
       - name: Run linters
         run: |
             poetry run isort src/
             poetry run black --check src/
             poetry run pre-commit run --all-files
-
-
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v1
         with:
           languages: python
-
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v1
 
@@ -58,43 +29,25 @@ jobs:
   test:
     needs: linting
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         os: [ "ubuntu-latest" ]
-        python-version: [ "3.7", "3.8", "3.9" ]
+        python-version: [ "3.7", "3.8", "3.9", "3.10" ]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
-      - name: Set up python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
       - name: Install requirements
         run: sudo apt-get install rrdtool librrd-dev fping traceroute
-      - name: Install Poetry
-        uses: snok/install-poetry@v1.1.1
+      - name: Install virtualenv from poetry
+        uses: grizz/workflows/poetry@v1
         with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-      - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v2
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
-      - name: Ensure cache is healthy
-        if: steps.cache.outputs.cache-hit == 'true'
-        shell: bash
-        run: timeout 10s poetry run pip --version || rm -rf .venv
-      # install dependencies if cache does not exist
-      - name: Check cache and install dependencies
-        run: poetry install -Eall
+          python-version: ${{ matrix.python-version }}
+          install-options: -Eall
       - name: Run tests
         run: |
-          source .venv/bin/activate
-          pytest -vv --cov-report=term-missing --cov=${{ github.event.repository.name }} --cov-report=xml tests/
-          coverage report
+          poetry run pytest -vv --cov-report=term-missing --cov=${{ github.event.repository.name }} --cov-report=xml tests/
+          poetry run coverage report
       # upload coverage stats
       - name: Upload coverage
         uses: codecov/codecov-action@v1

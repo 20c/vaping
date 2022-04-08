@@ -37,7 +37,7 @@ ARG build_packages
 ARG runtime_packages
 ARG vaping_extras
 
-RUN apk --update --no-cache add $build_packages $runtime_packages
+RUN apk upgrade --available && apk --update --no-cache add $build_packages $runtime_packages
 
 # install poetry outside of the venv
 RUN pip install --upgrade pip wheel
@@ -69,8 +69,9 @@ FROM base as final
 ARG runtime_packages
 ARG vaping_uid=1000
 
-RUN apk --update --no-cache add $runtime_packages \
-      && rm -rf /var/cache/apk/*
+RUN apk upgrade --available \
+    && apk --update --no-cache add $runtime_packages \
+    && rm -rf /var/cache/apk/*
 
 COPY --from=builder "$VIRTUAL_ENV" "$VIRTUAL_ENV"
 
@@ -99,15 +100,18 @@ RUN poetry install --no-root
 # execute from final image
 FROM final
 
-ARG vaping_home=/home/vaping/examples/standalone_dns/
+ARG vaping_home=/vaping
 
 ENV VAPING_HOME=$vaping_home
 
+WORKDIR /vaping
+RUN chown vaping:vaping /vaping
+
 USER vaping
-WORKDIR /home/vaping
-COPY examples examples
+COPY --chown=vaping:vaping examples examples
+COPY --chown=vaping:vaping examples/standalone_dns/config.yml .
 
 EXPOSE 7021
 
 # The process just silently exits without --debug in docker.
-CMD ["vaping", "--verbose", "--debug", "start"]
+CMD ["vaping", "start", "--no-fork"]

@@ -16,6 +16,7 @@ classifiers = [
     'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: 3.8',
     'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
     'Topic :: Internet',
     'Topic :: Software Development :: Libraries :: Python Modules',
     'Topic :: System :: Monitoring',
@@ -56,7 +57,7 @@ vodka = { version = "^3.1", optional = true }
 whisper = { version = ">=0.9.15, <2", optional = true }
 
 # zeromq
-pyzmq = { version = ">=15.3.0, <19", optional = true }
+pyzmq = { version = ">=15.3.0", optional = true }
 
 [tool.poetry.dev-dependencies]
 # tests
@@ -69,7 +70,7 @@ tox = "^3.20.1"
 
 # linting
 # bandit = "^1.6.2"
-black = { version = ">=20", allow-prereleases = true }
+black = ">=20"
 isort = "^5.7.0"
 flake8 = "^3.8.4"
 pre-commit = "^2.13"

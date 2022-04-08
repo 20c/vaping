@@ -1,3 +1,16 @@
+Unreleased:
+  added:
+  - prometheus export plugin
+  - python 3.10 support
+  changed: []
+  deprecated: []
+  fixed:
+  - mtr graph ignores * lines for now (#135, #145)
+  - fping sometimes emits None messages (#138)
+  - defunct/zombie processes for fping (#133, thanks to mattlan)
+  removed:
+  - python3.6 support
+  security: []
 0.3.0:
   added:
   - py3 support
@@ -111,15 +124,3 @@
   fixed:
   - zmq.asyncio has no attribute `PUB` (#128)
   - zmq plugin configuration collision between bind and connect (#126)
-Unreleased:
-  added:
-  - prometheus export plugin
-  changed: []
-  deprecated: []
-  fixed:
-  - mtr graph ignores * lines for now (#135, #145)
-  - fping sometimes emits None messages (#138)
-  - defunct/zombie processes for fping (#133, thanks to mattlan)
-  removed:
-  - python3.6 support
-  security: []
