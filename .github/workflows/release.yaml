@@ -1,16 +1,16 @@
-name: build and publish container
+name: release tasks
 
 on:
   push:
     branches:
-      - 'master'
+      - $default-branch
       - 'prep-*'
     tags:
       - \d+\.\d+.*
 #      - 'v*'
   pull_request:
     branches:
-      - 'master'
+      - $default-branch
 
 env:
   REGISTRY: ghcr.io
