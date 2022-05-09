@@ -69,7 +69,7 @@ By default it uses a generic layout template and listens on http://0.0.0.0:7021 
 
 ![Vaping](https://raw.githubusercontent.com/20c/vaping/master/docs/img/standalone_dns.png)
 
-And clicking on the title will goto a detail page which looks like:
+And clicking on the title will navigate to a detail page which looks like:
 
 ![Vaping](https://raw.githubusercontent.com/20c/vaping/master/docs/img/standalone_dns-detail.png)
 
