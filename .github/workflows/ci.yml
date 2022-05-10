@@ -13,5 +13,4 @@ jobs:
         uses: 20c/workflows/poetry@v1
       - name: deploy mkdocs gh-pages site
         run: |
-          source .venv/bin/activate
-          mkdocs gh-deploy --force
+          poetry run mkdocs gh-deploy --force
