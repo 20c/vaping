@@ -1,12 +1,12 @@
-## Two distributed vaping instances into the same graph
+## Two distributed vaping instances on the same graph
 
-This example shows how two run 2 separate vaping instances connected to a vodka instance and plot into the same graph.
+This example shows how two run 2 separate vaping instances connected to a vodka instance and plot on the same graph.
 
 !!! Tip "Running a distributed setup"
-    For a complete understanding of running a distributed vaping setup, please read the [Distributed Latency](quickstart/#example-distributed-latency) example in the quickstart section.
+    For a complete understanding of running a distributed vaping setup, please read the [Distributed Latency](/docs/quickstart) example in the quickstart section.
 
 !!! Tip "Requires vodka 2.2.6"
-    This requires that you install vodka 2.2.6 or higher
+    This requires that you install vodka 2.2.6 or higher:
 
     ```
     pip install vodka>=2.2.6
@@ -48,12 +48,12 @@ gunicorn -b 0.0.0.0:7021 vodka.runners.wsgi:application
 
 ## MTR
 
-This example will show you how to setup an MTR graph
+This example will show you how to setup an MTR graph:
 
 !!! Tip "Requires graphsrv 1.3.0"
 
     You need to run graphsrv 1.3.0 or later in order to be able
-    to render MTR graphs
+    to render MTR graphs.
 
     ```
     pip install graphsrv>=1.3.0
@@ -74,7 +74,7 @@ This example will show you how to setup an MTR graph
     thoughts on it.
 
 
-Pay close attention to the commented lines in the example below, as we need to do the following:
+Pay close attention to the commented lines in the example below, as you need to do the following:
 
 - setup the mtr probe
 - setup the fping_mtr plugin
@@ -93,7 +93,7 @@ vaping start --home=examples/mtr --debug
 
 !!! Tip "MTR - Distributed"
 
-    When setting up a distributed MTR probe the group on the vodka end should be setup like this
+    When setting up a distributed MTR probe, the group on the vodka end should be setup like this:
 
         apps:
           graphsrv:

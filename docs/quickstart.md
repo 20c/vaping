@@ -1,6 +1,6 @@
 ## Install vaping
 
-First, you will always need to install vaping with:
+You always need to install vaping with:
 
 ```sh
 pip install vaping
@@ -52,7 +52,7 @@ pip install -U graphsrv
     pip install graphsrv==1.2.0
     ```
 
-Clone the github repository to have access to the example configuration files
+Clone the github repository to have access to the example configuration files:
 
 ```sh
 git clone git@github.com:20c/vaping.git
@@ -76,7 +76,7 @@ And clicking on the title will navigate to a detail page which looks like:
 Below is the config file, common things to change include:
 
 - hosts: probes.public_dns.hosts
-- listening address: plugins.vodka.plugins.http.host and port.
+- listening address: plugins.vodka.plugins.http.host and port
 - fping frequency: plugins.std_fping.count and interval
 
 Config file:
@@ -89,27 +89,25 @@ Config file:
 
 ## Example Distributed Latency
 
-The example config file (from `examples/distributed_dns`) is the same as the standalone one and uses both vodka and graphsrv, so those will need to be installed with:
+The example config file (from `examples/distributed_dns`) is the same as the standalone one and uses both vodka and graphsrv, so those need to be installed with:
 
 ```sh
 pip install -U vodka
 pip install -U graphsrv
 ```
 
-Also if you are using `zmq` to send data between the processes (the default) you will need to install the pyzmq and zmq
+Also if you are using `zmq` to send data between the processes (the default) you will need to install the pyzmq and zmq:
 
 ```sh
 pip install "pyzmq<20"
 ```
 
 In some instances you may also be required to install the zmq module alongside it.
-If you are getting startup issues try adding
+If you are getting startup issues try adding the following as well:
 
 ```sh
 pip install zmq
 ```
-
-as well
 
 The main difference is the collector is running in a separate process than the
 web server, which allows you to graph things from multiple locations, as well
@@ -144,7 +142,7 @@ You should be able to browse to port 7021 to see the display.
 
 #### Gunicorn fails to start
 
-If gunicorn fails to start and doesn't tell you why, its probably some missing
+If gunicorn fails to start and doesn't tell you why, it's probably some missing
 dependency. You can force it to output what it is failing on by passing the
 `--preload` argument to the `gunicorn` command.
 
@@ -181,7 +179,7 @@ export VODKA_HOME=examples/distributed_dns/vodka
 uwsgi -H $VIRTUAL_ENV --socket=0.0.0.0:7026 -w vodka.runners.wsgi:application --enable-threads
 ```
 
-And you should be able to point your browser to the address nginx is listening
+You should be able to point your browser to the address nginx is listening
 on to view it.
 
 !!! Tip "Note"
@@ -204,24 +202,24 @@ Config files:
 
 ## Deep dive into the distributed example
 
-Looking at https://github.com/20c/vaping/tree/master/examples/distributed_dns
+Looking at <https://github.com/20c/vaping/tree/master/examples/distributed_dns>
 
 There are two directories in there, one called `vodka` and one called `vaping`
 
 `vodka` is the config that is used by the vodka web service (so this would be your web server)
 `vaping` is the config that is used by a vaping process that runs and fping and send the data to `vodka`
 
-While for the standalone variation vaping can run vodka as a plugin, in this case both are meant to
+While the standalone variation of vaping can run vodka as a plugin, in this case both are meant to
 be run in separate processes and can be on separate hosts.
 
-Going by the example to start the web server on one host (using gunicorn to run it):
+Using the example: to start the web server on one host (using gunicorn to run it):
 
 ```
 export VODKA_HOME=examples/distributed_dns/vodka
 gunicorn -b 0.0.0.0:7021 vodka.runners.wsgi:application
 ```
 
-And then start the vaping that runs fping on a different host:
+Then start the vaping that runs fping on a different host:
 
 ```
 vaping start --home=examples/distributed_dns/vaping/ --debug
@@ -231,7 +229,7 @@ vaping start --home=examples/distributed_dns/vaping/ --debug
 
 ### Vodka (web server)
 
-In the vodka config each zeromq connection is instantiated by the `zeromq_probe` plugin, so it needs one of those for each vaping sending data. Please be aware of https://github.com/20c/vodka/issues/11 since it's a bit counterintuitive at this point in time.
+In the vodka config, each zeromq connection is instantiated by the `zeromq_probe` plugin, so it needs one of those for each vaping sending data. Please be aware of <https://github.com/20c/vodka/issues/11> because it's a bit counterintuitive.
 
 ```
 plugins:
@@ -246,7 +244,7 @@ plugins:
     async: thread
 ```
 
-Additionally vodka will need to be made aware of any data group that will be sent to it, so each new vaping process will need a new group added in `apps.graphsrv.groups`
+Additionally, vodka will need to be made aware of any data group that will be sent to it, so each new vaping process will need a new group added in `apps.graphsrv.groups`
 
 ```
 apps:
@@ -268,7 +266,7 @@ apps:
 
 ### Vaping
 
-Likewise in the vaping config you will need to configure the zmq connection via the `zeromq` plugin
+Likewise, in the vaping config you will need to configure the zmq connection via the `zeromq` plugin:
 
 ```
 plugins:

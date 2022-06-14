@@ -2,8 +2,8 @@
 
 ## Plugins
 
-It's quite easy to write plugins for vaping, just inherit from the type you
-want o make and put it in your $VAPING_HOME/plugins directory.
+It is not difficult to write plugins for vaping, just inherit from the type you
+want to make and put it in the $VAPING_HOME/plugins directory.
 
 To make a probe that executes at a user configurable time like fping, simply
 import vaping, @register it's name, inherit from `vaping.plugins.TimedProbe`,
