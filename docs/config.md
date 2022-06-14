@@ -1,6 +1,6 @@
 ## Introduction
 
-Vaping will look for its config directory in order of:
+Vaping will look for its config directory in the following order:
 
 - command line option `--home`
 - environment variable `$VAPING_HOME`
@@ -23,7 +23,7 @@ plugins:
 
 ## Plugins
 
-The `plugins` section is a list defining which plugins are loaded and possibly config to share between anything else referencing it. Each must define `type`, which can either be a plugin type, or the name of a previously defined type. To reference it later, `name` must be defined.
+The `plugins` section is a list defining which plugins are loaded and possibly configured to share between anything else referencing it. Each must define `type`, which can either be a plugin type, or the name of a previously defined type. To reference it later, `name` must be defined.
 
 ### fping
 
@@ -104,7 +104,7 @@ probes:
 
 ## Custom Layouts - Graphsrv
 
-It is possible for you to add / edit your layouts. You can use this to add additional rows/columns to the display grid
+It is possible for you to add / edit your layouts. You can use this to add additional rows/columns to the display grid.
 
 ### Basic Layout example:
 Create a `layout.yml` file.
@@ -153,4 +153,4 @@ apps:
 
 
 
-for more information see graphsrv's documentation on the subject at https://graphsrv.readthedocs.io/en/latest/custom/#layout
+For more information, see graphsrv's documentation on the subject at <https://graphsrv.readthedocs.io/en/latest/custom/#layout>
