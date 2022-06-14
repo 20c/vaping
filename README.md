@@ -16,13 +16,18 @@ vaping is a healthy alternative to smokeping!*
 
 ## Introduction
 
-Vaping was started after years of frustration from dealing with perl and
-environment management for smokeping. It's a simple python daemon which uses
-asyncio to poll for input and send output through plugins.
+Vaping provides the following features:
 
-It has a standalone mode to directly serve realtime graphs, or can use ZeroMQ
-to distribute.
+- Real-time latency graphing viewable in the browser
+- Line and smokestack graphs
+- Containerized and easy to setup and configure
+- Support for time-series databases
+- Plugin-based design to allow integration with other services
+- Supports distributed setups through message queue
 
+Vaping is a Python daemon which polls for input and sends its output through plugins.
+
+It has a standalone mode to directly serve realtime graphs in a browser, or can use ZeroMQ to distribute messages.
 
 ## Installation
 
@@ -30,16 +35,22 @@ to distribute.
 pip install vaping
 ```
 
-Note, you will need a compiler and python development libraries for some components.
+You will need a compiler and Python development libraries for some components, which you can obtain with the `gcc` and `python-devel` packages for your operating system. 
 
-On CentOS/RHEL:
+Alternatively, you can use the [Docker image](Dockerfile), which includes all requirements.
 
-```sh
-yum install gcc python-devel
-```
+## Quick Start
 
+To use Vaping, you need first a configuration file that defines which hosts to target and where to send the output. You can have a look at [the examples in this repository](examples/) and adapt them to your needs.
+
+Then, start the `vaping` program from the command line, specifying the path to the configuration file.
+
+A quick start example is [available here](https://vaping.readthedocs.io/en/stable/quickstart/). It shows you how to ping multiple hosts and display the resulting graphs using a local web server.
 
 ## Usage
+
+
+Vaping has a command-line interface with the following usage:
 
 ```
 Usage: vaping [OPTIONS] COMMAND [ARGS]...
@@ -60,7 +71,6 @@ Commands:
   stop     stop a vaping process
   restart  restart a vaping process
 ```
-
 
 ### start
 
