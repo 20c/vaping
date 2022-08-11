@@ -35,7 +35,7 @@ It has a standalone mode to directly serve realtime graphs in a browser, or can 
 pip install vaping
 ```
 
-You will need a compiler and Python development libraries for some components, which you can obtain with the `gcc` and `python-devel` packages for your operating system. 
+You will need a compiler and Python development libraries for some components, which you can obtain with the `gcc` and `python-devel` packages for your operating system.
 
 Alternatively, you can use the [Docker image](Dockerfile), which includes all requirements.
 
