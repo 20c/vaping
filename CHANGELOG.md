@@ -2,6 +2,9 @@
 
 
 ## Unreleased
+
+
+## 1.5.1
 ### Fixed
 - pin Wekzeug to 2.1.0 until compatibility issues are resolved
 
