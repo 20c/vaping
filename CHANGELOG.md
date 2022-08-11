@@ -4,9 +4,9 @@
 ## Unreleased
 
 
-## 1.5.1
+## 1.5.2
 ### Fixed
-- pin Werkzeug to 2.1.0 until compatibility issues are resolved
+- pin Werkzeug to 2.0.3 until compatibility issues are resolved
 
 
 ## 1.5.0
