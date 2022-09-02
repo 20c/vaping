@@ -1,6 +1,7 @@
 Unreleased:
   added: []
-  fixed: []
+  fixed:
+  - pin Flask to < 2.2 until compatibility isuses are resolved
   changed: []
   deprecated: []
   removed: []

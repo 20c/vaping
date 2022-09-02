@@ -2,6 +2,8 @@
 
 
 ## Unreleased
+### Fixed
+- pin Flask to < 2.2 until compatibility isuses are resolved
 
 
 ## 1.5.2
