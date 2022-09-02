@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://github.com/20c/vaping/dev/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Development - Vaping</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Development";
+        var mkdocs_page_input_path = "dev.md";
+        var mkdocs_page_url = "/20c/vaping/dev/";
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Vaping
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../quickstart/">Quick Start Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../examples/">Advanced Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../layout/">Customize Layout</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../config/">Configuration</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Development</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#plugins">Plugins</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#classes">Classes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#pluginbase">PluginBase</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#init">init</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#on_start">on_start</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#on_stop">on_stop</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#new_message">new_message</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#popen">popen</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#probebase">ProbeBase</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#probe">probe</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#timedprobe">TimedProbe</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#emitbase">EmitBase</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#emit">emit</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping/">vaping</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.cli/">vaping.cli</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.config/">vaping.config</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.daemon/">vaping.daemon</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.io/">vaping.io</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins/">vaping.plugins</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.command/">vaping.plugins.command</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.fping/">vaping.plugins.fping</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.fping_mtr/">vaping.plugins.fping_mtr</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.logparse/">vaping.plugins.logparse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.rrd/">vaping.plugins.rrd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.vodka/">vaping.plugins.vodka</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.whisper/">vaping.plugins.whisper</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.zeromq/">vaping.plugins.zeromq</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Vaping</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Development</li>
+    <li class="wy-breadcrumbs-aside">
+        <a href="https://github.com/20c/vaping/edit/master/docs/dev.md"
+          class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1"></h1>
+<h2 id="plugins">Plugins</h2>
+<p>It is not difficult to write plugins for vaping, just inherit from the type you
+want to make and put it in the $VAPING_HOME/plugins directory.</p>
+<p>To make a probe that executes at a user configurable time like fping, simply
+import vaping, @register it's name, inherit from <code>vaping.plugins.TimedProbe</code>,
+and define <code>probe()</code>. Vaping will take care of the rest, including threading
+and IO multiplexing.</p>
+<p>For example, create the following at <code>$VAPING_HOME/plugins/plugin_name.py</code>:</p>
+<pre><code class="language-py">import vaping
+
+
+@vaping.plugin.register('plugin_name')
+class FPing(vaping.plugins.TimedProbe):
+    # called when the class is instantiated
+    def init(self):
+        pass
+
+    # called when it needs data
+    def probe(self):
+        return []
+
+</code></pre>
+<p>Then to use it, in your config file, add:</p>
+<pre><code class="language-yaml">probes:
+  - name: new probe
+    type: plugin_name
+    interval: 3s
+    output:
+      - web
+</code></pre>
+<p>And Vaping will call <code>probe()</code> every 3 seconds.</p>
+<h2 id="classes">Classes</h2>
+<h3 id="pluginbase">PluginBase</h3>
+<pre><code>PluginBase(vaping.io.Thread)
+</code></pre>
+<p>Base plugin class</p>
+<p>Initializes:</p>
+<ul>
+<li><code>self.config</code> as plugins config</li>
+<li><code>self.log</code> as a logging object for plugin</li>
+<li><code>self.vaping</code> as a reference to the main vaping object</li>
+</ul>
+<p>Then calls alls <code>self.init()</code> prefork while loading all modules, init() should
+not do anything active, any files opened may be closed when it forks.</p>
+<p>Plugins should prefer <code>init()</code> to <code>__init__()</code> to ensure the class is
+completely done initializing.</p>
+<p>Calls <code>self.on_start()</code> and <code>self.on_stop()</code> before and after running in
+case any connections need to be created or cleaned up.</p>
+<h4 id="init">init</h4>
+<pre><code>init(self)
+</code></pre>
+<p>called after the plugin is initialized, plugin may define this for any
+other initialization code</p>
+<h4 id="on_start">on_start</h4>
+<pre><code>on_start(self)
+</code></pre>
+<p>called when the daemon is starting</p>
+<h4 id="on_stop">on_stop</h4>
+<pre><code>on_stop(self)
+</code></pre>
+<p>called when the daemon is stopping</p>
+<h4 id="new_message">new_message</h4>
+<pre><code>new_message(self)
+</code></pre>
+<p>creates a new message, setting <code>type</code>, <code>source</code>, <code>ts</code>, <code>data</code>
+- <code>data</code> is initialized to an empty array</p>
+<h4 id="popen">popen</h4>
+<pre><code>popen(self, args, **kwargs)
+</code></pre>
+<p>creates a subprocess with passed args</p>
+<h3 id="probebase">ProbeBase</h3>
+<pre><code>ProbeBase(vaping.plugins.PluginBase)
+</code></pre>
+<p>Base class for probe plugin, used for getting data</p>
+<p>expects method probe() to be defined</p>
+<h4 id="probe">probe</h4>
+<pre><code>probe(self)
+</code></pre>
+<p>probe for data, return a list of dicts</p>
+<h3 id="timedprobe">TimedProbe</h3>
+<pre><code>TimedProbe(vaping.plugins.ProbeBase)
+</code></pre>
+<p>Probe class that calls probe every config defined interval</p>
+<h3 id="emitbase">EmitBase</h3>
+<pre><code>EmitBase(vaping.plugins.PluginBase)
+</code></pre>
+<p>Base class for emit plugins, used for sending data</p>
+<p>expects method emit() to be defined</p>
+<h4 id="emit">emit</h4>
+<pre><code>emit(self, message)
+</code></pre>
+<p>accept message to emit</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../config/" class="btn btn-neutral float-left" title="Configuration"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../api/vaping/" class="btn btn-neutral float-right" title="vaping">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/20c/vaping" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../config/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../api/vaping/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

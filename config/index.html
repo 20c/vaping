@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://github.com/20c/vaping/config/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Configuration - Vaping</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Configuration";
+        var mkdocs_page_input_path = "config.md";
+        var mkdocs_page_url = "/20c/vaping/config/";
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Vaping
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../quickstart/">Quick Start Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../examples/">Advanced Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../layout/">Customize Layout</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Configuration</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../dev/">Development</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping/">vaping</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.cli/">vaping.cli</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.config/">vaping.config</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.daemon/">vaping.daemon</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.io/">vaping.io</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins/">vaping.plugins</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.command/">vaping.plugins.command</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.fping/">vaping.plugins.fping</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.fping_mtr/">vaping.plugins.fping_mtr</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.logparse/">vaping.plugins.logparse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.rrd/">vaping.plugins.rrd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.vodka/">vaping.plugins.vodka</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.whisper/">vaping.plugins.whisper</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.zeromq/">vaping.plugins.zeromq</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Vaping</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Configuration</li>
+    <li class="wy-breadcrumbs-aside">
+        <a href="https://github.com/20c/vaping/edit/master/docs/config.md"
+          class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="introduction">Introduction</h2>
+<p>Vaping will look for its config directory in the following order:</p>
+<ul>
+<li>command line option <code>--home</code></li>
+<li>environment variable <code>$VAPING_HOME</code></li>
+<li><code>.vaping</code> in the current working directory</li>
+<li><code>$APP_DIR/vaping</code> (<code>.config/vaping/</code> or <code>.vaping/</code> on most systems).</li>
+</ul>
+<p>By default it uses YAML config files, but will also support JSON, which it determines by file extension, for example <code>$VAPING_HOME/config.yml</code></p>
+<h2 id="default-config">Default Config</h2>
+<pre><code class="language-yaml">vaping:
+  pidfile: vaping.pid
+  plugin_path: []
+
+probes:
+
+plugins:
+</code></pre>
+<h2 id="plugins">Plugins</h2>
+<p>The <code>plugins</code> section is a list defining which plugins are loaded and possibly configured to share between anything else referencing it. Each must define <code>type</code>, which can either be a plugin type, or the name of a previously defined type. To reference it later, <code>name</code> must be defined.</p>
+<h3 id="fping">fping</h3>
+<ul>
+<li><code>command</code> command to run</li>
+<li><code>interval</code> time between pings</li>
+<li><code>count</code> number of pings to send</li>
+<li><code>period</code> time in milliseconds that fping waits between successive packets to an individual target</li>
+</ul>
+<p>For example, the default of</p>
+<pre><code class="language-yml">interval: 1m
+count: 5
+period: 20
+</code></pre>
+<p>sends 5 pings to each host every minute, with 20 milliseconds between each one.</p>
+<h3 id="whisper">whisper</h3>
+<p>Config options for whisper plugin:</p>
+<ul>
+<li><code>retention</code> is a list of <code>$time_per_data_point:$length_to_store</code></li>
+<li><code>filename</code> is the path/name of the file you'd like to write the data to</li>
+<li><code>field</code> is the values you want to retrieve from. i.e. avg, max, min</li>
+</ul>
+<p>Variables:</p>
+<ul>
+<li><code>source</code> - the probe the data will be received from</li>
+<li><code>host</code> - the IP/FQDN of the host being monitored</li>
+<li><code>field</code> - the field being written to whisper</li>
+</ul>
+<p>For example:</p>
+<pre><code class="language-yml">plugins:
+  - name: whisper_avg
+    type: whisper
+
+    # will create one file per host
+    # for example: latency-8.8.8.8-avg
+    filename: '{source}-{host}-{field}.wsp'
+
+    # specified which field to retrieve the value from
+    field: avg
+
+    # whisper configuration
+    aggregation_method: average
+    sparse: false
+    x_files_factor: 0.5
+    retention:
+      - 60:1440 # 60 seconds per datapoint, 1440 datapoints = 1 day of retention
+      - 15m:8 # 15 minutes per datapoint, 8 datapoints = 2 hours of retention
+      - 1h:7d # 1 hour per datapoint, 7 days of retention
+      - 12h:2y # 12 hours per datapoint, 2 years of retention
+</code></pre>
+<p>Full example: <code>examples/whisper/config.yml</code></p>
+<h2 id="probes">Probes</h2>
+<p>The <code>probes</code> section is a list defining input sections. It must define at least <code>type</code> which may refer directly to a plugin type, or to a config defined type.</p>
+<p>Probes may not use the same name as any plugin.</p>
+<p>The <code>probes</code> section also contains <code>output</code>, which is a list of plugins for sending results to another service like zeromq or whisper database.</p>
+<p>Example:</p>
+<pre><code class="language-yml">probes:
+  - name: latency
+    type: std_fping
+    output:
+      - whisper_avg
+      - zmq_vodka
+</code></pre>
+<h2 id="custom-layouts-graphsrv">Custom Layouts - Graphsrv</h2>
+<p>It is possible for you to add / edit your layouts. You can use this to add additional rows/columns to the display grid.</p>
+<h3 id="basic-layout-example">Basic Layout example:</h3>
+<p>Create a <code>layout.yml</code> file.</p>
+<pre><code>layouts:
+  ## INDEX #####################################################################
+
+  index:
+    type: index
+    grid: 3x3
+    graph:
+      config: multitarget
+      fit: &quot;yes&quot;
+      targets: all
+
+  ## DETAIL ####################################################################
+
+  detail:
+    type: custom
+    layout:
+      # row 1
+      - cols:
+          # col 1, render a graph
+          - graph:
+              config: multitarget
+
+              # fit to column
+              fit: &quot;yes&quot;
+
+              # render all targets to this graph
+              targets: all
+
+              # custom graph id
+              id: multitarget-1
+            width: 12
+        height: 100
+</code></pre>
+<p>Add mapping to the <code>apps.graphsrv</code> section pointing to the layout file.</p>
+<pre><code>apps:
+  graphsrv:
+    enabled: true
+    layout_config_file: ./layout.yml
+</code></pre>
+<p>For more information, see graphsrv's documentation on the subject at <a href="https://graphsrv.readthedocs.io/en/latest/custom/#layout">https://graphsrv.readthedocs.io/en/latest/custom/#layout</a></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../layout/" class="btn btn-neutral float-left" title="Customize Layout"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../dev/" class="btn btn-neutral float-right" title="Development">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/20c/vaping" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../layout/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../dev/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

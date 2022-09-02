@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://github.com/20c/vaping/api/vaping.daemon/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>vaping.daemon - Vaping</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "vaping.daemon";
+        var mkdocs_page_input_path = "api/vaping.daemon.md";
+        var mkdocs_page_url = "/20c/vaping/api/vaping.daemon/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Vaping
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../quickstart/">Quick Start Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../examples/">Advanced Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../layout/">Customize Layout</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../config/">Configuration</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../dev/">Development</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping/">vaping</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.cli/">vaping.cli</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.config/">vaping.config</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">vaping.daemon</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.io/">vaping.io</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins/">vaping.plugins</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.command/">vaping.plugins.command</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.fping/">vaping.plugins.fping</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.fping_mtr/">vaping.plugins.fping_mtr</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.logparse/">vaping.plugins.logparse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.rrd/">vaping.plugins.rrd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.vodka/">vaping.plugins.vodka</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.whisper/">vaping.plugins.whisper</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.zeromq/">vaping.plugins.zeromq</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Vaping</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>API &raquo;</li>
+      <li>vaping.daemon</li>
+    <li class="wy-breadcrumbs-aside">
+        <a href="https://github.com/20c/vaping/edit/master/docs/api/vaping.daemon.md"
+          class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="vapingdaemon">vaping.daemon</h1>
+<h1 id="classes">Classes</h1>
+<hr />
+<h2 id="plugincontext">PluginContext</h2>
+<pre><code>PluginContext(builtins.object)
+</code></pre>
+<p>Context to pass to plugins for getting extra information</p>
+<h3 id="instanced-attributes">Instanced Attributes</h3>
+<p>These attributes / properties will be available on instances of the class</p>
+<ul>
+<li>config (<code>@property</code>): config</li>
+</ul>
+<h3 id="methods">Methods</h3>
+<h4 id="__init__">__init__</h4>
+<p><code>def __init__(self, config)</code></p>
+<p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<hr />
+<h2 id="vaping">Vaping</h2>
+<pre><code>Vaping(builtins.object)
+</code></pre>
+<p>Vaping daemon class</p>
+<h3 id="instanced-attributes_1">Instanced Attributes</h3>
+<p>These attributes / properties will be available on instances of the class</p>
+<ul>
+<li>get_logging_handles (<code>@property</code>): None</li>
+<li>log (<code>@property</code>): logger instance</li>
+<li>pidfile (<code>@property</code>): None</li>
+</ul>
+<h3 id="methods_1">Methods</h3>
+<h4 id="__init___1">__init__</h4>
+<p><code>def __init__(self, config=None, config_dir=None)</code></p>
+<p>must either pass config as a dict or vaping.config.Config
+or config_dir as a path to where the config dir is located</p>
+<hr />
+<h4 id="_exec">_exec</h4>
+<p><code>def _exec(self, detach=True)</code></p>
+<p>daemonize and exec main()</p>
+<hr />
+<h4 id="_main">_main</h4>
+<p><code>def _main(self)</code></p>
+<p>process</p>
+<hr />
+<h4 id="run">run</h4>
+<p><code>def run(self)</code></p>
+<p>run daemon</p>
+<hr />
+<h4 id="start">start</h4>
+<p><code>def start(self)</code></p>
+<p>start daemon</p>
+<hr />
+<h4 id="stop">stop</h4>
+<p><code>def stop(self)</code></p>
+<p>stop daemon</p>
+<hr />
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../vaping.config/" class="btn btn-neutral float-left" title="vaping.config"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../vaping.io/" class="btn btn-neutral float-right" title="vaping.io">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/20c/vaping" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../vaping.config/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../vaping.io/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

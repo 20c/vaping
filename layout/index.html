@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://github.com/20c/vaping/layout/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Customize Layout - Vaping</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Customize Layout";
+        var mkdocs_page_input_path = "layout.md";
+        var mkdocs_page_url = "/20c/vaping/layout/";
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Vaping
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../quickstart/">Quick Start Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../examples/">Advanced Examples</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Customize Layout</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../config/">Configuration</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../dev/">Development</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping/">vaping</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.cli/">vaping.cli</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.config/">vaping.config</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.daemon/">vaping.daemon</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.io/">vaping.io</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins/">vaping.plugins</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.command/">vaping.plugins.command</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.fping/">vaping.plugins.fping</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.fping_mtr/">vaping.plugins.fping_mtr</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.logparse/">vaping.plugins.logparse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.rrd/">vaping.plugins.rrd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.vodka/">vaping.plugins.vodka</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.whisper/">vaping.plugins.whisper</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.zeromq/">vaping.plugins.zeromq</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Vaping</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Customize Layout</li>
+    <li class="wy-breadcrumbs-aside">
+        <a href="https://github.com/20c/vaping/edit/master/docs/layout.md"
+          class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="customize-layout">Customize Layout</h2>
+<p>Vaping allows users to customize its layout by supplying a new layout config file.</p>
+<p>In the example below, the detail layout is changed to show 4 smokestack graphs instead of 3.</p>
+<div class="admonition tip">
+<p class="admonition-title">Working directory matters for this example</p>
+<p>To test example below, please execute the command from the vaping root
+directory. The example provides a relative path to the layout file and will not
+find it otherwise.</p>
+</div>
+<pre><code class="language-sh">vaping start --home=examples/custom_layout --debug
+</code></pre>
+<h3 id="configuration">Configuration</h3>
+<p>To customize the layout, edit the default config from <a href="https://github.com/20c/graphsrv/blob/master/graphsrv/etc/layouts.yaml">graphsrv</a> as needed.</p>
+<p>For additional documentation on layout config attributes, please refer to the <a href="https://graphsrv.readthedocs.io/en/latest/custom/#layout">graphsrv documentation</a> on the subject.</p>
+<p><code>examples/custom_layout/layouts.yaml</code></p>
+<pre><code class="language-yml">
+layouts:
+
+  ## INDEX #####################################################################
+
+  index:
+    type: index
+    grid: 3x3
+    graph:
+      config: multitarget
+      fit: 'yes'
+      targets: all
+
+  ## DETAIL ####################################################################
+
+  detail:
+    type: custom
+    layout:
+
+    # row 1 (multi-target graph that will plot a line graph for all targets)
+    - cols:
+      # col 1, render a graph
+      - graph:
+
+          config: multitarget
+
+          # fit to column
+          fit: 'yes'
+
+          # render all targets to this graph
+          targets: all
+
+          # custom graph id
+          id: multitarget-1
+
+        # 100% width (12/12 columns)
+        width: 12
+
+      # adjust the height of the multitarget graph to 50% (down from 75%)
+      # to make room for the additional row of smokestack graphs
+      height: 50
+
+    # row 2 (2 smokestack graphs side by side)
+    - cols:
+      - graph:
+          fit: 'yes'
+          config: smokestack
+          targets: all
+          id: smokestack-1
+
+        # 50% width (6/12 columns)
+        width: 6
+
+      - graph:
+          fit: 'yes'
+          config: smokestack
+          targets: all
+          id: smokestack-2
+
+        # 50% width (6/12 columns)
+        width: 6
+
+      # 25% height for the first row of smokestack graphs
+      height: 25
+
+    # row 3 (2 smokestack graphs side by side)
+    - cols:
+      - graph:
+          fit: 'yes'
+          config: smokestack
+          targets: all
+          id: smokestack-1
+
+        # 50% width (6/12 columns)
+        width: 6
+      - graph:
+          fit: 'yes'
+          config: smokestack
+          targets: all
+          id: smokestack-2
+
+       # 50% width (6/12 columns)
+        width: 6
+
+      # 25% heigh for the second row of smokestack graphs
+      height: 25
+</code></pre>
+<p>Then, specify a custom layout file should be loaded by setting the <code>apps.graphsrv.layout_config_file</code> config attribute in the vaping config.</p>
+<p><code>examples/custom_layout/config.yaml</code></p>
+<pre><code class="language-yml">probes:
+  - name: latency
+    type: std_fping
+    output:
+      - vodka
+
+    groups:
+      - name: public_dns
+        hosts:
+          - host: 8.8.8.8
+            name: Google
+            color: red
+          - host: 4.2.2.1
+            name: Level(3)
+            color: blue
+          - host: 208.67.222.222
+            name: OpenDNS
+            color: orange
+          - host: 1.1.1.1
+            name: Cloudflare
+            color: purple
+
+plugins:
+  - name: std_fping
+    type: fping
+    count: 10
+    interval: 3s
+    output:
+      - vodka
+
+  - name: vodka
+    type: vodka
+
+    data:
+      - type: fping
+        handlers:
+          - type: index
+            index: host
+          - type: store
+            container: list
+            limit: 500
+
+    apps:
+      graphsrv:
+        enabled: true
+        # point to custom layout config
+        layout_config_file: examples/custom_layout/layouts.yaml
+        graphs:
+          multitarget:
+            id_field: host
+            type: multitarget
+            plot_y: avg
+            format_y: ms
+
+          smokestack:
+            id_field: host
+            type: smokestack
+            plot_y: avg
+
+    plugins:
+
+      - name: http
+        type: flask
+        bind: 0.0.0.0:7021
+        debug: true
+        static_url_path: /static
+        server: self
+        async: thread
+        routes:
+          /targets : graphsrv-&gt;targets
+          /graph_data :
+            methods:
+              - POST
+              - GET
+            target: graphsrv-&gt;graph_data
+          /graph : graphsrv-&gt;graph_view
+          /overview_read_file : graphsrv-&gt;overview_read_file
+          /: graphsrv-&gt;overview_view
+
+
+logging:
+  version: 1
+  formatters:
+    simple:
+      format: '%(asctime)s - %(name)s - %(levelname)s: %(message)s'
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: DEBUG
+      formatter: simple
+      stream: ext://sys.stdout
+
+    #file:
+    #  class: logging.FileHandler
+    #  level: DEBUG
+    #  formatter: simple
+    #  filename: /home/dev/sandbox/vaping/vaping.log
+
+  loggers:
+    vaping:
+      level: DEBUG
+      handlers:
+        - console
+        #- file
+    vodka:
+      level: DEBUG
+      handlers:
+        - console
+        #- file
+
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../examples/" class="btn btn-neutral float-left" title="Advanced Examples"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../config/" class="btn btn-neutral float-right" title="Configuration">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/20c/vaping" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../examples/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../config/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

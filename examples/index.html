@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://github.com/20c/vaping/examples/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Advanced Examples - Vaping</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Advanced Examples";
+        var mkdocs_page_input_path = "examples.md";
+        var mkdocs_page_url = "/20c/vaping/examples/";
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Vaping
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../quickstart/">Quick Start Examples</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Advanced Examples</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../layout/">Customize Layout</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../config/">Configuration</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../dev/">Development</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping/">vaping</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.cli/">vaping.cli</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.config/">vaping.config</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.daemon/">vaping.daemon</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.io/">vaping.io</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins/">vaping.plugins</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.command/">vaping.plugins.command</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.fping/">vaping.plugins.fping</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.fping_mtr/">vaping.plugins.fping_mtr</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.logparse/">vaping.plugins.logparse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.rrd/">vaping.plugins.rrd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.vodka/">vaping.plugins.vodka</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.whisper/">vaping.plugins.whisper</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/vaping.plugins.zeromq/">vaping.plugins.zeromq</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Vaping</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Advanced Examples</li>
+    <li class="wy-breadcrumbs-aside">
+        <a href="https://github.com/20c/vaping/edit/master/docs/examples.md"
+          class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="two-distributed-vaping-instances-on-the-same-graph">Two distributed vaping instances on the same graph</h2>
+<p>This example shows how two run 2 separate vaping instances connected to a vodka instance and plot on the same graph.</p>
+<div class="admonition tip">
+<p class="admonition-title">Running a distributed setup</p>
+<p>For a complete understanding of running a distributed vaping setup, please read the <a href="/docs/quickstart">Distributed Latency</a> example in the quickstart section.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Requires vodka 2.2.6</p>
+<p>This requires that you install vodka 2.2.6 or higher:</p>
+<p><code>pip install vodka&gt;=2.2.6</code></p>
+</div>
+<p><strong>Vaping instance 1 - this one will ping 1.1.1.1</strong></p>
+<p><code>examples/distributed_shared_graph/vaping-1/config.yml</code>:</p>
+<pre><code class="language-yml">probes:
+  - name: latency
+    type: std_fping
+    output:
+      - zmq_vodka
+
+    groups:
+      - name: public_dns
+        hosts:
+          - host: 1.1.1.1
+
+plugins:
+  - name: std_fping
+    type: fping
+    count: 10
+    interval: 3s
+
+  - name: zmq_vodka
+    type: zeromq
+    bind: tcp://127.0.0.1:6021
+
+
+logging:
+  version: 1
+  formatters:
+    simple:
+      format: '%(asctime)s - %(name)s - %(levelname)s: %(message)s'
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: DEBUG
+      formatter: simple
+      stream: ext://sys.stdout
+
+    #file:
+    #  class: logging.FileHandler
+    #  level: DEBUG
+    #  formatter: simple
+    #  filename: /home/dev/sandbox/vaping/vaping.log
+
+  loggers:
+    vaping:
+      level: DEBUG
+      handlers:
+        - console
+        #- file
+</code></pre>
+<pre><code class="language-sh">vaping start --home=examples/distributed_shared_graph/vaping-1 --debug
+</code></pre>
+<p><strong>Vaping instance 2 - this one will ping 8.8.8.8</strong></p>
+<p><code>examples/distributed_shared_graph/vaping-2/config.yml</code>:</p>
+<pre><code class="language-yml">probes:
+  - name: latency
+    type: std_fping
+    output:
+      - zmq_vodka
+
+    groups:
+      - name: public_dns
+        hosts:
+          - host: 8.8.8.8
+
+plugins:
+  - name: std_fping
+    type: fping
+    count: 10
+    interval: 3s
+
+  - name: zmq_vodka
+    type: zeromq
+    bind: tcp://127.0.0.1:6022
+
+
+logging:
+  version: 1
+  formatters:
+    simple:
+      format: '%(asctime)s - %(name)s - %(levelname)s: %(message)s'
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: DEBUG
+      formatter: simple
+      stream: ext://sys.stdout
+
+    #file:
+    #  class: logging.FileHandler
+    #  level: DEBUG
+    #  formatter: simple
+    #  filename: /home/dev/sandbox/vaping/vaping.log
+
+  loggers:
+    vaping:
+      level: DEBUG
+      handlers:
+        - console
+        #- file
+</code></pre>
+<pre><code class="language-sh">vaping start --home=examples/distributed_shared_graph/vaping-2 --debug
+</code></pre>
+<p><strong>Vodka</strong></p>
+<p><code>examples/distributed_shared_graph/vodka/config.yml</code>:</p>
+<pre><code class="language-yml">data:
+  - type: fping
+    handlers:
+      - type: index
+        index: host
+      - type: store
+        container: list
+        limit: 500
+
+apps:
+  graphsrv:
+    enabled: true
+
+    # here is where we define host config
+    groups:
+      latency:
+        public_dns:
+          8.8.8.8:
+            name: Google
+            color: red
+          1.1.1.1:
+            name: Cloudflare
+            color: blue
+
+    graphs:
+      multitarget:
+        id_field: host
+        type: multitarget
+        plot_y: avg
+        format_y: ms
+
+      smokestack:
+        id_field: host
+        type: smokestack
+        plot_y: avg
+
+plugins:
+
+  # zero mq probe plugin to vaping-1 instance
+  # (latency name is important, so it can be routed properly to
+  # the similarly named group)
+  - name: latency
+    type: zeromq_probe
+    data: fping
+    interval: 1.0
+    bind: tcp://127.0.0.1:6021
+    async: thread
+
+  # zero mq probe plugin to vaping-2 instance
+  # We cannot have duplicate names so we name it `latency2`
+  # However we still want it to get collected to `latency`
+  # We will do that using the `data_id` config
+  - name: latency_2
+    type: zeromq_probe
+    data_id: latency
+    data: fping
+    interval: 1.0
+    bind: tcp://127.0.0.1:6022
+    async: thread
+
+
+  - name: http
+    type: flask
+    bind: 0.0.0.0:7021
+    debug: true
+    # set this to gunicorn or uwsgi depending on what you want to run with
+    server: gunicorn
+    async: gevent
+    routes:
+      /targets : graphsrv-&gt;targets
+      /graph_data :
+        methods:
+          - POST
+          - GET
+        target: graphsrv-&gt;graph_data
+      /graph : graphsrv-&gt;graph_view
+      /overview_read_file : graphsrv-&gt;overview_read_file
+      /: graphsrv-&gt;overview_view
+
+
+logging:
+  version: 1
+  formatters:
+    simple:
+      format: '%(asctime)s - %(name)s - %(levelname)s: %(message)s'
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: DEBUG
+      formatter: simple
+      stream: ext://sys.stdout
+  loggers:
+    vodka:
+      level: DEBUG
+      handlers:
+        - console
+</code></pre>
+<pre><code class="language-sh">export VODKA_HOME=examples/distributed_shared_graph/vodka
+gunicorn -b 0.0.0.0:7021 vodka.runners.wsgi:application
+</code></pre>
+<h2 id="mtr">MTR</h2>
+<p>This example will show you how to setup an MTR graph:</p>
+<div class="admonition tip">
+<p class="admonition-title">Requires graphsrv 1.3.0</p>
+<p>You need to run graphsrv 1.3.0 or later in order to be able
+to render MTR graphs.</p>
+<p><code>pip install graphsrv&gt;=1.3.0</code></p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Requires traceroute</p>
+<p>We use the <code>traceroute</code> command to determine the hops to
+send to fping. Make sure it is installed.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">MTR Graph is currently experimental</p>
+<p>The MTR graph is introduced to vaping in version 0.6.0 and should
+be considered an early iteration of MTR data visualization to vaping.</p>
+<p>We have ideas on how to make it better, but would also love to hear your
+thoughts on it.</p>
+</div>
+<p>Pay close attention to the commented lines in the example below, as you need to do the following:</p>
+<ul>
+<li>setup the mtr probe</li>
+<li>setup the fping_mtr plugin</li>
+<li>setup the fping_mtr data type</li>
+<li>setup the mtr graph</li>
+</ul>
+<p><code>examples/mtr/config.yml</code>:</p>
+<pre><code class="language-yml">
+probes:
+
+  # mtr probe
+  - name: mtr
+    type: fping_mtr
+
+    # we need to let graphsrv know what the default
+    # graph to render data from this probe should be,
+    # in this case we want it to be `mtr`
+    default_graph: mtr
+
+    # we need to let graphsrv know what data group
+    # to use for data from this probe. Since the probe
+    # itself is not setting up any groups unlike the `fping`
+    # probe.
+    group: mtr.cloudflare_dns
+
+    # target host for the mtr probe
+    host: 1.1.1.1
+
+    output:
+      - vodka
+
+plugins:
+
+  # mtr plugin
+  - name: fping_mtr
+    type: fping_mtr
+    interval: 3s
+
+
+  - name: vodka
+    type: vodka
+
+    data:
+
+      # We have to add a new data type to handle mtr data
+      - type: fping_mtr
+        handlers:
+          - type: index
+            index: host
+          - type: store
+            container: list
+            limit: 100
+
+
+    apps:
+      graphsrv:
+        enabled: true
+        graphs:
+          multitarget:
+            id_field: host
+            type: multitarget
+            plot_y: avg
+            format_y: ms
+
+          smokestack:
+            id_field: host
+            type: smokestack
+            plot_y: avg
+
+          # let graphsrv know to initialize the `mtr`
+          # graph for use
+          mtr:
+            id_field: host
+            type: mtr
+
+    plugins:
+
+      - name: http
+        type: flask
+        bind: 0.0.0.0:7021
+        debug: true
+        static_url_path: /static
+        server: self
+        async: thread
+        routes:
+          /targets : graphsrv-&gt;targets
+          /graph_data :
+            methods:
+              - POST
+              - GET
+            target: graphsrv-&gt;graph_data
+          /graph : graphsrv-&gt;graph_view
+          /overview_read_file : graphsrv-&gt;overview_read_file
+          /: graphsrv-&gt;overview_view
+
+
+
+logging:
+  version: 1
+  formatters:
+    simple:
+      format: '%(asctime)s - %(name)s - %(levelname)s: %(message)s'
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: DEBUG
+      formatter: simple
+      stream: ext://sys.stdout
+
+    #file:
+    #  class: logging.FileHandler
+    #  level: DEBUG
+    #  formatter: simple
+    #  filename: /home/dev/sandbox/vaping/vaping.log
+
+  loggers:
+    vaping:
+      level: DEBUG
+      handlers:
+        - console
+        #- file
+    vodka:
+      level: DEBUG
+      handlers:
+        - console
+        #- file
+</code></pre>
+<pre><code class="language-sh">vaping start --home=examples/mtr --debug
+</code></pre>
+<div class="admonition tip">
+<p class="admonition-title">MTR - Distributed</p>
+<p>When setting up a distributed MTR probe, the group on the vodka end should be setup like this:</p>
+<pre><code>apps:
+  graphsrv:
+    enabled: true
+
+    groups:
+      mtr:
+        config:
+          default_graph: mtr
+        cloudflare_dns:
+          1.1.1.1:
+            name: Cloudflare
+            color: mediumpurple
+</code></pre>
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../quickstart/" class="btn btn-neutral float-left" title="Quick Start Examples"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../layout/" class="btn btn-neutral float-right" title="Customize Layout">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/20c/vaping" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../quickstart/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../layout/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

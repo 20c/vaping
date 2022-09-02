@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://github.com/20c/vaping/api/vaping.plugins.logparse/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>vaping.plugins.logparse - Vaping</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "vaping.plugins.logparse";
+        var mkdocs_page_input_path = "api/vaping.plugins.logparse.md";
+        var mkdocs_page_url = "/20c/vaping/api/vaping.plugins.logparse/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Vaping
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../quickstart/">Quick Start Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../examples/">Advanced Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../layout/">Customize Layout</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../config/">Configuration</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../dev/">Development</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping/">vaping</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.cli/">vaping.cli</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.config/">vaping.config</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.daemon/">vaping.daemon</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.io/">vaping.io</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins/">vaping.plugins</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.command/">vaping.plugins.command</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.fping/">vaping.plugins.fping</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.fping_mtr/">vaping.plugins.fping_mtr</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">vaping.plugins.logparse</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.rrd/">vaping.plugins.rrd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.vodka/">vaping.plugins.vodka</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.whisper/">vaping.plugins.whisper</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.zeromq/">vaping.plugins.zeromq</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Vaping</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>API &raquo;</li>
+      <li>vaping.plugins.logparse</li>
+    <li class="wy-breadcrumbs-aside">
+        <a href="https://github.com/20c/vaping/edit/master/docs/api/vaping.plugins.logparse.md"
+          class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="vapingpluginslogparse">vaping.plugins.logparse</h1>
+<h1 id="classes">Classes</h1>
+<hr />
+<h2 id="aggregateschema">AggregateSchema</h2>
+<pre><code>AggregateSchema(confu.schema.core.Schema)
+</code></pre>
+<p>Describes a confu schema.</p>
+<p>Instantiate confu attributes as properties of the schema.</p>
+<p>As the schema itself is a confu attribute, you may nest schemas
+within schemas</p>
+<p><strong>Example</strong></p>
+<pre><code>class MySchema(Schema):
+    str_attr = Str()
+</code></pre>
+<h3 id="class-attributes">Class Attributes</h3>
+<ul>
+<li>count (<code>Int Instance</code>): Aggregate n lines</li>
+</ul>
+<h2 id="fieldschema">FieldSchema</h2>
+<pre><code>FieldSchema(confu.schema.core.Schema)
+</code></pre>
+<p>Describes a confu schema.</p>
+<p>Instantiate confu attributes as properties of the schema.</p>
+<p>As the schema itself is a confu attribute, you may nest schemas
+within schemas</p>
+<p><strong>Example</strong></p>
+<pre><code>class MySchema(Schema):
+    str_attr = Str()
+</code></pre>
+<h3 id="class-attributes_1">Class Attributes</h3>
+<ul>
+<li>aggregate (<code>Str Instance</code>): How to aggregate the field if aggregation is turned on (sum, avg, eval)</li>
+<li>eval (<code>Str Instance</code>): Evaluate to create the value, other fields' values will be available in the string formatting</li>
+<li>parser (<code>Str Instance</code>): Regex pattern to parse field value, needs to one group in it</li>
+<li>type (<code>Str Instance</code>): Value type (int, float etc.)</li>
+</ul>
+<h2 id="logparse">LogParse</h2>
+<pre><code>LogParse(vaping.plugins.FileProbe)
+</code></pre>
+<p>Log parse plugin base</p>
+<p>Will parse a log line by line and probe to emit data
+over a specified interval.</p>
+<h3 id="config">Config</h3>
+<ul>
+<li>path (<code>str</code>): log file path</li>
+<li>
+<p>fields (<code>dict</code>): field definition</p>
+<p>field name as key</p>
+<p><code>parser</code> regex pattern to parse field value, needs to
+    one group in it</p>
+<p><code>type</code> value type (int, float etc.)</p>
+<p><code>aggregate</code> how to aggregate the field if aggregation
+    is turned on (sum, avg, eval)</p>
+<p><code>eval</code> evaluate to create the value, other fields
+    values will be available in the string formatting</p>
+</li>
+<li>
+<p>time_parser (<code>dict</code>) if specified will be passed to strptime to
+generate a timestamp from the logline</p>
+</li>
+</ul>
+<pre><code>time_parser:
+    find: \d\d:\d\d:\d\d
+    format: %H:%M:%S
+</code></pre>
+<ul>
+<li>exclude (<code>list</code>): list of regex patterns that will cause
+  lines to be excluded on match</li>
+<li>include (<code>list</code>): list of regex patterns that will cause
+  lines to be included on match</li>
+<li>aggregate (<code>dict</code>): aggregation config
+    -<code>count</code> aggregate n lines</li>
+</ul>
+<h3 id="instance-attributes">Instance Attributes</h3>
+<ul>
+<li>stack (<code>list</code>)</li>
+<li>fields (<code>dict</code>): field config</li>
+<li>aggregate_count (<code>int</code>)</li>
+<li>exclude (<code>list</code>)</li>
+<li>include (<code>list</code>)</li>
+<li>time_parser (<code>dict</code>)</li>
+</ul>
+<h3 id="class-attributes_2">Class Attributes</h3>
+<ul>
+<li>ConfigSchema (<code>LogParseSchema Class</code>): Base plugin config schema</li>
+</ul>
+<h3 id="methods">Methods</h3>
+<h4 id="aggregate">aggregate</h4>
+<p><code>def aggregate(self, messages)</code></p>
+<p>Takes a list of messages and aggregates them
+according to aggration config</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>messagges (<code>list&lt;dict&gt;</code>)</li>
+</ul>
+<p><strong>Returns</strong></p>
+<p>list of aggregated messages (<code>list&lt;dict&gt;</code>)</p>
+<hr />
+<h4 id="aggregate_avg">aggregate_avg</h4>
+<p><code>def aggregate_avg(self, field_name, rows)</code></p>
+<p>Aggregate average value</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>field_name (<code>str</code>): field to aggregate</li>
+<li>rows (<code>list</code>): list of vaping message data rows</li>
+</ul>
+<p><strong>Returns</strong></p>
+<p>avg (<code>float</code>)</p>
+<hr />
+<h4 id="aggregate_eval">aggregate_eval</h4>
+<p><code>def aggregate_eval(self, field_name, rows)</code></p>
+<p>Aggregate using an <code>eval()</code> result</p>
+<p>Needs to have <code>eval</code> set in the field config. Value will
+be passed straight to the <code>eval()</code> function so caution is
+advised.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>field_name (<code>str</code>): field to aggregate</li>
+<li>rows (<code>list</code>): list of vaping message data rows</li>
+</ul>
+<p><strong>Returns</strong></p>
+<p>eval result</p>
+<hr />
+<h4 id="aggregate_field">aggregate_field</h4>
+<p><code>def aggregate_field(self, field_name, rows)</code></p>
+<p>takes a field name and a set of rows and will
+return an aggregated value</p>
+<p>this requires for the field to have it's <code>aggregate</code>
+config specified in the probe config</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>field_name (<code>str</code>)</li>
+<li>rows (<code>list</code>)</li>
+</ul>
+<p><strong>Returns</strong></p>
+<p>aggregated value</p>
+<hr />
+<h4 id="aggregate_message">aggregate_message</h4>
+<p><code>def aggregate_message(self, message)</code></p>
+<p>Takesa vaping message with multiple items
+in it's data property and aggregates that data</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>message (<code>dict</code>): vaping message dict</li>
+</ul>
+<hr />
+<h4 id="aggregate_sum">aggregate_sum</h4>
+<p><code>def aggregate_sum(self, field_name, rows)</code></p>
+<p>Aggregate sum</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>field_name (<code>str</code>): field to aggregate</li>
+<li>rows (<code>list</code>): list of vaping message data rows</li>
+</ul>
+<p><strong>Returns</strong></p>
+<p>sum</p>
+<hr />
+<h4 id="init">init</h4>
+<p><code>def init(self)</code></p>
+<p>called after the plugin is initialized, plugin may define this for any
+other initialization code</p>
+<hr />
+<h4 id="parse_field_value">parse_field_value</h4>
+<p><code>def parse_field_value(self, field, line)</code></p>
+<p>takes a field definition and a log line and
+attempts to parse out the field's value</p>
+<hr />
+<h4 id="parse_line">parse_line</h4>
+<p><code>def parse_line(self, line)</code></p>
+<p>Here is where we parse values out of a single line read from the log
+and return a dict containg keys and values</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>line (<code>str</code>)</li>
+</ul>
+<hr />
+<h4 id="process_line">process_line</h4>
+<p><code>def process_line(self, line, data)</code></p>
+<p>The data dict represents the current emit object, depending
+on your interval multiple lines may be included in the same
+emit object.</p>
+<p>Should return the data object</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>line (<code>str</code>): log line</li>
+<li>data (<code>dict</code>): current emit dict</li>
+</ul>
+<hr />
+<h4 id="process_messages">process_messages</h4>
+<p><code>def process_messages(self, messages)</code></p>
+<p>Process vaping messages before the are emitted</p>
+<p>Aggregation is handled here</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>messages (<code>list</code>): list of vaping messages</li>
+</ul>
+<p><strong>Returns</strong></p>
+<p>Result of self.aggregate</p>
+<hr />
+<h4 id="validate_interval">validate_interval</h4>
+<p><code>def validate_interval(self, value)</code></p>
+<p>validates a string describing elapsed time or time duration</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>value (<code>str</code>): elapsed time (example: 1d2h)</li>
+</ul>
+<p><strong>Returns</strong></p>
+<p>seconds (<code>float</code>)</p>
+<hr />
+<h2 id="logparseschema">LogParseSchema</h2>
+<pre><code>LogParseSchema(vaping.plugins.PluginConfigSchema)
+</code></pre>
+<p>Define a schema for FPing and also define defaults.</p>
+<h3 id="class-attributes_3">Class Attributes</h3>
+<ul>
+<li>aggregate (<code>AggregateSchema Instance</code>): aggregation config</li>
+<li>exclude (<code>List Instance</code>): list of regex patterns that will cause lines to be excluded on match</li>
+<li>fields (<code>Dict Instance</code>): Field definition</li>
+<li>include (<code>List Instance</code>): list of regex patterns that will cause lines to be included on match</li>
+<li>time_parser (<code>TimeParserSchema Instance</code>): If specified will be passed to strptime to generate a timestamp from the logline</li>
+</ul>
+<h2 id="timeparserschema">TimeParserSchema</h2>
+<pre><code>TimeParserSchema(confu.schema.core.Schema)
+</code></pre>
+<p>Describes a confu schema.</p>
+<p>Instantiate confu attributes as properties of the schema.</p>
+<p>As the schema itself is a confu attribute, you may nest schemas
+within schemas</p>
+<p><strong>Example</strong></p>
+<pre><code>class MySchema(Schema):
+    str_attr = Str()
+</code></pre>
+<h3 id="class-attributes_4">Class Attributes</h3>
+<ul>
+<li>find (<code>Str Instance</code>): Regex string to find timestamps.</li>
+<li>format (<code>Str Instance</code>): Datetime format to output timestamps.</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../vaping.plugins.fping_mtr/" class="btn btn-neutral float-left" title="vaping.plugins.fping_mtr"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../vaping.plugins.rrd/" class="btn btn-neutral float-right" title="vaping.plugins.rrd">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/20c/vaping" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../vaping.plugins.fping_mtr/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../vaping.plugins.rrd/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

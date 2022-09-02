@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://github.com/20c/vaping/api/vaping.plugins.fping/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>vaping.plugins.fping - Vaping</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "vaping.plugins.fping";
+        var mkdocs_page_input_path = "api/vaping.plugins.fping.md";
+        var mkdocs_page_url = "/20c/vaping/api/vaping.plugins.fping/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Vaping
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../quickstart/">Quick Start Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../examples/">Advanced Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../layout/">Customize Layout</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../config/">Configuration</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../dev/">Development</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping/">vaping</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.cli/">vaping.cli</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.config/">vaping.config</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.daemon/">vaping.daemon</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.io/">vaping.io</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins/">vaping.plugins</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.command/">vaping.plugins.command</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">vaping.plugins.fping</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.fping_mtr/">vaping.plugins.fping_mtr</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.logparse/">vaping.plugins.logparse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.rrd/">vaping.plugins.rrd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.vodka/">vaping.plugins.vodka</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.whisper/">vaping.plugins.whisper</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.zeromq/">vaping.plugins.zeromq</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Vaping</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>API &raquo;</li>
+      <li>vaping.plugins.fping</li>
+    <li class="wy-breadcrumbs-aside">
+        <a href="https://github.com/20c/vaping/edit/master/docs/api/vaping.plugins.fping.md"
+          class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="vapingpluginsfping">vaping.plugins.fping</h1>
+<h1 id="classes">Classes</h1>
+<hr />
+<h2 id="fping">FPing</h2>
+<pre><code>FPing(vaping.plugins.fping.FPingBase)
+</code></pre>
+<p>Run fping on configured hosts</p>
+<h3 id="config">Config</h3>
+<ul>
+<li>command (<code>str=fping</code>): command to run</li>
+<li>interval (<code>str=1m</code>): time between pings</li>
+<li>count (<code>int=5</code>): number of pings to send</li>
+<li>period (<code>int=20</code>): time in milliseconds that fping waits
+between successive packets to an individual target</li>
+</ul>
+<h3 id="methods">Methods</h3>
+<h4 id="init">init</h4>
+<p><code>def init(self)</code></p>
+<p>called after the plugin is initialized, plugin may define this for any
+other initialization code</p>
+<hr />
+<h4 id="probe">probe</h4>
+<p><code>def probe(self)</code></p>
+<p>probe for data, return a list of dicts</p>
+<hr />
+<h2 id="fpingbase">FPingBase</h2>
+<pre><code>FPingBase(vaping.plugins.TimedProbe)
+</code></pre>
+<p>FPing base plugin</p>
+<p>config:</p>
+<h3 id="config_1">Config</h3>
+<ul>
+<li>command (<code>str=fping</code>): command to run</li>
+<li>interval (<code>str=1m</code>): time between pings</li>
+<li>count (<code>int=5</code>): number of pings to send</li>
+<li>period (<code>int=20</code>): time in milliseconds that fping waits
+between successive packets to an individual target</li>
+</ul>
+<h3 id="class-attributes">Class Attributes</h3>
+<ul>
+<li>ConfigSchema (<code>FPingSchema Class</code>): Base plugin config schema</li>
+</ul>
+<h3 id="instanced-attributes">Instanced Attributes</h3>
+<p>These attributes / properties will be available on instances of the class</p>
+<ul>
+<li>count (<code>int</code>): number of fpings to send</li>
+<li>period (<code>int</code>): time in milliseconds that fping waits between successive packets</li>
+</ul>
+<h3 id="methods_1">Methods</h3>
+<h4 id="__init__">__init__</h4>
+<p><code>def __init__(self, config, ctx)</code></p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>config (<code>dict</code>)</li>
+<li>ctx: vaping context</li>
+</ul>
+<hr />
+<h4 id="hosts_args">hosts_args</h4>
+<p><code>def hosts_args(self)</code></p>
+<p>hosts list can contain strings specifying a host directly
+or dicts containing a "host" key to specify the host</p>
+<p>this way we can allow passing further config details (color, name etc.)
+with each host as well as simply dropping in addresses for quick
+setup depending on the user's needs</p>
+<hr />
+<h4 id="parse_verbose">parse_verbose</h4>
+<p><code>def parse_verbose(self, line)</code></p>
+<p>parse output from verbose format</p>
+<p><strong>Returns</strong></p>
+<p>parsed fping result (<code>dict</code>)</p>
+<ul>
+<li><code>host</code>: host name</li>
+<li><code>cnt</code>: fpings sent</li>
+<li><code>loss</code></li>
+<li><code>data</code>: list of inidivual fping times</li>
+<li><code>min</code>: smallest fping time</li>
+<li><code>max</code>: biggest fping time</li>
+<li><code>avg</code>: average fping time</li>
+<li><code>last</code>: last fping time</li>
+</ul>
+<hr />
+<h2 id="fpingschema">FPingSchema</h2>
+<pre><code>FPingSchema(vaping.plugins.TimedProbeSchema)
+</code></pre>
+<p>Define a schema for FPing and also define defaults.</p>
+<h3 id="class-attributes_1">Class Attributes</h3>
+<ul>
+<li>command (<code>Str Instance</code>): Command to run</li>
+<li>count (<code>Int Instance</code>): Number of pings to send</li>
+<li>interval (<code>Str Instance</code>): Time between pings</li>
+<li>output (<code>List Instance</code>): Determine what plugin displays output</li>
+<li>period (<code>Int Instance</code>): Time in milliseconds that fping waits between successive packets to an individual target</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../vaping.plugins.command/" class="btn btn-neutral float-left" title="vaping.plugins.command"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../vaping.plugins.fping_mtr/" class="btn btn-neutral float-right" title="vaping.plugins.fping_mtr">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/20c/vaping" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../vaping.plugins.command/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../vaping.plugins.fping_mtr/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

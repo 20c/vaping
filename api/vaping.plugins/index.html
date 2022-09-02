@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://github.com/20c/vaping/api/vaping.plugins/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>vaping.plugins - Vaping</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "vaping.plugins";
+        var mkdocs_page_input_path = "api/vaping.plugins.md";
+        var mkdocs_page_url = "/20c/vaping/api/vaping.plugins/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Vaping
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../quickstart/">Quick Start Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../examples/">Advanced Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../layout/">Customize Layout</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../config/">Configuration</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../dev/">Development</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping/">vaping</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.cli/">vaping.cli</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.config/">vaping.config</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.daemon/">vaping.daemon</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.io/">vaping.io</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">vaping.plugins</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.command/">vaping.plugins.command</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.fping/">vaping.plugins.fping</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.fping_mtr/">vaping.plugins.fping_mtr</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.logparse/">vaping.plugins.logparse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.rrd/">vaping.plugins.rrd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.vodka/">vaping.plugins.vodka</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.whisper/">vaping.plugins.whisper</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vaping.plugins.zeromq/">vaping.plugins.zeromq</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Vaping</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>API &raquo;</li>
+      <li>vaping.plugins</li>
+    <li class="wy-breadcrumbs-aside">
+        <a href="https://github.com/20c/vaping/edit/master/docs/api/vaping.plugins.md"
+          class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="vapingplugins">vaping.plugins</h1>
+<h1 id="classes">Classes</h1>
+<hr />
+<h2 id="emitbase">EmitBase</h2>
+<pre><code>EmitBase(vaping.plugins.PluginBase)
+</code></pre>
+<p>Base class for emit plugins, used for sending data</p>
+<p>expects method emit() to be defined</p>
+<h3 id="methods">Methods</h3>
+<h4 id="__init__">__init__</h4>
+<p><code>def __init__(self, config, ctx)</code></p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>config (<code>dict</code>)</li>
+<li>ctx: vaping context</li>
+</ul>
+<hr />
+<h4 id="emit">emit</h4>
+<p><code>def emit(self, message)</code></p>
+<p>accept message to emit</p>
+<hr />
+<h2 id="fileprobe">FileProbe</h2>
+<pre><code>FileProbe(vaping.plugins.ProbeBase)
+</code></pre>
+<p>Probes a file and emits everytime a new line is read</p>
+<h3 id="config">Config</h3>
+<ul>
+<li>path (<code>str</code>): path to file</li>
+<li>backlog (<code>int=0</code>): number of bytes to read from backlog</li>
+<li>max_lines (<code>int=1000</code>): maximum number of lines to read during probe</li>
+</ul>
+<h3 id="class-attributes">Class Attributes</h3>
+<ul>
+<li>ConfigSchema (<code>FileProbeSchema Class</code>): Base plugin config schema</li>
+</ul>
+<h3 id="instanced-attributes">Instanced Attributes</h3>
+<p>These attributes / properties will be available on instances of the class</p>
+<ul>
+<li>backlog (<code>int</code>): number of bytes to read from backlog</li>
+<li>fh (<code>filehandler</code>): file handler for opened file (only available if <code>path</code> is set)</li>
+<li>max_lines (<code>int</code>): maximum number of liens to read during probe</li>
+<li>path (<code>str</code>): path to file</li>
+</ul>
+<h3 id="methods_1">Methods</h3>
+<h4 id="__init___1">__init__</h4>
+<p><code>def __init__(self, config, ctx, emit=None)</code></p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>config (<code>dict</code>)</li>
+<li>ctx: vaping context</li>
+</ul>
+<hr />
+<h4 id="probe">probe</h4>
+<p><code>def probe(self)</code></p>
+<p>Probe the file for new lines</p>
+<hr />
+<h4 id="process_line">process_line</h4>
+<p><code>def process_line(self, line, data)</code></p>
+<p>override this - parse your line in here</p>
+<hr />
+<h4 id="process_messages">process_messages</h4>
+<p><code>def process_messages(self, messages)</code></p>
+<p>override this - process your messages before they
+are emitted</p>
+<hr />
+<h4 id="process_probe">process_probe</h4>
+<p><code>def process_probe(self, data)</code></p>
+<p>override this - assign your data values here</p>
+<hr />
+<h4 id="validate_file_handler">validate_file_handler</h4>
+<p><code>def validate_file_handler(self)</code></p>
+<p>Here we validate that our filehandler is pointing
+to an existing file.</p>
+<p>If it doesnt, because file has been deleted, we close
+the filehander and try to reopen</p>
+<hr />
+<h2 id="fileprobeschema">FileProbeSchema</h2>
+<pre><code>FileProbeSchema(vaping.plugins.PluginConfigSchema)
+</code></pre>
+<p>Configuration Schema for <a href="#pluginbase">PluginBase</a></p>
+<p>When creating new configuration schemas for extended plugins
+extend this.</p>
+<h3 id="class-attributes_1">Class Attributes</h3>
+<ul>
+<li>backlog (<code>Int Instance</code>): </li>
+<li>max_lines (<code>Int Instance</code>): </li>
+<li>path (<code>Str Instance</code>): </li>
+</ul>
+<h2 id="pluginbase">PluginBase</h2>
+<pre><code>PluginBase(vaping.io.Thread)
+</code></pre>
+<p>Base plugin interface</p>
+<h3 id="class-attributes_2">Class Attributes</h3>
+<ul>
+<li>lazy_start (<code>bool</code>=<code>False</code>): if <code>True</code> plugin will not be
+  started on vaping start, but when at a later point (usually
+  when it starts emitting). Note that the plugin itself will
+  need to call <code>self.start()</code> somewhere explicitly when this is <code>True</code>.</li>
+</ul>
+<p>Calls <code>self.init()</code> prefork while loading all modules, init() should
+not do anything active, any files opened may be closed when it forks.</p>
+<p>Plugins should prefer <code>init()</code> to <code>__init__()</code> to ensure the class is
+completely done initializing.</p>
+<p>Calls <code>self.on_start()</code> and <code>self.on_stop()</code> before and after running in
+case any connections need to be created or cleaned up.</p>
+<h3 id="class-attributes_3">Class Attributes</h3>
+<ul>
+<li>ConfigSchema (<code>PluginConfigSchema Class</code>): Base plugin config schema</li>
+</ul>
+<h3 id="instanced-attributes_1">Instanced Attributes</h3>
+<p>These attributes / properties will be available on instances of the class</p>
+<ul>
+<li>config (<code>dict</code>): plugin config</li>
+<li>groups (<code>@property</code>): <code>dict</code> - group configurations keyed by name</li>
+<li>log (<code>@property</code>): logger instance for plugin type</li>
+<li>vaping: reference to the main vaping object</li>
+</ul>
+<h3 id="methods_2">Methods</h3>
+<h4 id="__init___2">__init__</h4>
+<p><code>def __init__(self, config, ctx)</code></p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>config (<code>dict</code>)</li>
+<li>ctx: vaping context</li>
+</ul>
+<hr />
+<h4 id="init">init</h4>
+<p><code>def init(self)</code></p>
+<p>called after the plugin is initialized, plugin may define this for any
+other initialization code</p>
+<hr />
+<h4 id="new_message">new_message</h4>
+<p><code>def new_message(self)</code></p>
+<p>creates and returns new message <code>dict</code>, setting <code>type</code>, <code>source</code>, <code>ts</code>, <code>data</code></p>
+<p><code>data</code> is initialized to an empty array</p>
+<p><strong>Returns</strong></p>
+<p>message (<code>dict</code>)</p>
+<hr />
+<h4 id="on_start">on_start</h4>
+<p><code>def on_start(self)</code></p>
+<p>called when the daemon is starting</p>
+<hr />
+<h4 id="on_stop">on_stop</h4>
+<p><code>def on_stop(self)</code></p>
+<p>called when the daemon is stopping</p>
+<hr />
+<h4 id="popen">popen</h4>
+<p><code>def popen(self, args, **kwargs)</code></p>
+<p>creates a subprocess with passed args</p>
+<p><strong>Returns</strong></p>
+<p>Popen instance</p>
+<hr />
+<h2 id="pluginconfigschema">PluginConfigSchema</h2>
+<pre><code>PluginConfigSchema(confu.schema.core.Schema)
+</code></pre>
+<p>Configuration Schema for <a href="#pluginbase">PluginBase</a></p>
+<p>When creating new configuration schemas for extended plugins
+extend this.</p>
+<h3 id="class-attributes_4">Class Attributes</h3>
+<ul>
+<li>name (<code>Str Instance</code>): Plugin name</li>
+<li>type (<code>Str Instance</code>): Plugin type</li>
+</ul>
+<h2 id="probebase">ProbeBase</h2>
+<pre><code>ProbeBase(vaping.plugins.PluginBase)
+</code></pre>
+<p>Base class for probe plugin, used for getting data</p>
+<p>expects method probe() to be defined</p>
+<h3 id="methods_3">Methods</h3>
+<h4 id="__init___3">__init__</h4>
+<p><code>def __init__(self, config, ctx, emit=None)</code></p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>config (<code>dict</code>)</li>
+<li>ctx: vaping context</li>
+</ul>
+<hr />
+<h4 id="emit_all">emit_all</h4>
+<p><code>def emit_all(self)</code></p>
+<p>emit and remove all emissions in the queue</p>
+<hr />
+<h4 id="init_1">init</h4>
+<p><code>def init(self)</code></p>
+<p>called after the plugin is initialized, plugin may define this for any
+other initialization code</p>
+<hr />
+<h4 id="probe_1">probe</h4>
+<p><code>def probe(self)</code></p>
+<p>probe for data, return a list of dicts</p>
+<hr />
+<h4 id="queue_emission">queue_emission</h4>
+<p><code>def queue_emission(self, msg)</code></p>
+<p>queue an emission of a message for all output plugins</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>msg (<code>dict</code>): dict containing <code>type</code>, <code>source</code>, <code>ts</code> and <code>data</code> keys</li>
+</ul>
+<hr />
+<h4 id="send_emission">send_emission</h4>
+<p><code>def send_emission(self)</code></p>
+<p>emit and remove the first emission in the queue</p>
+<hr />
+<h2 id="timeseriesdb">TimeSeriesDB</h2>
+<pre><code>TimeSeriesDB(vaping.plugins.EmitBase)
+</code></pre>
+<p>Base interface for timeseries db storage plugins</p>
+<h3 id="config_1">Config</h3>
+<ul>
+<li>filename (<code>str</code>): database file name template</li>
+<li>field (<code>str</code>): field name to read the value from</li>
+</ul>
+<h3 id="class-attributes_5">Class Attributes</h3>
+<ul>
+<li>ConfigSchema (<code>TimeSeriesDBSchema Class</code>): Base plugin config schema</li>
+</ul>
+<h3 id="instanced-attributes_2">Instanced Attributes</h3>
+<p>These attributes / properties will be available on instances of the class</p>
+<ul>
+<li>field (<code>str</code>): fieeld name to read the value from</li>
+<li>filename (<code>str</code>): database file name template</li>
+</ul>
+<h3 id="methods_4">Methods</h3>
+<h4 id="__init___4">__init__</h4>
+<p><code>def __init__(self, config, ctx)</code></p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>config (<code>dict</code>)</li>
+<li>ctx: vaping context</li>
+</ul>
+<hr />
+<h4 id="create">create</h4>
+<p><code>def create(self, filename)</code></p>
+<p>Create database</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>filename (<code>str</code>): database filename</li>
+</ul>
+<hr />
+<h4 id="emit_1">emit</h4>
+<p><code>def emit(self, message)</code></p>
+<p>emit to database</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>message (<code>dict</code>): vaping message dict</li>
+</ul>
+<hr />
+<h4 id="filename_formatters">filename_formatters</h4>
+<p><code>def filename_formatters(self, data, row)</code></p>
+<p>Returns a dict containing the various filename formatter values</p>
+<p>Values are gotten from the vaping data message as well as the
+currently processed row in the message</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>data (<code>dict</code>): vaping message</li>
+<li>row (<code>dict</code>): vaping message data row</li>
+</ul>
+<p><strong>Returns</strong></p>
+<p>formatter variables (<code>dict</code>)</p>
+<hr />
+<h4 id="format_filename">format_filename</h4>
+<p><code>def format_filename(self, data, row)</code></p>
+<p>Returns a formatted filename using the template stored
+in self.filename</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>data (<code>dict</code>): vaping message</li>
+<li>row (<code>dict</code>): vaping message data row</li>
+</ul>
+<p><strong>Returns</strong></p>
+<p>formatted version of self.filename (<code>str</code>)</p>
+<hr />
+<h4 id="get">get</h4>
+<p><code>def get(self, filename, from_time, to_time)</code></p>
+<p>Retrieve data from database for the specified
+timespan</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>filename (<code>str</code>): database filename</li>
+<li>from_time (<code>int</code>): epoch timestamp start</li>
+<li>to_time (<code>int</code>): epoch timestamp end</li>
+</ul>
+<hr />
+<h4 id="update">update</h4>
+<p><code>def update(self, filename, time, value)</code></p>
+<p>Update database</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>filename (<code>str</code>): database filename</li>
+<li>time (<code>int</code>): epoch timestamp</li>
+<li>value (<code>mixed</code>)</li>
+</ul>
+<hr />
+<h2 id="timeseriesdbschema">TimeSeriesDBSchema</h2>
+<pre><code>TimeSeriesDBSchema(vaping.plugins.PluginConfigSchema)
+</code></pre>
+<p>Configuration Schema for <a href="#pluginbase">PluginBase</a></p>
+<p>When creating new configuration schemas for extended plugins
+extend this.</p>
+<h3 id="class-attributes_6">Class Attributes</h3>
+<ul>
+<li>field (<code>Str Instance</code>): field name to read the value from</li>
+<li>filename (<code>Str Instance</code>): database file name template</li>
+</ul>
+<h2 id="timedprobe">TimedProbe</h2>
+<pre><code>TimedProbe(vaping.plugins.ProbeBase)
+</code></pre>
+<p>Probe class that calls probe every config defined interval</p>
+<h3 id="class-attributes_7">Class Attributes</h3>
+<ul>
+<li>ConfigSchema (<code>TimedProbeSchema Class</code>): Base plugin config schema</li>
+</ul>
+<h3 id="methods_5">Methods</h3>
+<h4 id="__init___5">__init__</h4>
+<p><code>def __init__(self, config, ctx, emit=None)</code></p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>config (<code>dict</code>)</li>
+<li>ctx: vaping context</li>
+</ul>
+<hr />
+<h2 id="timedprobeschema">TimedProbeSchema</h2>
+<pre><code>TimedProbeSchema(vaping.plugins.PluginConfigSchema)
+</code></pre>
+<p>Configuration Schema for <a href="#pluginbase">PluginBase</a></p>
+<p>When creating new configuration schemas for extended plugins
+extend this.</p>
+<h3 id="class-attributes_8">Class Attributes</h3>
+<ul>
+<li>interval (<code>Str Instance</code>): </li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../vaping.io/" class="btn btn-neutral float-left" title="vaping.io"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../vaping.plugins.command/" class="btn btn-neutral float-right" title="vaping.plugins.command">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/20c/vaping" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../vaping.io/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../vaping.plugins.command/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
