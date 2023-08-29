@@ -150,7 +150,6 @@ def test_plugin_instance():
 
 
 def test_emission_queuing():
-
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
 

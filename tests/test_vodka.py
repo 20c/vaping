@@ -15,7 +15,6 @@ def test_init(this_dir):
 
 
 def test_probe_to_graphsrv():
-
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
 

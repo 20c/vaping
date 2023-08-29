@@ -13,10 +13,10 @@ classifiers = [
     'Intended Audience :: System Administrators',
     'Intended Audience :: Telecommunications Industry',
     'License :: OSI Approved :: Apache Software License',
-    'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: 3.8',
     'Programming Language :: Python :: 3.9',
     'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
     'Topic :: Internet',
     'Topic :: Software Development :: Libraries :: Python Modules',
     'Topic :: System :: Monitoring',
@@ -30,7 +30,7 @@ vaping = "vaping.cli:cli"
 
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 pid = "^3"
 pluginmgr = "^1"
 python-daemon = "^2"
@@ -64,21 +64,20 @@ pyzmq = { version = ">=15.3.0", optional = true }
 
 [tool.poetry.dev-dependencies]
 # tests
-codecov = "^2.1.10"
-coverage = "^5.3"
-pytest = "^6.1.2"
-pytest-cov = "^2.10.1"
+coverage = ">=5.3"
+pytest = ">=6.1.2"
+pytest-cov = ">=2.10.1"
 pytest-filedata = "^0.4.0"
 tox = "^3.20.1"
 
 # linting
 # bandit = "^1.6.2"
 black = ">=20"
-isort = "^5.7.0"
-flake8 = "^3.8.4"
-pre-commit = "^2.13"
-pyupgrade = "^2.19.4"
-mypy = "^0.812"
+isort = ">=5.7.0"
+flake8 = ">=3.8.4"
+pre-commit = ">=2.13"
+pyupgrade = ">=2.19.4"
+mypy = ">=0.812"
 
 # ctl
 ctl = "^1"

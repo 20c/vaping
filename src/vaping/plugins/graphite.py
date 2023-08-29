@@ -58,7 +58,6 @@ class GraphitePlugin(vaping.plugins.TimeSeriesDB):
         return
 
     def update(self, filename, time, value):
-
         if value is None:
             return
 
