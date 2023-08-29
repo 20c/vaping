@@ -215,7 +215,6 @@ class LogParse(vaping.plugins.FileProbe):
         return vaping.config.parse_interval(value)
 
     def aggregate(self, messages):
-
         """
         Takes a list of messages and aggregates them
         according to aggration config
@@ -247,7 +246,6 @@ class LogParse(vaping.plugins.FileProbe):
         # while stack is bigger than the aggregation count
         # pop messages off the stack and aggregate
         while len(self.stack) >= self.aggregate_count:
-
             # pop first message in stack
             message = self.stack[0]
             self.stack.remove(self.stack[0])

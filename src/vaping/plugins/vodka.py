@@ -86,7 +86,6 @@ class VodkaPlugin(vaping.plugins.EmitBase):
         self._is_started = False
 
     def start(self):
-
         if self._is_started:
             return
 

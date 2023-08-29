@@ -57,7 +57,6 @@ class PluginBase(vaping.io.Thread):
 
     @property
     def groups(self):
-
         """
         `dict` - group configurations keyed by name
         """
@@ -274,7 +273,6 @@ class TimedProbe(ProbeBase):
     async def _run(self):
         self.run_level = 1
         while self.run_level:
-
             start = datetime.datetime.now()
 
             # since the TimedProbe will sleep between cycles
@@ -575,7 +573,6 @@ class TimeSeriesDB(EmitBase):
         # handle vaping data that arrives in a list
         if isinstance(message.get("data"), list):
             for row in message.get("data"):
-
                 if row is None:
                     self.log.debug(
                         "Ignoring empty row from {}/{}".format(

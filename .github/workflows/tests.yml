@@ -8,23 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install requirements
-        run: sudo apt-get install rrdtool librrd-dev
       - name: Install virtualenv from poetry
         uses: 20c/workflows/poetry@v1
-      # poetry run pre-commit run --all-files
       - name: Run linters
         run: |
-            poetry run isort src/
-            poetry run black --check src/
-            poetry run pre-commit run --all-files
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v1
-        with:
-          languages: python
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v1
-
+          poetry run pre-commit run --all-files
 
   test:
     needs: linting
@@ -32,7 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ "ubuntu-latest" ]
-        python-version: [ "3.7", "3.8", "3.9", "3.10" ]
+        python-version: [ "3.8", "3.9", "3.10", "3.11" ]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Check out repository

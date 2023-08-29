@@ -30,7 +30,6 @@ class Prometheus(vaping.plugins.EmitBase):
 
         self.log.debug("data: " + str(raw_data))
         for host_data in raw_data:
-
             if host_data is None:
                 continue
 

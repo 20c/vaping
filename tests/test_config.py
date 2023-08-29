@@ -36,7 +36,6 @@ def test_probe_plugin_name(config_dir):
 
 
 def test_plugin_legacy_groups():
-
     """
     test legacy plugin groups
     TODO: remove with vaping 2.0
@@ -58,7 +57,6 @@ def test_plugin_legacy_groups():
 
 
 def test_plugin_groups():
-
     """
     test plugin groups as per #44 implementation
     """
