@@ -1,9 +1,11 @@
 Unreleased:
-  added: []
+  added:
+  - py3.11 support
   fixed: []
   changed: []
   deprecated: []
-  removed: []
+  removed:
+  - py3.7 support
   security: []
 1.5.3:
   fixed:
