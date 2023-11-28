@@ -22,6 +22,7 @@ plugins:
     type: fping
     count: 10
     interval: 3s
+    ﻿period: 200
     output:
       - vodka
 
