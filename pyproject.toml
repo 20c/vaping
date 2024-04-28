@@ -109,10 +109,6 @@ all = [
     "whisper",
 ]
 
-[tool.isort]
-profile = "black"
-multi_line_output = 3
-
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core>=1"]
+build-backend = "poetry.core.masonry.api"
