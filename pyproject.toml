@@ -34,6 +34,7 @@ python = "^3.8"
 pid = ">=3"
 pluginmgr = ">=1"
 python-daemon = ">=2"
+# Package docutils (0.21.post1) not found.
 docutils = "<=0.21"
 munge = { extras = ["tomlkit", "yaml"], version = ">=1.2.0" }
 confu = ">=1.7.1"
@@ -72,12 +73,10 @@ pytest-filedata = "^0.4.0"
 tox = ">=3.20.1"
 
 # linting
-black = ">=20"
-isort = ">=5.7.0"
-flake8 = ">=3.8.4"
+ruff = ">=0.1"
+mypy = ">=0.950"
 pre-commit = ">=2.13"
-pyupgrade = ">=2.19.4"
-mypy = ">=0.812"
+pyupgrade = ">=2.19"
 
 # ctl
 ctl = ">=1"
