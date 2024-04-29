@@ -4,6 +4,16 @@
 ## Unreleased
 
 
+## 1.5.4
+### Added
+- py3.11 support
+- py3.12 support
+### Fixed
+- new confu circular import
+### Removed
+- py3.7 support
+
+
 ## 1.5.3
 ### Fixed
 - pin Flask to < 2.2 until compatibility isuses are resolved
