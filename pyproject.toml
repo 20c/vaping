@@ -69,7 +69,7 @@ pyzmq = { version = ">=15.3.0", optional = true }
 coverage = ">=5.3"
 pytest = ">=6.1.2"
 pytest-cov = ">=2.10.1"
-pytest-filedata = "^0.4.0"
+pytest-filedata = ">=1"
 tox = ">=3.20.1"
 
 # linting
