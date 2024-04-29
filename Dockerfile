@@ -13,7 +13,9 @@ ARG build_packages="\
     rrdtool-dev \
     "
 
-ARG runtime_packages="fping librrd \
+ARG runtime_packages="\
+    fping \
+    librrd \
     zeromq \
     "
 # vaping extras to be installed
@@ -21,7 +23,7 @@ ARG vaping_extras=all
 
 ARG poetry_pin=">=1,<=2"
 
-FROM python:3.9-alpine as base
+FROM python:3.11-alpine as base
 
 ARG runtime_packages
 ARG virtual_env=/venv
