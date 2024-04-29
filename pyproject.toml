@@ -32,7 +32,7 @@ vaping = "vaping.cli:cli"
 [tool.poetry.dependencies]
 python = "^3.8"
 pid = ">=3"
-pluginmgr = ">=1"
+pluginmgr = ">=1.2"
 python-daemon = ">=2"
 # Package docutils (0.21.post1) not found.
 docutils = "<=0.21"
