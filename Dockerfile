@@ -11,6 +11,7 @@ ARG build_packages="\
     rust \
     cargo \
     rrdtool-dev \
+    git \
     "
 
 ARG runtime_packages="\

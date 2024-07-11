@@ -1,6 +1,6 @@
 probes:
   - name: latency
-    type: std_fping
+    type: fping
     output:
       - vodka
 
@@ -22,7 +22,7 @@ plugins:
     type: fping
     count: 10
     interval: 3s
-    ﻿period: 200
+    period: 200
     output:
       - vodka
 
